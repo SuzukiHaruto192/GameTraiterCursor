@@ -1,22 +1,25 @@
 fileFormatVersion: 2
-guid: d85c115cb48580c4382b01621fc55ce4
+guid: c91676a66c366cf44a06812e7d337263
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2939248397069386988
-    second: MidGround_0
+      213: -9115938624207856695
+    second: sprite_sheet_0
   - first:
-      213: -3906247332810136586
-    second: MidGround_1
+      213: -8198574232401945530
+    second: sprite_sheet_1
   - first:
-      213: -5200303530904405216
-    second: MidGround_2
+      213: 7710496705314228017
+    second: sprite_sheet_2
   - first:
-      213: 2151648128617400807
-    second: MidGround_3
+      213: -5321099399631716182
+    second: sprite_sheet_3
   - first:
-      213: 4409986433488427660
-    second: MidGround_4
+      213: -1793167431768321461
+    second: sprite_sheet_4
+  - first:
+      213: -6949385356650754131
+    second: sprite_sheet_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -58,7 +61,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -112,111 +115,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MidGround_0
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 110
-        width: 1434
-        height: 1274
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ce405f528de4ac820800000000000000
-      internalID: 2939248397069386988
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MidGround_1
-      rect:
-        serializedVersion: 2
-        x: 1498
-        y: 1364
-        width: 40
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6f3e80b3fb83ac9c0800000000000000
-      internalID: -3906247332810136586
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MidGround_2
-      rect:
-        serializedVersion: 2
-        x: 2075
-        y: 1343
-        width: 40
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 02bbb34bd7fc4d7b0800000000000000
-      internalID: -5200303530904405216
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MidGround_3
+      name: sprite_sheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 151
-        width: 906
-        height: 460
+        y: 0
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7e9cfd3b2903cdd10800000000000000
-      internalID: 2151648128617400807
+      spriteID: 9cbd3dd9e1ead7180800000000000000
+      internalID: -9115938624207856695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MidGround_4
+      name: sprite_sheet_1
       rect:
         serializedVersion: 2
-        x: 1811
-        y: 48
-        width: 2285
-        height: 1315
+        x: 512
+        y: 0
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c8a9e50db4b633d30800000000000000
-      internalID: 4409986433488427660
+      spriteID: 64cd20d6c20d83e80800000000000000
+      internalID: -8198574232401945530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137031ac6ef210b60800000000000000
+      internalID: 7710496705314228017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa04866d948a726b0800000000000000
+      internalID: -5321099399631716182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4256aea8b36d17e0800000000000000
+      internalID: -1793167431768321461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dafc78966d2de8f90800000000000000
+      internalID: -6949385356650754131
       vertices: []
       indices: 
       edges: []
@@ -225,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: d2d4262817d17d4478c53064f03fa91a
     internalID: 0
     vertices: []
     indices: 
@@ -233,13 +258,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":512.0,"y":512.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      MidGround_0: 2939248397069386988
-      MidGround_1: -3906247332810136586
-      MidGround_2: -5200303530904405216
-      MidGround_3: 2151648128617400807
-      MidGround_4: 4409986433488427660
+      sprite_sheet_0: -9115938624207856695
+      sprite_sheet_1: -8198574232401945530
+      sprite_sheet_2: 7710496705314228017
+      sprite_sheet_3: -5321099399631716182
+      sprite_sheet_4: -1793167431768321461
+      sprite_sheet_5: -6949385356650754131
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

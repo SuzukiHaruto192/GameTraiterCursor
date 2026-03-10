@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: ac664bccfa63daa41a3dd3b9d88aa957
+guid: f77cfd96f5251284c8e436e2b4dc0484
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6732062350558528555
-    second: BackGround1_0
-  - first:
-      213: -2272917670594748713
-    second: BackGround1_1
-  - first:
-      213: -6482969246144724419
-    second: BackGround1_2
+      213: 8020867748150303265
+    second: FontGround_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackGround1_0
+      name: FontGround_0
       rect:
         serializedVersion: 2
-        x: 3479
-        y: 1514
-        width: 7
-        height: 7
+        x: 0
+        y: 0
+        width: 4096
+        height: 299
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b2482d23a071d6d50800000000000000
-      internalID: 6732062350558528555
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackGround1_1
-      rect:
-        serializedVersion: 2
-        x: 2031
-        y: 747
-        width: 71
-        height: 121
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7dedd78cb69f470e0800000000000000
-      internalID: -2272917670594748713
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackGround1_2
-      rect:
-        serializedVersion: 2
-        x: 2103
-        y: 383
-        width: 1993
-        height: 883
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d3203c1a1ddd706a0800000000000000
-      internalID: -6482969246144724419
+      spriteID: 12ad2e678b8df4f60800000000000000
+      internalID: 8020867748150303265
       vertices: []
       indices: 
       edges: []
@@ -185,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BackGround1_0: 6732062350558528555
-      BackGround1_1: -2272917670594748713
-      BackGround1_2: -6482969246144724419
+      FontGround_0: 8020867748150303265
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
