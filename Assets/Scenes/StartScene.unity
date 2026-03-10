@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 1590595226}
   m_Layer: 0
   m_Name: BackGround
-  m_TagString: Untagged
+  m_TagString: LimitFrame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1012,11 +1012,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2829065117108304899, guid: fff36542da1c1204a9946944d133ad75, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.25
+      value: -16.29
       objectReference: {fileID: 0}
     - target: {fileID: 2829065117108304899, guid: fff36542da1c1204a9946944d133ad75, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.24
+      value: -5.61
       objectReference: {fileID: 0}
     - target: {fileID: 2829065117108304899, guid: fff36542da1c1204a9946944d133ad75, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1066,6 +1066,26 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.76239777
       objectReference: {fileID: 0}
+    - target: {fileID: 5639026986794214533, guid: fff36542da1c1204a9946944d133ad75, type: 3}
+      propertyPath: dashTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639026986794214533, guid: fff36542da1c1204a9946944d133ad75, type: 3}
+      propertyPath: dashForce
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639026986794214533, guid: fff36542da1c1204a9946944d133ad75, type: 3}
+      propertyPath: jumpForce
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639026986794214533, guid: fff36542da1c1204a9946944d133ad75, type: 3}
+      propertyPath: ghostDelay
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5639026986794214533, guid: fff36542da1c1204a9946944d133ad75, type: 3}
+      propertyPath: ghostPrefab
+      value: 
+      objectReference: {fileID: 6633791694572774865, guid: b61a17384b926af43ad7e823c41e1e03, type: 3}
     - target: {fileID: 8995853865636804636, guid: fff36542da1c1204a9946944d133ad75, type: 3}
       propertyPath: m_Name
       value: Player
