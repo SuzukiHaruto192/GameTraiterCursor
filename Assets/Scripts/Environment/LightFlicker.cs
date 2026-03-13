@@ -6,9 +6,11 @@ public class LightFlicker : MonoBehaviour
     private Light2D myLight;
     void Start() => myLight = GetComponent<Light2D>();
 
+    [SerializeField] float minIntensity = 1.8f;
+    [SerializeField] float maxIntensity = 2.6f;
+
     void Update()
     {
-        // Làm ánh sáng nhấp nháy nhẹ nhàng
-        myLight.intensity = Mathf.PingPong(Time.time * 2f, 2.8f) + 0.2f;
+        myLight.intensity = Random.Range(minIntensity, maxIntensity);
     }
 }
