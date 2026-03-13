@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private float minX;
@@ -21,12 +21,18 @@ public class Player : MonoBehaviour
     private bool hasDashedInAir = false;
 
     Rigidbody2D rb;
-    Animator anim;   // Animator
+    Animator anim;
+
+    // Khai báo liên kết với script Máu
+    private PlayerHealth playerHealth;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        // Lấy component máu
+        playerHealth = GetComponent<PlayerHealth>();
 
         // khi vào game chạy Idle
         anim.SetBool("isIdle", true);
@@ -37,6 +43,15 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (isDashing) return;
+
+        // --- KHÓA ĐIỀU KHIỂN KHI BỊ VĂNG LÙI ---
+        if (playerHealth != null && playerHealth.isKnockedBack)
+        {
+            // Trả về dáng đứng im để không bị lỗi trượt chân
+            anim.SetBool("isWalk", false);
+            return; // Ngừng chạy các lệnh di chuyển phía dưới
+        }
+
         if (isGrounded)
         {
             hasDashedInAir = false;

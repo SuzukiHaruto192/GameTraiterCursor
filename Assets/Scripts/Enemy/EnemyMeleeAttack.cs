@@ -1,21 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections; // Cần thư viện này để dùng Coroutine (delay)
+using System.Collections;
 
 public class EnemyMeleeAttack : MonoBehaviour
 {
     [Header("Cài đặt Tấn công")]
-    public float attackRange = 1.5f;     // Tầm phát hiện để dừng lại
-    public float attackRadius = 0.8f;    // Độ rộng của nhát chém (Hitbox)
-    public Transform attackPoint;        // Điểm đặt lưỡi kiếm (tạo 1 object rỗng phía trước quái)
-    public LayerMask playerLayer;        // Layer của Player
+    public float attackRange = 1.5f;
+    public float attackRadius = 0.8f;
+    public Transform attackPoint;
+    public LayerMask playerLayer;
 
     [Header("Sát thương & Bật lùi")]
     public int damage = 10;
     public float knockbackPower = 5f;
 
     [Header("Thời gian (Timing)")]
-    public float windUpTime = 0.5f;      // Thời gian "gồng" trước khi chém
-    public float attackCooldown = 1.5f;  // Thời gian nghỉ giữa 2 lần chém
+    public float windUpTime = 0.5f;
+    public float attackCooldown = 1.5f;
 
     private EnemyMovement groundMovement;
     private bool isAttacking = false;
@@ -33,50 +33,67 @@ public class EnemyMeleeAttack : MonoBehaviour
 
         float distToPlayer = Vector2.Distance(transform.position, player.position);
 
+        // Khi Player lọt vào tầm đánh
         if (distToPlayer <= attackRange)
         {
+            // KIỂM TRA VÀ QUAY MẶT VỀ PHÍA PLAYER TRƯỚC TIÊN
+            FacePlayer();
+
+            // Sau đó mới bắt đầu gồng và chém
             StartCoroutine(PerformAttack());
+        }
+    }
+
+    // --- HÀM MỚI: Tự động quay đầu nếu Player ở sau lưng ---
+    void FacePlayer()
+    {
+        if (groundMovement == null) return;
+
+        // Nếu Player ở bên PHẢI quái, nhưng quái đang quay mặt sang TRÁI (localScale.x < 0)
+        if (player.position.x > transform.position.x && transform.localScale.x < 0)
+        {
+            groundMovement.Flip(); // Gọi hàm Flip từ script di chuyển để đồng bộ
+        }
+        // Nếu Player ở bên TRÁI quái, nhưng quái đang quay mặt sang PHẢI (localScale.x > 0)
+        else if (player.position.x < transform.position.x && transform.localScale.x > 0)
+        {
+            groundMovement.Flip();
         }
     }
 
     IEnumerator PerformAttack()
     {
         isAttacking = true;
-        if (groundMovement != null) groundMovement.canMove = false; // Dừng lại
+        if (groundMovement != null) groundMovement.canMove = false;
 
-        // 1. Khoảng trễ (Wind-up) - Quái gồng mình
-        // Thêm animation gồng ở đây
+        // 1. Khoảng trễ (Wind-up)
         yield return new WaitForSeconds(windUpTime);
 
-        // 2. Tung đòn (Tạo vùng sát thương hình tròn tại mũi kiếm)
-        // Thêm animation chém ở đây
+        // 2. Tung đòn (Tạo vùng sát thương tại attackPoint)
         Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoint.position, attackRadius, playerLayer);
 
         if (hitPlayer != null)
         {
-            // Tính toán hướng bật lùi (từ quái văng về phía player)
             Vector2 knockbackDirection = (hitPlayer.transform.position - transform.position).normalized;
-            // Ép hướng văng xéo lên trên một chút cho đẹp
             knockbackDirection = new Vector2(knockbackDirection.x, 0.5f).normalized;
 
-            //hitPlayer.GetComponent<PlayerHealth>().TakeDamage(damage, knockbackDirection * knockbackPower);
+            hitPlayer.GetComponent<PlayerHealth>().TakeDamage(damage, knockbackDirection * knockbackPower);
         }
 
         // 3. Thời gian nghỉ (Cooldown)
         yield return new WaitForSeconds(attackCooldown);
 
-        if (groundMovement != null) groundMovement.canMove = true; // Đi tiếp
+        if (groundMovement != null) groundMovement.canMove = true;
         isAttacking = false;
     }
 
     private void OnDrawGizmosSelected()
     {
-        // Vẽ vòng tròn tầm đánh (Đỏ) và vùng sát thương mũi kiếm (Cam)
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         if (attackPoint != null)
         {
-            Gizmos.color = new Color(1, 0.5f, 0); // Màu cam
+            Gizmos.color = new Color(1, 0.5f, 0);
             Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
         }
     }
