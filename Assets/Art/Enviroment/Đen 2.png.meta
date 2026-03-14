@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f77cfd96f5251284c8e436e2b4dc0484
+guid: ef51c5d22c60dd24db5bcbbf7cf5600b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8020867748150303265
-    second: FontGround_0
+      213: 4683080697634033376
+    second: "\u0110en 2_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FontGround_0
+      name: "\u0110en 2_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 4096
-        height: 299
+        width: 1893
+        height: 315
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 12ad2e678b8df4f60800000000000000
-      internalID: 8020867748150303265
+      spriteID: 0ee07fc1515adf040800000000000000
+      internalID: 4683080697634033376
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      FontGround_0: 8020867748150303265
+      "\u0110en 2_0": 4683080697634033376
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

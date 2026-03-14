@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float minX;
-    [SerializeField] private float maxX;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float dashForce = 30f;
     [SerializeField] private float dashTime = 0.2f;
@@ -23,18 +20,15 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
 
-    // Khai báo liên kết với script Máu
+    // liên kết với script máu
     private PlayerHealth playerHealth;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
-        // Lấy component máu
         playerHealth = GetComponent<PlayerHealth>();
 
-        // khi vào game chạy Idle
         anim.SetBool("isIdle", true);
         anim.SetBool("isWalk", false);
         anim.SetBool("isAttack", false);
@@ -44,12 +38,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing) return;
 
-        // --- KHÓA ĐIỀU KHIỂN KHI BỊ VĂNG LÙI ---
+        // khóa điều khiển khi bị knockback
         if (playerHealth != null && playerHealth.isKnockedBack)
         {
-            // Trả về dáng đứng im để không bị lỗi trượt chân
             anim.SetBool("isWalk", false);
-            return; // Ngừng chạy các lệnh di chuyển phía dưới
+            return;
         }
 
         if (isGrounded)
@@ -59,20 +52,17 @@ public class PlayerMovement : MonoBehaviour
 
         float moveInput = Input.GetAxis("Horizontal");
 
-        // Xoay mặt
+        // xoay mặt nhân vật
         if ((isReversed && moveInput > 0) || (!isReversed && moveInput < 0))
         {
             transform.Rotate(0, 180, 0);
             isReversed = !isReversed;
         }
 
+        // di chuyển
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
 
-        Vector2 curPos = transform.position;
-        curPos.x = Mathf.Clamp(curPos.x, minX, maxX);
-        transform.position = curPos;
-
-        // Animation Walk / Idle
+        // animation Walk / Idle
         if (moveInput != 0)
         {
             anim.SetBool("isWalk", true);
@@ -84,34 +74,30 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isIdle", true);
         }
 
-        // Jump
+        // jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isGrounded = false;
         }
+
+        // tăng tốc độ rơi
         if (rb.linearVelocity.y < 0)
         {
-            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * 1.5f * Time.deltaTime;            // Tăng trọng lực để rơi nhanh hơn
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * 1.5f * Time.deltaTime;
         }
 
-        // Attack
+        // attack
         if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(Attack());
         }
 
-        // Dash
+        // dash
         if (Input.GetKeyDown(KeyCode.C) && !hasDashedInAir)
         {
             StartCoroutine(Dash());
         }
-    }
-
-    private void LateUpdate()
-    {
-        float clampX = Math.Clamp(transform.position.x, minX, maxX);
-        transform.position = new Vector3(clampX, transform.position.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -128,14 +114,16 @@ public class PlayerMovement : MonoBehaviour
         {
             hasDashedInAir = true;
         }
+
         isDashing = true;
+
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0;
-        rb.linearVelocity = new Vector2(transform.position.x, 0);
+
         windEffect.Play();
 
         float dashDirection = isReversed ? -1 : 1;
-        rb.linearVelocity = new Vector2(dashDirection * dashForce, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(dashDirection * dashForce, 0);
 
         Coroutine ghostCoroutine = StartCoroutine(CreateGhost());
 
@@ -143,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
 
         windEffect.Stop();
         StopCoroutine(ghostCoroutine);
+
         rb.linearVelocity = Vector2.zero;
         rb.gravityScale = originalGravity;
         isDashing = false;
@@ -162,11 +151,12 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator CreateGhost()
     {
-        GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
         SpriteRenderer playerSR = GetComponent<SpriteRenderer>();
 
         while (true)
         {
+            GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
+
             GhostEffect ghostEffect = ghost.GetComponent<GhostEffect>();
             ghostEffect.SetGhost(playerSR.sprite, playerSR.flipX, playerSR.transform.localScale);
 

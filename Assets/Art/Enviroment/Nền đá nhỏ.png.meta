@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 31f6821f79b37c44f97a7aef4617bfd0
+guid: 3c041f6e17dfd5e409cba034fb462e12
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -103167413081445798
-    second: DarkGround_0
+      213: -7349984308588553655
+    second: "N\u1EC1n \u0111\xE1 nh\u1ECF_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DarkGround_0
+      name: "N\u1EC1n \u0111\xE1 nh\u1ECF_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 4096
-        height: 231
+        width: 379
+        height: 63
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5a62eec8c9719ef0800000000000000
-      internalID: -103167413081445798
+      spriteID: 94a52e5963c9ff990800000000000000
+      internalID: -7349984308588553655
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DarkGround_0: -103167413081445798
+      "N\u1EC1n \u0111\xE1 nh\u1ECF_0": -7349984308588553655
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

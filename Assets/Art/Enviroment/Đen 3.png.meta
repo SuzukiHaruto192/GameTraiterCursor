@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: d85c115cb48580c4382b01621fc55ce4
+guid: ceb53153d5436cd42aaed6cb7cd611a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2939248397069386988
-    second: MidGround_0
-  - first:
-      213: -3906247332810136586
-    second: MidGround_1
-  - first:
-      213: -5200303530904405216
-    second: MidGround_2
-  - first:
-      213: 2151648128617400807
-    second: MidGround_3
-  - first:
-      213: 4409986433488427660
-    second: MidGround_4
+      213: 3474804278452787820
+    second: "\u0110en 3_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -112,79 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MidGround_0
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 110
-        width: 1434
-        height: 1274
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ce405f528de4ac820800000000000000
-      internalID: 2939248397069386988
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MidGround_1
-      rect:
-        serializedVersion: 2
-        x: 1498
-        y: 1364
-        width: 40
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6f3e80b3fb83ac9c0800000000000000
-      internalID: -3906247332810136586
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MidGround_2
-      rect:
-        serializedVersion: 2
-        x: 2075
-        y: 1343
-        width: 40
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 02bbb34bd7fc4d7b0800000000000000
-      internalID: -5200303530904405216
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MidGround_3
+      name: "\u0110en 3_0"
       rect:
         serializedVersion: 2
         x: 0
-        y: 151
-        width: 906
-        height: 460
+        y: 0
+        width: 1674
+        height: 296
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7e9cfd3b2903cdd10800000000000000
-      internalID: 2151648128617400807
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MidGround_4
-      rect:
-        serializedVersion: 2
-        x: 1811
-        y: 48
-        width: 2285
-        height: 1315
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c8a9e50db4b633d30800000000000000
-      internalID: 4409986433488427660
+      spriteID: c6a9f29b41cf83030800000000000000
+      internalID: 3474804278452787820
       vertices: []
       indices: 
       edges: []
@@ -235,11 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MidGround_0: 2939248397069386988
-      MidGround_1: -3906247332810136586
-      MidGround_2: -5200303530904405216
-      MidGround_3: 2151648128617400807
-      MidGround_4: 4409986433488427660
+      "\u0110en 3_0": 3474804278452787820
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
