@@ -4,46 +4,53 @@
 public class EnemyMovement : MonoBehaviour
 {
     public float moveSpeed = 2f;
-    public Transform groundDetection;
-    public float distance = 1f;
-    public LayerMask groundLayer;
+
+    [Header("Cảm biến (Sensors)")]
+    public Transform wallCheck;      // Điểm dò tường
+    public Transform ledgeCheck;     // Điểm dò vực/chân cầu thang
+    public float wallCheckDistance = 0.5f;
+    public float ledgeCheckDistance = 0.5f;
+    public LayerMask groundLayer;    // Layer của Đất/Tường
 
     public bool canMove = true;
     private bool movingRight = true;
 
-    // Khai báo biến Rigidbody2D
     private Rigidbody2D rb;
 
     void Start()
     {
-        // Lấy component Rigidbody2D khi game vừa chạy
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!canMove)
         {
-            // Nếu không được đi (vd đang đứng lại chém), set vận tốc ngang về 0
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             return;
         }
 
-        // Bắn tia kiểm tra vực sâu
-        RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance, groundLayer);
+        // 1. Xác định hướng nhìn hiện tại
+        Vector2 forwardDir = movingRight ? Vector2.right : Vector2.left;
 
-        if (groundInfo.collider == false)
+        // --- 2. BẮN TIA DÒ TƯỜNG (Bắn ngang) ---
+        RaycastHit2D wallHit = Physics2D.Raycast(wallCheck.position, forwardDir, wallCheckDistance, groundLayer);
+        // Vẽ tia đỏ dò tường ra Scene
+        Debug.DrawRay(wallCheck.position, forwardDir * wallCheckDistance, Color.red);
+
+        // --- 3. BẮN TIA DÒ VỰC (Bắn cắm thẳng xuống đất) ---
+        RaycastHit2D ledgeHit = Physics2D.Raycast(ledgeCheck.position, Vector2.down, ledgeCheckDistance, groundLayer);
+        // Vẽ tia xanh dương dò vực ra Scene
+        Debug.DrawRay(ledgeCheck.position, Vector2.down * ledgeCheckDistance, Color.blue);
+
+        // --- 4. LOGIC QUAY ĐẦU THÔNG MINH ---
+        // Nếu đụng tường (wallHit có chạm) HOẶC bước hụt (ledgeHit quét vào không khí)
+        if (wallHit.collider != null || ledgeHit.collider == null)
         {
             Flip();
         }
-    }
 
-    // Các xử lý liên quan đến vật lý (như di chuyển) NÊN đặt trong FixedUpdate
-    void FixedUpdate()
-    {
-        if (!canMove) return;
-
-        // Dùng velocity để di chuyển sẽ giúp quái tự khựng lại khi đụng tường
+        // Cập nhật di chuyển
         if (movingRight)
         {
             rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);

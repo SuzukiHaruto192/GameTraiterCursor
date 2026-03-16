@@ -12,6 +12,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float ghostDelay = 0.3f;
     [SerializeField] private ParticleSystem windEffect;
 
+    [Header("Cài đặt Tấn công")]
+    public Transform attackPoint;      // Tâm của đòn chém
+    public float attackRange = 0.8f;   // Độ rộng vùng chém
+    public LayerMask enemyLayer;       // Nhận diện Layer của quái
+    public int attackDamage = 20;      // Sát thương mỗi nhát chém
+
     private bool isGrounded = true;
     private bool isReversed = false;
     private bool isDashing = false;
@@ -19,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody2D rb;
     Animator anim;
-
-    // liên kết với script máu
     private PlayerHealth playerHealth;
 
     void Start()
@@ -38,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing) return;
 
-        // khóa điều khiển khi bị knockback
         if (playerHealth != null && playerHealth.isKnockedBack)
         {
             anim.SetBool("isWalk", false);
@@ -52,17 +55,14 @@ public class PlayerMovement : MonoBehaviour
 
         float moveInput = Input.GetAxis("Horizontal");
 
-        // xoay mặt nhân vật
         if ((isReversed && moveInput > 0) || (!isReversed && moveInput < 0))
         {
             transform.Rotate(0, 180, 0);
             isReversed = !isReversed;
         }
 
-        // di chuyển
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
 
-        // animation Walk / Idle
         if (moveInput != 0)
         {
             anim.SetBool("isWalk", true);
@@ -74,26 +74,22 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isIdle", true);
         }
 
-        // jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isGrounded = false;
         }
 
-        // tăng tốc độ rơi
         if (rb.linearVelocity.y < 0)
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * 1.5f * Time.deltaTime;
         }
 
-        // attack
         if (Input.GetKeyDown(KeyCode.X))
         {
             StartCoroutine(Attack());
         }
 
-        // dash
         if (Input.GetKeyDown(KeyCode.C) && !hasDashedInAir)
         {
             StartCoroutine(Dash());
@@ -116,10 +112,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isDashing = true;
-
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0;
-
         windEffect.Play();
 
         float dashDirection = isReversed ? -1 : 1;
@@ -143,6 +137,20 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("isIdle", false);
         anim.SetBool("isWalk", false);
 
+        // Quét tất cả quái vật nằm trong vùng tấn công
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+
+        // Trừ máu từng con quái chém trúng
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            // THAY ĐỔI Ở ĐÂY: Thêm trục Y để tạo góc hắt chéo.
+            // Nếu Player quay trái (-1), hướng chém sẽ dìm xuống (-0.5). 
+            // Lát nữa file EnemyHealth đảo ngược lại, máu sẽ văng sang Phải (1) và hắt Lên trên (0.5)!
+            Vector2 attackDirection = isReversed ? new Vector2(-1f, -0.5f) : new Vector2(1f, -0.5f);
+
+            enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, attackDirection);
+        }
+
         yield return new WaitForSeconds(animationDelay);
 
         anim.SetBool("isAttack", false);
@@ -156,11 +164,18 @@ public class PlayerMovement : MonoBehaviour
         while (true)
         {
             GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation);
-
             GhostEffect ghostEffect = ghost.GetComponent<GhostEffect>();
             ghostEffect.SetGhost(playerSR.sprite, playerSR.flipX, playerSR.transform.localScale);
 
             yield return new WaitForSeconds(ghostDelay);
         }
+    }
+
+    // Vẽ vùng tấn công trên màn hình Scene để dễ căn chỉnh
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
