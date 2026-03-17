@@ -6,13 +6,13 @@ public class PlayerHealth : MonoBehaviour
     [Header("Chỉ số Máu")]
     public int maxHealth = 100;
     private int currentHealth;
-
+    
     [Header("Cài đặt Phản hồi đòn đánh")]
-    public float knockbackDuration = 0.2f; // Thời gian bị khóa di chuyển để văng lùi
-    public float iFrameDuration = 1.2f;    // Thời gian bất tử (không nhận sát thương)
+    public float knockbackDuration = 0.2f;
+    public float iFrameDuration = 1.2f;
 
-    public bool isKnockedBack = false;     // Cờ khóa di chuyển (kết nối với file Player.cs)
-    private bool isInvulnerable = false;   // Trạng thái bất tử
+    public bool isKnockedBack = false;
+    private bool isInvulnerable = false;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
