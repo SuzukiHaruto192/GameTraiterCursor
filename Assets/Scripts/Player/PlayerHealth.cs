@@ -14,6 +14,9 @@ public class PlayerHealth : MonoBehaviour
     private Vector2[] initialPositions;
     private Quaternion[] initialRotations;
 
+    [Header("UI Cài đặt")]
+    public GameObject gameOverPanel;
+
     [Header("Cài đặt Phản hồi đòn đánh")]
     public float knockbackDuration = 0.2f;
     public float iFrameDuration = 1.2f;
@@ -158,5 +161,10 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Game Over!");
         // Gọi animation chết ở đây
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
     }
 }
