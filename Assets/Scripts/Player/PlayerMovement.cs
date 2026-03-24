@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject ghostPrefab;
     [SerializeField] private float ghostDelay = 0.3f;
     [SerializeField] private ParticleSystem windEffect;
+    [SerializeField] private float minX;
+    [SerializeField] private float maxX;
 
     private bool isGrounded = true;
     private bool isReversed = false;
@@ -161,6 +163,29 @@ public class PlayerMovement : MonoBehaviour
             ghostEffect.SetGhost(playerSR.sprite, playerSR.flipX, playerSR.transform.localScale);
 
             yield return new WaitForSeconds(ghostDelay);
+        }
+    }
+
+    //Giới hạn vị trí player
+    private void FixedUpdate()
+    {
+        float curX = rb.position.x;
+
+        // Kiểm tra nếu chạm biên trái
+        if (curX <= minX)
+        {
+            rb.position = new Vector2(minX, rb.position.y);
+            // Nếu vận tốc đang hướng sang trái ( < 0), thì xóa nó đi
+            if (rb.linearVelocity.x < 0)
+                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        }
+        // Kiểm tra nếu chạm biên phải
+        else if (curX >= maxX)
+        {
+            rb.position = new Vector2(maxX, rb.position.y);
+            // Nếu vận tốc đang hướng sang phải ( > 0), thì xóa nó đi
+            if (rb.linearVelocity.x > 0)
+                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
 }
