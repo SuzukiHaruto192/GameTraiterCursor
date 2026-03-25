@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a63b8324f1b07ad47a26e22e83026f69
+guid: 42108b746ce60e24a895f49f3374cc1a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5561137217833279786
-    second: Tele Gate_0
+      213: 3652846742439344854
+    second: "N\u1EC1n Base_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tele Gate_0
+      name: "N\u1EC1n Base_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 871
-        height: 685
+        width: 512
+        height: 372
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a212820e5d02d2d40800000000000000
-      internalID: 5561137217833279786
+      spriteID: 6da3a0632c481b230800000000000000
+      internalID: 3652846742439344854
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Tele Gate_0: 5561137217833279786
+      "N\u1EC1n Base_0": 3652846742439344854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

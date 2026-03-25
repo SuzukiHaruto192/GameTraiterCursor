@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject ghostPrefab;
     [SerializeField] private float ghostDelay = 0.3f;
     [SerializeField] private ParticleSystem windEffect;
+    [SerializeField] private float fallingForce = 1.5f;
     [SerializeField] private float minX;
     [SerializeField] private float maxX;
 
@@ -86,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         // tăng tốc độ rơi
         if (rb.linearVelocity.y < 0)
         {
-            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * 1.5f * Time.deltaTime;
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * fallingForce * Time.deltaTime;
         }
 
         // attack
