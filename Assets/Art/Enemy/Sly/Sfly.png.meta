@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 4994342cb18d13e4ca4308a2b10f2e7c
+guid: 823fe942c42df7441aebe49231923375
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4178594753435132933
-    second: Sfly_0
+      213: -961421969857722476
+    second: Sfly 1_0
   - first:
-      213: -2068864589615469590
-    second: Sfly_1
+      213: 3807102247221186663
+    second: Sfly 1_1
   - first:
-      213: -7778604276289755630
-    second: Sfly_2
+      213: 8246612671527728523
+    second: Sfly 1_2
   - first:
-      213: 8490664984889384761
-    second: Sfly_3
+      213: 4652703854970709734
+    second: Sfly 1_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,7 +109,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sfly_0
+      name: Sfly 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 504efc20ac95df930800000000000000
-      internalID: 4178594753435132933
+      spriteID: 497cf5fefc758a2f0800000000000000
+      internalID: -961421969857722476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sfly_1
+      name: Sfly 1_1
       rect:
         serializedVersion: 2
         x: 512
@@ -146,14 +146,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aebe597fd9ae943e0800000000000000
-      internalID: -2068864589615469590
+      spriteID: 760d53da25b85d430800000000000000
+      internalID: 3807102247221186663
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sfly_2
+      name: Sfly 1_2
       rect:
         serializedVersion: 2
         x: 1024
@@ -168,14 +168,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2162a6f9f98dc0490800000000000000
-      internalID: -7778604276289755630
+      spriteID: b8535a6488ad17270800000000000000
+      internalID: 8246612671527728523
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sfly_3
+      name: Sfly 1_3
       rect:
         serializedVersion: 2
         x: 1536
@@ -190,8 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 93fdd2b71d6e4d570800000000000000
-      internalID: 8490664984889384761
+      spriteID: 6e6ae984189b19040800000000000000
+      internalID: 4652703854970709734
       vertices: []
       indices: 
       edges: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c2707486720a25d4f9260b14422c9a4b
+    spriteID: f4e99c8437b1bd347b5454edfe2efa53
     internalID: 0
     vertices: []
     indices: 
@@ -212,10 +212,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":512.0,"y":512.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Sfly_0: 4178594753435132933
-      Sfly_1: -2068864589615469590
-      Sfly_2: -7778604276289755630
-      Sfly_3: 8490664984889384761
+      Sfly 1_0: -961421969857722476
+      Sfly 1_1: 3807102247221186663
+      Sfly 1_2: 8246612671527728523
+      Sfly 1_3: 4652703854970709734
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

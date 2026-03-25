@@ -5,15 +5,27 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 100;
     private int currentHealth;
 
+    private EnemyEffect effect; // Khai báo biến gọi effect
+
     void Start()
     {
         currentHealth = maxHealth;
+        effect = GetComponent<EnemyEffect>();
     }
 
-    public void TakeDamage(int damage)
+    // Thêm tham số attackerPosition để biết bị đánh từ hướng nào
+    public void TakeDamage(int damage, Vector2 attackerPosition)
     {
+        // Đã chết rồi thì không nhận sát thương hay bị hất văng thêm nữa
+        if (currentHealth <= 0) return;
+
         currentHealth -= damage;
-        // Thêm hiệu ứng chớp đỏ, giật lùi (knockback) hoặc âm thanh ở đây
+
+        // Gọi hiệu ứng giật lùi và nháy đỏ (đòn cuối cùng vẫn hất văng như bình thường)
+        if (effect != null)
+        {
+            effect.PlayHitEffects(attackerPosition);
+        }
 
         if (currentHealth <= 0)
         {
@@ -23,7 +35,13 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        // Thêm hiệu ứng nổ, rớt tiền/vật phẩm...
-        Destroy(gameObject);
+        // Tắt script này đi để hoàn toàn ngắt kết nối với các đòn đánh
+        this.enabled = false;
+
+        // Gọi chuỗi hiệu ứng: Bay lùi 1s -> Đổi Sprite -> Biến mất
+        if (effect != null)
+        {
+            effect.PlayDeathSequence();
+        }
     }
 }

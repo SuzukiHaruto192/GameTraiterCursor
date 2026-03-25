@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
 
-    // liên kết với script máu
     private PlayerHealth playerHealth;
 
     void Start()
@@ -34,14 +33,13 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("isIdle", true);
         anim.SetBool("isWalk", false);
-        anim.SetBool("isAttack", false);
+        // ❌ bỏ isAttack
     }
 
     void Update()
     {
         if (isDashing) return;
 
-        // khóa điều khiển khi bị knockback
         if (playerHealth != null && playerHealth.isKnockedBack)
         {
             anim.SetBool("isWalk", false);
@@ -55,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
         float moveInput = Input.GetAxis("Horizontal");
 
-        // xoay mặt nhân vật
+        // xoay mặt
         if ((isReversed && moveInput > 0) || (!isReversed && moveInput < 0))
         {
             transform.Rotate(0, 180, 0);
@@ -77,27 +75,23 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isIdle", true);
         }
 
-        // jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // ✅ Jump → phím K
+        if (Input.GetKeyDown(KeyCode.K) && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isGrounded = false;
         }
 
-        // tăng tốc độ rơi
+        // tăng tốc rơi
         if (rb.linearVelocity.y < 0)
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * fallingForce * Time.deltaTime;
         }
 
-        // attack
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            StartCoroutine(Attack());
-        }
+        // ❌ XÓA ATTACK Ở ĐÂY
 
-        // dash
-        if (Input.GetKeyDown(KeyCode.C) && !hasDashedInAir)
+        // ✅ Dash → phím L
+        if (Input.GetKeyDown(KeyCode.L) && !hasDashedInAir)
         {
             StartCoroutine(Dash());
         }
@@ -140,18 +134,6 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
     }
 
-    IEnumerator Attack()
-    {
-        anim.SetBool("isAttack", true);
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isWalk", false);
-
-        yield return new WaitForSeconds(animationDelay);
-
-        anim.SetBool("isAttack", false);
-        anim.SetBool("isIdle", true);
-    }
-
     IEnumerator CreateGhost()
     {
         SpriteRenderer playerSR = GetComponent<SpriteRenderer>();
@@ -167,24 +149,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //Giới hạn vị trí player
     private void FixedUpdate()
     {
         float curX = rb.position.x;
 
-        // Kiểm tra nếu chạm biên trái
         if (curX <= minX)
         {
             rb.position = new Vector2(minX, rb.position.y);
-            // Nếu vận tốc đang hướng sang trái ( < 0), thì xóa nó đi
             if (rb.linearVelocity.x < 0)
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
-        // Kiểm tra nếu chạm biên phải
         else if (curX >= maxX)
         {
             rb.position = new Vector2(maxX, rb.position.y);
-            // Nếu vận tốc đang hướng sang phải ( > 0), thì xóa nó đi
             if (rb.linearVelocity.x > 0)
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
