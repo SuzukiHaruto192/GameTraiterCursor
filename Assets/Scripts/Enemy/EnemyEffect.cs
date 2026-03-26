@@ -8,13 +8,14 @@ public class EnemyEffect : MonoBehaviour
     private Rigidbody2D rb;
 
     [Header("Flash Effect")]
-    public Color flashColor = Color.red; // Màu khi bị đánh trúng
+    public Color flashColor = Color.red;
     public float flashDuration = 0.1f;
+
+    [Header("Fade Out Effect")]
+    public float fadeDuration = 0.5f; // Thời gian phai mờ mất bao lâu (tính bằng giây)
+
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
-
-    [Header("Death")]
-    public Sprite deadSprite; // Kéo thả ảnh cái xác vào đây trên Inspector
 
     void Start()
     {
@@ -23,29 +24,21 @@ public class EnemyEffect : MonoBehaviour
 
         if (spriteRenderer != null)
         {
-            originalColor = spriteRenderer.color; // Lưu lại màu gốc
+            originalColor = spriteRenderer.color;
         }
     }
 
-    // Hàm này sẽ được gọi khi quái nhận sát thương
+    // Bật lùi và nháy sáng (Dùng chung cho lúc bị đánh trúng và frame đầu lúc chết)
     public void PlayHitEffects(Vector2 attackerPosition)
     {
-        // 1. Xử lý Knockback
         if (rb != null)
         {
-            // Reset vận tốc trước để tránh quái bị bay mất kiểm soát nếu dính đòn liên tục
             rb.linearVelocity = Vector2.zero;
-
-            // Tính hướng từ người đánh -> quái
             Vector2 knockbackDirection = ((Vector2)transform.position - attackerPosition).normalized;
-
-            // Thêm một chút lực hất lên trên (trục y) cho cảm giác va chạm nảy hơn
             knockbackDirection.y = 0.5f;
-
             rb.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode2D.Impulse);
         }
 
-        // 2. Xử lý Nháy sáng
         if (gameObject.activeInHierarchy)
         {
             StartCoroutine(FlashRoutine());
@@ -56,87 +49,65 @@ public class EnemyEffect : MonoBehaviour
     {
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = flashColor; // Đổi sang màu đỏ
-            yield return new WaitForSeconds(flashDuration); // Chờ 1 chút
-            spriteRenderer.color = originalColor; // Trả về màu gốc
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            spriteRenderer.color = originalColor;
         }
     }
 
-    // Hàm này sẽ được gọi khi quái chết
-    // Hàm này sẽ được gọi khi quái chết
-    public void PlayDeathEffect()
+    // TẮT CHỨC NĂNG (Gọi ngay lúc HP <= 0)
+    public void DisableActions()
     {
-        // 1. Tắt Animator để nó không ghi đè lên hình ảnh xác chết
-        Animator anim = GetComponent<Animator>();
-        if (anim != null)
-        {
-            anim.enabled = false;
-        }
-
-        // 2. Đổi ảnh sang cái xác
-        if (spriteRenderer != null && deadSprite != null)
-        {
-            spriteRenderer.sprite = deadSprite;
-        }
-
-        // 3. Đổi Rigidbody thành Static để vô hiệu hóa trọng lực
-        // Lúc này dù bên EnemyHealth có tắt Collider thì cái xác vẫn đứng im tại chỗ không bị rơi xuyên map
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Static;
-        }
-    }
-    // Thêm hàm này vào EnemyEffect.cs
-    public void PlayDeathSequence()
-    {
-        // 1. TẮT TẤT CẢ CÁC SCRIPT NGAY LẬP TỨC 
-        // Lệnh này sẽ tìm mọi file C# đang gắn trên con quái (AI, tấn công, sát thương chạm...)
+        // Tắt toàn bộ Script (trừ EnemyHealth và EnemyEffect)
         MonoBehaviour[] allScripts = GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour script in allScripts)
         {
-            // Tắt hết, CHỈ giữ lại đúng script EnemyEffect này để nó chạy tiếp Coroutine chết
-            if (script != this)
+            if (script != this && script != GetComponent<EnemyHealth>())
             {
                 script.enabled = false;
             }
         }
 
-        // Bắt đầu chuỗi thời gian hấp hối
-        StartCoroutine(DeathRoutine());
+        // Tắt toàn bộ Collider để không chạm gây sát thương nữa
+        Collider2D[] allColliders = GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D coll in allColliders)
+        {
+            coll.enabled = false;
+        }
     }
 
-    private IEnumerator DeathRoutine()
+    // MỜ DẦN VÀ TIÊU HỦY (Gọi ở frame cuối Animation)
+    public void StartFadeAndDestroy()
     {
-        // 2. Chờ 1 giây để quá trình văng lùi diễn ra
-        // (Lúc này các script tấn công đã bị tắt ở trên, nên quái văng lùi trong trạng thái "vô hại")
-        yield return new WaitForSeconds(1f);
-
-        // 3. Bắt đầu "hóa đá" thành xác chết
-        Animator anim = GetComponent<Animator>();
-        if (anim != null) anim.enabled = false; // Tắt animation để hiện ảnh tĩnh
-
-        if (spriteRenderer != null && deadSprite != null)
-        {
-            spriteRenderer.sprite = deadSprite;
-        }
-
-        // Tắt trọng lực, ghim xác tại chỗ
+        // Cố định xác chết lại để tránh bay bổng lung tung khi đang mờ
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
             rb.bodyType = RigidbodyType2D.Static;
         }
 
-        // 4. TẮT TẤT CẢ COLLIDER ĐỂ PLAYER ĐI XUYÊN QUA XÁC CHẾT
-        // Dùng GetComponentsInChildren để quét sạch cả những Collider giấu trong object con (nếu có)
-        Collider2D[] allColliders = GetComponentsInChildren<Collider2D>();
-        foreach (Collider2D coll in allColliders)
+        // Kích hoạt tiến trình làm mờ
+        StartCoroutine(FadeAndDestroyRoutine());
+    }
+
+    private IEnumerator FadeAndDestroyRoutine()
+    {
+        if (spriteRenderer != null)
         {
-            coll.enabled = false;
+            float elapsedTime = 0f;
+            Color startColor = spriteRenderer.color;
+
+            // Chạy vòng lặp giảm dần độ Alpha (A) của màu sắc
+            while (elapsedTime < fadeDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float newAlpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+                spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
+                yield return null; // Đợi frame tiếp theo
+            }
         }
 
-        // 5. Nằm ngoan ngoãn trong 2 giây rồi tan biến
-        Destroy(gameObject, 2f);
+        // Sau khi mờ hẳn (Alpha = 0) thì Destroy
+        Destroy(gameObject);
     }
 }

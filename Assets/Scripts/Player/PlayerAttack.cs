@@ -1,31 +1,18 @@
 ﻿using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerCombat : MonoBehaviour
 {
-    [Header("Attack")]
-    public GameObject hitbox;
-    public float attackCooldown = 0.5f;
+    public Animator anim;
 
-    [Header("Optional")]
-    public bool lockMovementWhileAttacking = true;
+    public Transform attackPoint;
+    public LayerMask enemyLayers;
 
-    private float lastAttackTime;
-    private bool isAttacking = false;
-
-    private Animator anim;
-    private PlayerMovement movement; // để khóa di chuyển
-
-    void Start()
-    {
-        anim = GetComponent<Animator>();
-        movement = GetComponent<PlayerMovement>();
-
-        hitbox.SetActive(false); // đảm bảo tắt lúc đầu
-    }
+    public float attackRange = 0.5f;
+    public float attackDamage = 100;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && Time.time >= lastAttackTime && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.J))
         {
             Attack();
         }
@@ -33,38 +20,21 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        isAttacking = true;
-        lastAttackTime = Time.time + attackCooldown;
-
         anim.SetTrigger("Attack");
 
-        // khóa di chuyển nếu bật
-        if (lockMovementWhileAttacking && movement != null)
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach(Collider2D enemy in hitEnemies)
         {
-            movement.enabled = false;
+            enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
         }
     }
-
-    // 👉 GỌI TRONG ANIMATION (frame bắt đầu chém)
-    public void EnableHitbox()
+    void OnDrawGizmosSelected()
     {
-        hitbox.SetActive(true);
-    }
-
-    // 👉 GỌI TRONG ANIMATION (frame kết thúc chém)
-    public void DisableHitbox()
-    {
-        hitbox.SetActive(false);
-    }
-
-    // 👉 GỌI Ở FRAME CUỐI ANIMATION
-    public void EndAttack()
-    {
-        isAttacking = false;
-
-        if (lockMovementWhileAttacking && movement != null)
+        if (attackPoint == null)
         {
-            movement.enabled = true;
+            return;
         }
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

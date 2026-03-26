@@ -1,31 +1,32 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    private int currentHealth;
+    public float maxHealth = 100;
+    private float currentHealth;
 
-    private EnemyEffect effect; // Khai báo biến gọi effect
+    public Animator animator;
+    private bool isDead = false;
+
+    public Rigidbody2D rb;
+
+    private bool isHurt = false;
 
     void Start()
     {
         currentHealth = maxHealth;
-        effect = GetComponent<EnemyEffect>();
     }
 
-    // Thêm tham số attackerPosition để biết bị đánh từ hướng nào
-    public void TakeDamage(int damage, Vector2 attackerPosition)
+    public void TakeDamage(float damage)
     {
-        // Đã chết rồi thì không nhận sát thương hay bị hất văng thêm nữa
-        if (currentHealth <= 0) return;
+        if (isDead) return;
+
+        Debug.Log("Quái bị chém! Sát thương nhận: " + damage);
 
         currentHealth -= damage;
 
-        // Gọi hiệu ứng giật lùi và nháy đỏ (đòn cuối cùng vẫn hất văng như bình thường)
-        if (effect != null)
-        {
-            effect.PlayHitEffects(attackerPosition);
-        }
+        animator.SetTrigger("Hurt");
 
         if (currentHealth <= 0)
         {
@@ -35,13 +36,17 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        // Tắt script này đi để hoàn toàn ngắt kết nối với các đòn đánh
-        this.enabled = false;
+        if (isDead) return;
+        isDead = true;
 
-        // Gọi chuỗi hiệu ứng: Bay lùi 1s -> Đổi Sprite -> Biến mất
-        if (effect != null)
-        {
-            effect.PlayDeathSequence();
-        }
+        animator.SetBool("isDead", true);
+
+        // Dành cho con bay
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = 1f;
+        rb.linearVelocity = new Vector2(0, 2f);
+        // GetComponent<Collider2D>().enabled = false;
+
+        this.enabled = false;
     }
 }
