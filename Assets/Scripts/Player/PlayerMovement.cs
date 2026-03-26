@@ -22,12 +22,14 @@ public class PlayerMovement : MonoBehaviour
 
     // liên kết với script máu
     private PlayerHealth playerHealth;
+    private PlayerAttack playerAttack;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerHealth = GetComponent<PlayerHealth>();
+        playerAttack = GetComponent<PlayerAttack>();
 
         anim.SetBool("isIdle", true);
         anim.SetBool("isWalk", false);
@@ -142,6 +144,11 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("isAttack", true);
         anim.SetBool("isIdle", false);
         anim.SetBool("isWalk", false);
+
+        if (playerAttack != null)
+        {
+            playerAttack.PerformAttack();
+        }
 
         yield return new WaitForSeconds(animationDelay);
 
