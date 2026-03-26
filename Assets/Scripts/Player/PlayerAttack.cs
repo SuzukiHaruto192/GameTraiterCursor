@@ -1,21 +1,49 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public Animator anim;
+    [SerializeField] private Animator anim;
 
-    public Transform attackPoint;
-    public LayerMask enemyLayers;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private LayerMask enemyLayers;
 
-    public float attackRange = 0.5f;
-    public float attackDamage = 100;
+    [SerializeField] private float attackRange = 0.5f;
+    [SerializeField] private float attackDamage = 100;
 
+    private PlayerMovement playerMove;
+    public bool isInvincible = false;
+
+    Rigidbody2D rb;
+
+    private void Start()
+    {
+        playerMove = GetComponent<PlayerMovement>();
+        rb = GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        // Tấn công
+        if (Input.GetAxis("Vertical") < 0 && !playerMove.isGrounded && Input.GetKeyDown(KeyCode.J))     //Tấn công trên không --> Đè S và Ấn J
+        {
+            PerformAirSpecialSkill();
+        }
+        else if (Input.GetKeyDown(KeyCode.J))                                                           // Tấn công bình thường --> Ấn J
         {
             Attack();
         }
+
+        // Đỡ đòn --> Ấn S hoặc mũi tên xuống
+        if (Input.GetAxis("Vertical") < 0 && playerMove.isGrounded)
+        {
+            rb.linearVelocity = Vector3.zero;
+            isInvincible = true;
+        }
+        else
+        {
+            isInvincible = false;
+        }
+
     }
 
     void Attack()
@@ -29,12 +57,19 @@ public class PlayerCombat : MonoBehaviour
             enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
         }
     }
+
+    void PerformAirSpecialSkill()
+    {
+        
+    }
+
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
         {
             return;
         }
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

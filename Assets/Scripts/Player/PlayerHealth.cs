@@ -49,6 +49,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 knockbackForce)
     {
+        if (GetComponent<PlayerCombat>().isInvincible) return;
         if (isInvulnerable) return;
 
         currentHealth -= 1;

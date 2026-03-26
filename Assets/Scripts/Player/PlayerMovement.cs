@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float minX;
     [SerializeField] private float maxX;
 
-    private bool isGrounded = true;
+    public bool isGrounded = true;
     private bool isReversed = false;
     private bool isDashing = false;
     private bool hasDashedInAir = false;
@@ -33,11 +33,11 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("isIdle", true);
         anim.SetBool("isWalk", false);
-        // ❌ bỏ isAttack
     }
 
     void Update()
     {
+        if (GetComponent<PlayerCombat>().isInvincible) return;
         if (isDashing) return;
 
         if (playerHealth != null && playerHealth.isKnockedBack)
@@ -87,8 +87,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * fallingForce * Time.deltaTime;
         }
-
-        // ❌ XÓA ATTACK Ở ĐÂY
 
         // ✅ Dash → phím L
         if (Input.GetKeyDown(KeyCode.L) && !hasDashedInAir)
