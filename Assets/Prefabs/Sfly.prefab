@@ -93,10 +93,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4410074420754229380}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 18.17, y: 1.42, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.64, y: 0.64, z: 0.64}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6452051466103802800}
   - {fileID: 4503099249672031964}
@@ -151,7 +151,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4178594753435132933, guid: 4994342cb18d13e4ca4308a2b10f2e7c, type: 3}
+  m_Sprite: {fileID: -961421969857722476, guid: 823fe942c42df7441aebe49231923375, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -196,6 +196,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 100
+  currentHealth: 0
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
+  knockbackForce: 3
+  knockbackDuration: 0.1
+  destroyDelay: 0.2
 --- !u!50 &9195178118693450755
 Rigidbody2D:
   serializedVersion: 5
@@ -257,8 +263,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.11042695, y: -0.23862638}
-  m_Size: {x: 1.7380464, y: 1.4000285}
+  m_Offset: {x: -0.16399984, y: -0.2296976}
+  m_Size: {x: 3.3452835, y: 1.8107779}
   m_Direction: 1
 --- !u!114 &1768628096853153820
 MonoBehaviour:
@@ -272,10 +278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7503c5981644512428f172c5702487fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingEnemyMovement
-  speed: 3
-  patrolRange: 4
-  floatAmplitude: 0.5
-  floatFrequency: 1
+  patrolSpeed: 1.5
+  chaseSpeed: 3
+  chaseRadius: 6
+  territoryRadius: 8
+  waypointRadius: 3
+  waitTime: 1.5
   canMove: 1
 --- !u!114 &2115384401815124941
 MonoBehaviour:
