@@ -9,7 +9,7 @@ public class PlayerCombat : MonoBehaviour
 
     public float attackRange = 0.5f;
     public float attackDamage = 100;
-
+    public HitEffectPlayer effectController;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.J))
@@ -26,6 +26,12 @@ public class PlayerCombat : MonoBehaviour
 
         foreach(Collider2D enemy in hitEnemies)
         {
+            Vector2 exactHitPoint = enemy.ClosestPoint(attackPoint.position);
+            if (effectController != null)
+            {
+                effectController.PlayHitEffect(exactHitPoint);
+            }
+
             enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
         }
     }
