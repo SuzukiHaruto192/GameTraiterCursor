@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask enemyLayers;
 
+<<<<<<< HEAD
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private float attackDamage = 100;
 
@@ -21,6 +22,11 @@ public class PlayerCombat : MonoBehaviour
         playerMove = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
     }
+=======
+    public float attackRange = 0.5f;
+    public float attackDamage = 100;
+    public HitEffectPlayer effectController;
+>>>>>>> 272f807c0d3c06c175bcbb521baa82188f7a98ba
     void Update()
     {
         // Tấn công
@@ -54,6 +60,12 @@ public class PlayerCombat : MonoBehaviour
 
         foreach(Collider2D enemy in hitEnemies)
         {
+            Vector2 exactHitPoint = enemy.ClosestPoint(attackPoint.position);
+            if (effectController != null)
+            {
+                effectController.PlayHitEffect(exactHitPoint);
+            }
+
             enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
         }
     }
