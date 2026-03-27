@@ -8,11 +8,12 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask enemyLayers;
 
-<<<<<<< HEAD
-    [SerializeField] private float attackRange = 0.5f;
-    [SerializeField] private float attackDamage = 100;
+    // --- ĐÃ GỘP CODE CỦA BẠN VÀ BẠN CỦA BẠN VÀO LÀM 1 ---
+    public float attackRange = 0.5f;
+    public int attackDamage = 100; // Chuyển sang int để khớp với máu quái
+    public HitEffectPlayer effectController; // Code hiệu ứng của bạn bạn
 
-    private PlayerMovement playerMove;
+    private PlayerMovement playerMove; // Code di chuyển của bạn
     public bool isInvincible = false;
 
     Rigidbody2D rb;
@@ -22,11 +23,7 @@ public class PlayerCombat : MonoBehaviour
         playerMove = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
     }
-=======
-    public float attackRange = 0.5f;
-    public float attackDamage = 100;
-    public HitEffectPlayer effectController;
->>>>>>> 272f807c0d3c06c175bcbb521baa82188f7a98ba
+
     void Update()
     {
         // Tấn công
@@ -49,7 +46,6 @@ public class PlayerCombat : MonoBehaviour
         {
             isInvincible = false;
         }
-
     }
 
     void Attack()
@@ -58,21 +54,29 @@ public class PlayerCombat : MonoBehaviour
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-        foreach(Collider2D enemy in hitEnemies)
+        foreach (Collider2D enemy in hitEnemies)
         {
             Vector2 exactHitPoint = enemy.ClosestPoint(attackPoint.position);
+
+            // Chạy hiệu ứng đánh trúng (Code của bạn bạn)
             if (effectController != null)
             {
                 effectController.PlayHitEffect(exactHitPoint);
             }
 
-            enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+            // --- ĐÃ FIX LỖI THIẾU BIẾN Ở ĐÂY ---
+            // Truyền thêm vị trí transform.position để kích hoạt hiệu ứng đẩy lùi (Knockback) cho quái
+            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(attackDamage, transform.position);
+            }
         }
     }
 
     void PerformAirSpecialSkill()
     {
-        
+
     }
 
     void OnDrawGizmosSelected()

@@ -1,126 +1,163 @@
 ﻿using UnityEngine;
 
-// Yêu cầu bắt buộc phải có Rigidbody2D và Animator trên cùng Object
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-public class FlyingEnemyMovement : MonoBehaviour
+// Kế thừa từ EnemyMovementBase để dùng chung hiệu ứng Stun khi bị chém
+public class FlyingEnemyMovement : EnemyMovementBase
 {
-    [Header("Cài đặt Di chuyển tuần tra (Ngang)")]
-    // Tốc độ di chuyển ngang của quái
-    [SerializeField] private float speed = 3f;
-    // Khoảng cách quái sẽ bay về bên trái và bên phải từ vị trí gốc ban đầu
-    [SerializeField] private float patrolRange = 4f;
+    [Header("Tốc độ bay")]
+    [SerializeField] private float patrolSpeed = 2f; // Tốc độ bay tuần tra
+    [SerializeField] private float chaseSpeed = 4f;  // Tốc độ lao vào rượt Player
+
+    [Header("Cài đặt Lãnh thổ (AI)")]
+    [SerializeField] private float chaseRadius = 5f;      // Tầm nhìn thấy Player
+    [SerializeField] private float territoryRadius = 8f;  // Ranh giới ổ (đi quá sẽ bỏ cuộc)
+    [SerializeField] private float patrolRange = 4f;      // Khoảng cách bay qua lại khi tuần tra
 
     [Header("Cài đặt Dập dềnh (Lên xuống nhẹ)")]
-    // Độ cao tối đa quái sẽ dập dềnh lên xuống (ví dụ 0.5f = dập dềnh trong khoảng 1m)
     [SerializeField] private float floatAmplitude = 0.5f;
-    // Tốc độ dập dềnh (ví dụ 1.0f = 1 chu kỳ lên xuống mỗi giây)
     [SerializeField] private float floatFrequency = 1f;
 
-    // Biến trạng thái
-    private Vector2 startingPosition; // Vị trí gốc ban đầu của quái
-    private int moveDirection = 1;    // 1 = đang đi sang phải, -1 = đang đi sang trái
-    private float floatTimer;        // Thời gian nội bộ cho hàm hình Sin
+    private Vector2 homePos;           // Vị trí gốc lúc mới sinh ra
+    private Vector2 logicalPosition;   // Vị trí dùng để tính toán (bỏ qua độ dập dềnh)
+    private int moveDirection = 1;     // Hướng bay hiện tại (1: Phải, -1: Trái)
+    private float floatTimer;
+    private Transform player;
 
-    // Tham chiếu components
     private Rigidbody2D rb;
     private Animator anim;
-    public bool canMove = true;
+    private bool isReturningHome = false; // Trạng thái đang bay về ổ
 
     void Start()
     {
-        // Lấy các component khi bắt đầu
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        // Thiết lập vị trí gốc ban đầu
-        startingPosition = transform.position;
+        // Lưu lại vị trí ổ
+        homePos = transform.position;
+        logicalPosition = homePos;
 
-        // --- CẤU HÌNH VẬT LÝ CHO QUÁI BAY ---
-        // Để quái bay, ta cần Rigidbody2D là Kinematic hoặc Gravity Scale = 0
-        rb.bodyType = RigidbodyType2D.Kinematic; // Dùng Kinematic để di chuyển mượt bằng code, né va chạm đẩy quái
-        rb.useFullKinematicContacts = true; // Tùy chọn: giúp Kinematic xử lý va chạm với Ground/Tường tốt hơn
+        // Xác định hướng nhìn ban đầu dựa trên scale X
+        moveDirection = transform.localScale.x < 0 ? -1 : 1;
 
-        // --- HỢP NHẤT ANIMATION (Ảnh 2) ---
-        // Khi Start, quái luôn bắt đầu di chuyển, set isMove thành true
-        anim.SetBool("isMove", true);
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.useFullKinematicContacts = true;
+
+        if (anim != null) anim.SetBool("isMove", true);
+
+        // Tìm Player
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null) player = p.transform;
     }
 
     void FixedUpdate()
     {
-        if (!canMove) return;
+        if (!canMove) return; // Kế thừa từ EnemyMovementBase (đứng im khi bị chém)
 
-        HandleMovement();
-    }
-
-    private void HandleMovement()
-    {
-        // Xác định ranh giới di chuyển dựa trên vị trí gốc
-        float leftBound = startingPosition.x - patrolRange;
-        float rightBound = startingPosition.x + patrolRange;
-
-        // 1. TÍNH TOÁN DI CHUYỂN NGANG (Tuần tra)
-        // Lấy vận tốc ngang hiện tại dựa trên tốc độ và hướng
-        float horizontalVelocity = speed * moveDirection;
-
-        // 2. TÍNH TOÁN DẬP DỀNH LÊN XUỐNG (Hàm hình Sin)
-        // Cập nhật timer dập dềnh dựa trên tần số
+        // Tính toán hiệu ứng dập dềnh không ngừng nghỉ
         floatTimer += Time.fixedDeltaTime * floatFrequency;
-
-        // Sử dụng Mathf.Sin để tạo chuyển động lên xuống mượt mà từ -1 đến 1, sau đó nhân với biên độ
         float currentOffset = Mathf.Sin(floatTimer) * floatAmplitude;
 
-        // Vị trí trục Y mục tiêu là vị trí gốc Y cộng với khoảng cách dập dềnh
-        float targetY = startingPosition.y + currentOffset;
-
-        // 3. THỰC HIỆN DI CHUYỂN VẬT LÝ MƯỢT MÀ
-        // Ta tính toán vị trí trục X mục tiêu cho khung hình này
-        float nextPositionX = transform.position.x + horizontalVelocity * Time.fixedDeltaTime;
-
-        // Sử dụng rb.MovePosition để di chuyển Kinematic Object mượt mà và xử lý va chạm cơ bản
-        // Nó sẽ move transform đến vị trí mục tiêu được tính toán gồm X tuần tra và Y dập dềnh
-        rb.MovePosition(new Vector2(nextPositionX, targetY));
-
-        // 4. KIỂM TRA RANH GIỚI VÀ QUAY ĐẦU (Quét ranh giới X)
-        // Nếu quái đi quá ranh giới bên phải và đang đi sang phải, quay đầu
-        if (transform.position.x >= rightBound && moveDirection == 1)
+        // --- HỆ THỐNG AI ---
+        bool isChasing = false;
+        if (player != null)
         {
-            moveDirection = -1;
-            FlipSprite();
+            float distToPlayer = Vector2.Distance(logicalPosition, player.position);
+            float playerDistFromHome = Vector2.Distance(homePos, player.position);
+
+            // NẾU Player trong tầm nhìn VÀ chưa thoát khỏi ranh giới
+            if (distToPlayer <= chaseRadius && playerDistFromHome <= territoryRadius)
+            {
+                isChasing = true;
+                isReturningHome = false; // Ngắt trạng thái bay về
+            }
         }
-        // Nếu quái đi quá ranh giới bên trái và đang đi sang trái, quay đầu
-        else if (transform.position.x <= leftBound && moveDirection == -1)
+
+        if (isChasing)
         {
-            moveDirection = 1;
-            FlipSprite();
+            // RƯỢT ĐUỔI
+            logicalPosition = Vector2.MoveTowards(logicalPosition, player.position, chaseSpeed * Time.fixedDeltaTime);
+            FlipTowards(player.position.x);
         }
+        else
+        {
+            // KIỂM TRA XEM CÓ ĐI QUÁ XA KHÔNG
+            float distFromHome = Vector2.Distance(logicalPosition, homePos);
+
+            // Nếu đi quá xa khỏi điểm tuần tra hoặc đang trong trạng thái phải về nhà
+            if (distFromHome > patrolRange || isReturningHome)
+            {
+                isReturningHome = true;
+                logicalPosition = Vector2.MoveTowards(logicalPosition, homePos, patrolSpeed * Time.fixedDeltaTime);
+                FlipTowards(homePos.x);
+
+                // Khi đã bay về tới tâm điểm nhà thì tắt trạng thái quay về
+                if (Vector2.Distance(logicalPosition, homePos) <= 0.1f)
+                {
+                    isReturningHome = false;
+                }
+            }
+            else
+            {
+                // TUẦN TRA BÌNH THƯỜNG (Bay qua lại quanh điểm gốc)
+                float leftBound = homePos.x - patrolRange;
+                float rightBound = homePos.x + patrolRange;
+
+                logicalPosition.x += patrolSpeed * moveDirection * Time.fixedDeltaTime;
+
+                // Từ từ đưa trục Y về lại bằng với ổ (trường hợp vừa rượt Player bay lên quá cao)
+                logicalPosition.y = Mathf.MoveTowards(logicalPosition.y, homePos.y, patrolSpeed * Time.fixedDeltaTime);
+
+                if (logicalPosition.x >= rightBound && moveDirection == 1)
+                {
+                    FlipTowards(logicalPosition.x - 1); // Ép quay trái
+                }
+                else if (logicalPosition.x <= leftBound && moveDirection == -1)
+                {
+                    FlipTowards(logicalPosition.x + 1); // Ép quay phải
+                }
+            }
+        }
+
+        // --- CẬP NHẬT VỊ TRÍ ---
+        // Vị trí thực tế = Vị trí theo AI + Độ dập dềnh của cánh
+        rb.MovePosition(new Vector2(logicalPosition.x, logicalPosition.y + currentOffset));
     }
 
-    // Hàm quay đầu Sprites
-    private void FlipSprite()
+    // Hàm lật mặt quái vật hướng về mục tiêu
+    private void FlipTowards(float targetX)
     {
-        // Ta quay đầu bằng cách đảo chiều localScale.x
-        Vector3 currentScale = transform.localScale;
-        // Nhân localScale.x với -1 để đảo chiều
-        currentScale.x *= -1;
-        transform.localScale = currentScale;
+        float diff = targetX - logicalPosition.x;
+        // Chống lỗi quay mòng mòng liên tục khi mục tiêu nằm ngay sát tâm
+        if (Mathf.Abs(diff) < 0.05f) return;
+
+        int newDir = diff > 0 ? 1 : -1;
+        if (newDir != moveDirection)
+        {
+            moveDirection = newDir;
+            Vector3 scale = transform.localScale;
+            scale.x *= -1; // Lật hình
+            transform.localScale = scale;
+        }
     }
 
-    // Tùy chọn: Vẽ ranh giới di chuyển trong Scene để bạn dễ căn chỉnh
+    // Vẽ vòng tròn ra Scene để bạn dễ dàng căn chỉnh
     private void OnDrawGizmosSelected()
     {
-        // Ta vẽ một đường Line ngang màu vàng trên Scene để thấy tầm di chuyển tuần tra
-        Gizmos.color = Color.yellow;
+        Vector2 center = Application.isPlaying ? homePos : (Vector2)transform.position;
 
-        Vector2 center = Application.isPlaying ? startingPosition : (Vector2)transform.position;
+        // Vòng Vàng: Tầm nhìn (Gắn liền với quái)
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, chaseRadius);
+
+        // Vòng Đỏ: Ranh giới lãnh thổ (Cố định ở tâm)
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(center, territoryRadius);
+
+        // Đường Xanh Lá: Quãng đường tuần tra ngang
+        Gizmos.color = Color.green;
         Vector2 leftLine = new Vector2(center.x - patrolRange, center.y);
         Vector2 rightLine = new Vector2(center.x + patrolRange, center.y);
         Gizmos.DrawLine(leftLine, rightLine);
-
-        // Vẽ thêm một đường Line dọc màu xanh dương thể hiện độ cao dập dềnh
-        Gizmos.color = Color.blue;
-        Vector2 topLine = new Vector2(center.x, center.y + floatAmplitude);
-        Vector2 bottomLine = new Vector2(center.x, center.y - floatAmplitude);
-        Gizmos.DrawLine(topLine, bottomLine);
     }
 }

@@ -43064,6 +43064,7 @@ GameObject:
   - component: {fileID: 1083817606}
   - component: {fileID: 1083817605}
   - component: {fileID: 1083817604}
+  - component: {fileID: 1083817609}
   - component: {fileID: 1083817603}
   m_Layer: 9
   m_Name: Crawler
@@ -43098,6 +43099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4405ca7117d8b34aa87d0523bcc881a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrawlerMovement
+  canMove: 1
   speed: 1
   groundLayer:
     serializedVersion: 2
@@ -43242,6 +43244,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 301633424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1083817609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083817602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009e5bffc4ee31d48923a701714c2dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 15
+  currentHealth: 0
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
+  knockbackForce: 3
+  knockbackDuration: 0.1
+  stunDuration: 0.5
+  destroyDelay: 0.2
 --- !u!1 &1088504639
 GameObject:
   m_ObjectHideFlags: 0
@@ -43603,7 +43625,7 @@ Transform:
   m_GameObject: {fileID: 1098574884}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5932276, y: -3.6083899, z: -10}
+  m_LocalPosition: {x: -5.460001, y: -3.5999997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -66735,6 +66757,14 @@ PrefabInstance:
       objectReference: {fileID: 376528431}
     - target: {fileID: 8639733580423963264, guid: 55456d47de2789443a73b2dca826802f, type: 3}
       propertyPath: maxHealth
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744527011688972858, guid: 55456d47de2789443a73b2dca826802f, type: 3}
+      propertyPath: chaseRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744527011688972858, guid: 55456d47de2789443a73b2dca826802f, type: 3}
+      propertyPath: territoryRadius
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8876075325480970545, guid: 55456d47de2789443a73b2dca826802f, type: 3}
