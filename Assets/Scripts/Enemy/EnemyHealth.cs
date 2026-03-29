@@ -15,23 +15,21 @@ public class EnemyHealth : MonoBehaviour
     private Color originalColor;
     private Coroutine flashCoroutine;
 
-    [Header("Xử lý Cái chết")]
+    [Header("Xử lý Cái chết & Vật phẩm rơi (Loot)")]
     public float destroyDelay = 0.2f;
-    private bool isDead = false;
+    public GameObject lootPrefab;      // Kéo Prefab Pha Lê vào đây
+    [Range(0, 5)] public int dropCount = 1; // Số lượng rớt ra
 
+    private bool isDead = false;
     private Collider2D enemyCollider;
     private EnemyMovementBase movementScript;
 
     void Start()
     {
         currentHealth = maxHealth;
-
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-
         enemyCollider = GetComponent<Collider2D>();
-
-        // Nhận diện script di chuyển tổng
         movementScript = GetComponent<EnemyMovementBase>();
     }
 
@@ -45,12 +43,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth > 0)
         {
             StartFlash();
-
-            // CHÌA KHÓA Ở ĐÂY: Giao toàn bộ việc giật lùi và choáng cho script Movement lo!
-            if (movementScript != null)
-            {
-                movementScript.OnDamageTaken(attackerPos);
-            }
+            if (movementScript != null) movementScript.OnDamageTaken(attackerPos);
         }
         else
         {
@@ -83,6 +76,16 @@ public class EnemyHealth : MonoBehaviour
 
         if (enemyCollider != null) enemyCollider.enabled = false;
         if (movementScript != null) movementScript.enabled = false;
+
+        // ---> HỆ THỐNG RƠI ĐỒ Ở ĐÂY <---
+        if (lootPrefab != null)
+        {
+            for (int i = 0; i < dropCount; i++)
+            {
+                // Sinh ra viên pha lê tại vị trí của quái vật
+                Instantiate(lootPrefab, transform.position, Quaternion.identity);
+            }
+        }
 
         Destroy(gameObject, destroyDelay);
     }

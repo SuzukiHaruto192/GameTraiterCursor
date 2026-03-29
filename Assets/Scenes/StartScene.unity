@@ -43100,6 +43100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrawlerMovement
   canMove: 1
+  knockbackForce: 3
+  knockbackDuration: 0.1
+  stunDuration: 0.5
   speed: 1
   groundLayer:
     serializedVersion: 2
@@ -43260,10 +43263,9 @@ MonoBehaviour:
   currentHealth: 0
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.15
-  knockbackForce: 3
-  knockbackDuration: 0.1
-  stunDuration: 0.5
   destroyDelay: 0.2
+  lootPrefab: {fileID: 3371851994863546288, guid: 367b6c3fdf9bbb84fb4f92cecd0b82e6, type: 3}
+  dropCount: 1
 --- !u!1 &1088504639
 GameObject:
   m_ObjectHideFlags: 0
@@ -66759,6 +66761,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8639733580423963264, guid: 55456d47de2789443a73b2dca826802f, type: 3}
+      propertyPath: lootPrefab
+      value: 
+      objectReference: {fileID: 3371851994863546288, guid: 367b6c3fdf9bbb84fb4f92cecd0b82e6, type: 3}
     - target: {fileID: 8744527011688972858, guid: 55456d47de2789443a73b2dca826802f, type: 3}
       propertyPath: chaseRadius
       value: 6
@@ -66961,9 +66967,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 638203172}
     - target: {fileID: 5264587088437341232, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
+      propertyPath: dropCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5264587088437341232, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
       propertyPath: maxHealth
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 5264587088437341232, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
+      propertyPath: lootPrefab
+      value: 
+      objectReference: {fileID: 3371851994863546288, guid: 367b6c3fdf9bbb84fb4f92cecd0b82e6, type: 3}
     - target: {fileID: 5827011825843627711, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
       propertyPath: m_Controller
       value: 
