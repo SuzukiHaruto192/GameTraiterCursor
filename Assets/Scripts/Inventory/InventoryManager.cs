@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] List<ItemData> items = new List<ItemData>();
+    public List<ItemData> items = new List<ItemData>();
     [SerializeField] int maxSlots = 10;
 
     public void AddItem(ItemData newItem)
