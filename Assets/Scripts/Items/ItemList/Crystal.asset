@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Crystal
   icon: {fileID: 21300000, guid: 26ec53857118b7e438e746a1e20c61a6, type: 3}
+  itemDescription: "Vi\xEAn \u0111\xE1 qu\xFD r\u1EF1c r\u1EE1 ch\u1EE9a \u0111\u1EF1ng
+    n\u0103ng l\u01B0\u1EE3ng c\xF4 \u0111\u1EB7c. \u0110\xE2y l\xE0 lo\u1EA1i ti\u1EC1n
+    t\u1EC7 qu\xFD hi\u1EBFm \u0111\u01B0\u1EE3c c\xE1c th\u01B0\u01A1ng nh\xE2n
+    s\u0103n \u0111\xF3n"
