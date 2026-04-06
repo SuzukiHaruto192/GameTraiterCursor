@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2485551577458406675}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.48, y: -0.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41,14 +41,16 @@ GameObject:
   m_Component:
   - component: {fileID: 8583305840081716400}
   - component: {fileID: 5980793974604409989}
+  - component: {fileID: 5827011825843627711}
   - component: {fileID: 5264587088437341232}
   - component: {fileID: 5495381327759337176}
   - component: {fileID: 2288530750141991603}
-  - component: {fileID: 4861608192628790900}
   - component: {fileID: 2936264867834989549}
+  - component: {fileID: 4861608192628790900}
+  - component: {fileID: 892243902107881661}
   m_Layer: 9
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +64,7 @@ Transform:
   m_GameObject: {fileID: 6281678345105384798}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.83, y: -2.24, z: 0}
+  m_LocalPosition: {x: 22.61, y: -1.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -119,16 +121,38 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 7c9b1995fff1d4a4e878551e78796f0f, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -7561338356608114344, guid: 8a1e947fda8c9384e88ef45450476ac1, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &5827011825843627711
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6281678345105384798}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c3c6676d37ca6d479f681ae9c2522a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5264587088437341232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +165,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009e5bffc4ee31d48923a701714c2dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 100
+  maxHealth: 20
+  currentHealth: 0
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
+  destroyDelay: 0.2
+  lootPrefab: {fileID: 3371851994863546288, guid: 367b6c3fdf9bbb84fb4f92cecd0b82e6, type: 3}
+  dropCount: 3
 --- !u!50 &5495381327759337176
 Rigidbody2D:
   serializedVersion: 5
@@ -181,13 +211,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3756e599a63354d9f204b7d7f39898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
+  canMove: 1
+  knockbackForce: 3
+  knockbackDuration: 0.1
+  stunDuration: 0.5
   moveSpeed: 2
   groundDetection: {fileID: 7056402413939338724}
   distance: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  canMove: 1
+--- !u!114 &2936264867834989549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6281678345105384798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988bbeae596d8de438bc3acc55e18072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMeleeAttack
+  attackRange: 1.5
+  attackRadius: 0.8
+  attackPoint: {fileID: 3474725620295261571}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  damage: 10
+  knockbackPower: 5
+  windUpTime: 0.5
+  attackCooldown: 1.5
+  player: {fileID: 0}
 --- !u!70 &4861608192628790900
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -204,7 +260,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -222,32 +278,25 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.11000001, y: -0.14322308}
-  m_Size: {x: 2.5723784, y: 1.5737064}
+  m_Offset: {x: -0.11042695, y: -0.23862638}
+  m_Size: {x: 1.7380464, y: 1.4000285}
   m_Direction: 1
---- !u!114 &2936264867834989549
+--- !u!114 &892243902107881661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6281678345105384798}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 988bbeae596d8de438bc3acc55e18072, type: 3}
+  m_Script: {fileID: 11500000, guid: ddb0f2125fb51b646a7f2251a3a40540, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMeleeAttack
-  attackRange: 3
-  attackRadius: 2
-  attackPoint: {fileID: 3474725620295261571}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  damage: 10
-  knockbackPower: 5
-  windUpTime: 0.5
-  attackCooldown: 1.5
-  player: {fileID: 0}
+  m_EditorClassIdentifier: '::'
+  knockbackForce: 5
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.1
+  fadeDuration: 0.5
 --- !u!1 &7413931492473610351
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +321,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7413931492473610351}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.95, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

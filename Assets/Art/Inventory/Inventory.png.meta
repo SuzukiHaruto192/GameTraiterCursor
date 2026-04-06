@@ -1,0 +1,267 @@
+fileFormatVersion: 2
+guid: 127667673e8ac9e4598722b4dc2c7385
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 739905185230883310
+    second: Inventory_0
+  - first:
+      213: 5223370693312396623
+    second: Inventory_1
+  - first:
+      213: 2955297733908575915
+    second: Inventory_2
+  - first:
+      213: 141063693582682956
+    second: Inventory_3
+  - first:
+      213: 3567876534770325076
+    second: Inventory_4
+  - first:
+      213: 2296321019496089666
+    second: Inventory_5
+  - first:
+      213: -4910467378755017893
+    second: Inventory_6
+  - first:
+      213: -5604920543791102885
+    second: Inventory_7
+  - first:
+      213: 6112630769584023636
+    second: Inventory_8
+  - first:
+      213: -5280726875750141052
+    second: Inventory_9
+  - first:
+      213: 6869799574784150816
+    second: Inventory_10
+  - first:
+      213: -7467943668291976704
+    second: Inventory_11
+  - first:
+      213: 6154510391789251421
+    second: Inventory_12
+  - first:
+      213: 6954150254032427501
+    second: Inventory_13
+  - first:
+      213: 2159158366179690892
+    second: Inventory_14
+  - first:
+      213: -3526832816626302041
+    second: Inventory_15
+  - first:
+      213: 3899455657371666750
+    second: Inventory_16
+  - first:
+      213: 7089385512954985418
+    second: Inventory_17
+  - first:
+      213: -8309026227576324564
+    second: Inventory_18
+  - first:
+      213: 716187651507184709
+    second: Inventory_19
+  - first:
+      213: 5962780575672658813
+    second: Inventory_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Inventory_0
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 350
+        width: 720
+        height: 556
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee9082588dba44a00800000000000000
+      internalID: 739905185230883310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inventory_1
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 369
+        width: 124
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 116}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4d321198f32d7840800000000000000
+      internalID: 5223370693312396623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inventory_7
+      rect:
+        serializedVersion: 2
+        x: 1286
+        y: 522
+        width: 113
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b54ca0926725732b0800000000000000
+      internalID: -5604920543791102885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a6daff0cce9d1ec4580f1170e1eed539
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Inventory_0: 739905185230883310
+      Inventory_1: 5223370693312396623
+      Inventory_10: 6869799574784150816
+      Inventory_11: -7467943668291976704
+      Inventory_12: 6154510391789251421
+      Inventory_13: 6954150254032427501
+      Inventory_14: 2159158366179690892
+      Inventory_15: -3526832816626302041
+      Inventory_16: 3899455657371666750
+      Inventory_17: 7089385512954985418
+      Inventory_18: -8309026227576324564
+      Inventory_19: 716187651507184709
+      Inventory_2: 2955297733908575915
+      Inventory_20: 5962780575672658813
+      Inventory_3: 141063693582682956
+      Inventory_4: 3567876534770325076
+      Inventory_5: 2296321019496089666
+      Inventory_6: -4910467378755017893
+      Inventory_7: -5604920543791102885
+      Inventory_8: 6112630769584023636
+      Inventory_9: -5280726875750141052
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
