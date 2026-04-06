@@ -1211,6 +1211,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &90290268 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4301510418787560384, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+  m_PrefabInstance: {fileID: 1141460491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &90290269 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7918392365761035373, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+  m_PrefabInstance: {fileID: 1141460491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &90290272
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90290268}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &95760641
 GameObject:
   m_ObjectHideFlags: 0
@@ -5948,6 +5970,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &186041893 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2524848977629488573, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+  m_PrefabInstance: {fileID: 1141460491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &191862624
 GameObject:
   m_ObjectHideFlags: 0
@@ -12070,6 +12103,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 638203158}
+  - {fileID: 1627586542}
   - {fileID: 376528415}
   - {fileID: 1083817608}
   m_Father: {fileID: 0}
@@ -12694,6 +12728,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &350542076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5229733066652435709, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+  m_PrefabInstance: {fileID: 1141460491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &351549766
 GameObject:
   m_ObjectHideFlags: 0
@@ -39246,6 +39291,7 @@ GameObject:
   - component: {fileID: 1081041914}
   - component: {fileID: 1081041913}
   - component: {fileID: 1081041917}
+  - component: {fileID: 1081041918}
   m_Layer: 5
   m_Name: InventoryCanvas
   m_TagString: Untagged
@@ -39311,7 +39357,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 10
@@ -39353,6 +39399,22 @@ MonoBehaviour:
   container: {fileID: 1434290641}
   slotPrefab: {fileID: 5293703391814062034, guid: b983ad82cc3f5994ca2f9c6633916af2, type: 3}
   inventory: {fileID: 1440234497}
+--- !u!114 &1081041918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081041912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0353b3e8f4633743a797b2e41ba4b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemTooltipUI
+  tooltipObj: {fileID: 90290268}
+  itemIcon: {fileID: 186041893}
+  titleText: {fileID: 350542076}
+  descriptionText: {fileID: 1357627970}
 --- !u!1 &1081918282
 GameObject:
   m_ObjectHideFlags: 0
@@ -39748,7 +39810,7 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.15
   destroyDelay: 0.2
-  dropItem: {fileID: 0}
+  dropItem: {fileID: 11400000, guid: 1bf895f03f09a2c49aee63100d552280, type: 2}
   dropCount: 1
 --- !u!1 &1094235376
 GameObject:
@@ -40887,6 +40949,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1434290641}
+  - {fileID: 90290269}
   m_Father: {fileID: 1081041916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -43607,8 +43670,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   items:
-  - {fileID: 11400000, guid: 1bf895f03f09a2c49aee63100d552280, type: 2}
-  maxSlots: 10
+  - itemData: {fileID: 0}
+    quantity: 0
+  maxInventorySlots: 10
+  maxSlotQuantity: 99
 --- !u!4 &1440234498
 Transform:
   m_ObjectHideFlags: 0
@@ -60095,6 +60160,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 376528431}
     - target: {fileID: 8639733580423963264, guid: 55456d47de2789443a73b2dca826802f, type: 3}
+      propertyPath: dropItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 1bf895f03f09a2c49aee63100d552280, type: 2}
+    - target: {fileID: 8639733580423963264, guid: 55456d47de2789443a73b2dca826802f, type: 3}
       propertyPath: inventory
       value: 
       objectReference: {fileID: 1440234497}
@@ -60332,6 +60401,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 638203172}
     - target: {fileID: 5264587088437341232, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
+      propertyPath: dropItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fb70e282de2be944b73ce218405257e, type: 2}
+    - target: {fileID: 5264587088437341232, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
       propertyPath: dropCount
       value: 3
       objectReference: {fileID: 0}
@@ -60373,11 +60446,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8583305840081716400, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.94
+      value: 19.88
       objectReference: {fileID: 0}
     - target: {fileID: 8583305840081716400, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.82
+      value: -2.01
       objectReference: {fileID: 0}
     - target: {fileID: 8583305840081716400, guid: 35ff0d1309015cb4ba988d401c5f4f46, type: 3}
       propertyPath: m_LocalPosition.z
