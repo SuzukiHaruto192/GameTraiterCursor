@@ -22,7 +22,7 @@ TagManager:
   - Enemy
   - Wall
   - OneWayGround
-  - 
+  - InvisibleGround
   - 
   - 
   - 
