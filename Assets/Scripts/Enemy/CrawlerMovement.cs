@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-// Kế thừa từ EnemyMovementBase thay vì MonoBehaviour
+// Kế thừa từ EnemyMovementBase
+[RequireComponent(typeof(Animator))] // Bắt buộc phải có Animator
 public class CrawlerMovement : EnemyMovementBase
 {
     public float speed = 3f;
@@ -12,15 +13,28 @@ public class CrawlerMovement : EnemyMovementBase
     [Header("Độ trễ nhô ra mép vực")]
     public float edgeOffset = 0f;
 
+    private Animator anim; // Khai báo biến Animator
+
     void Start()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null) rb.bodyType = RigidbodyType2D.Kinematic;
+
+        // Lấy Animator Component
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        // GỌI BIẾN CỦA LỚP CHA: Nếu bị đánh/choáng thì không tính toán di chuyển nữa
+        // --- CHÌA KHÓA ANIMATION Ở ĐÂY ---
+        // Nếu canMove = true (đang đi) -> Tốc độ animation là 1 (Chạy bình thường)
+        // Nếu canMove = false (bị chém choáng hoặc chết) -> Tốc độ animation là 0 (Đứng hình)
+        if (anim != null)
+        {
+            anim.speed = canMove ? 1f : 0f;
+        }
+
+        // Nếu bị đánh/choáng/chết thì không tính toán di chuyển nữa
         if (!canMove) return;
 
         // 1. LUÔN LUÔN TIẾN LÊN

@@ -133,13 +133,13 @@ TextureImporter:
       name: Lazer_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 1280
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 1}
       customData: 
       outline: []
       physicsShape: []
@@ -155,9 +155,9 @@ TextureImporter:
       name: Lazer_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1152
-        width: 512
+        x: 44
+        y: 1150
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -177,9 +177,9 @@ TextureImporter:
       name: Lazer_2
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 1024
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -199,9 +199,9 @@ TextureImporter:
       name: Lazer_3
       rect:
         serializedVersion: 2
-        x: 0
+        x: 43
         y: 896
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -221,9 +221,9 @@ TextureImporter:
       name: Lazer_4
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 768
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -243,9 +243,9 @@ TextureImporter:
       name: Lazer_5
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 640
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -265,9 +265,9 @@ TextureImporter:
       name: Lazer_6
       rect:
         serializedVersion: 2
-        x: 0
+        x: 43
         y: 512
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -287,9 +287,9 @@ TextureImporter:
       name: Lazer_7
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 384
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -309,9 +309,9 @@ TextureImporter:
       name: Lazer_8
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 256
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -331,9 +331,9 @@ TextureImporter:
       name: Lazer_9
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 128
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -353,9 +353,9 @@ TextureImporter:
       name: Lazer_10
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 0
-        width: 512
+        width: 426
         height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
