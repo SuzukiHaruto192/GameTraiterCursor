@@ -16,26 +16,36 @@ public class EnemyHealth : MonoBehaviour
     private Coroutine flashCoroutine;
 
     [Header("Xử lý Cái chết & Vật phẩm rơi (Loot)")]
-    private InventoryManager inventory;                     
-    public float destroyDelay = 0.2f;
-    [SerializeField] private ItemData dropItem;              //Muốn tạo item mới thì ấn Create --> Chọn Iventory --> Chọn Item --> Thêm sprite, tên Item rồi kéo vào ô này
-    private GameObject lootPrefab;
-    [Range(0, 5)] public int dropCount = 1;                 // Số lượng rớt ra
+    private InventoryManager inventory;
+    [SerializeField] private ItemData dropItem;
+
+    // [ĐÃ SỬA] Thay vì dùng code Find, ta mở ra Inspector để kéo thả Prefab cho chắc chắn!
+    [SerializeField] private GameObject lootPrefab;
+    [Range(0, 5)] public int dropCount = 1;
 
     private bool isDead = false;
     private Collider2D enemyCollider;
     private EnemyMovementBase movementScript;
+
+    private Animator anim;
+    private Rigidbody2D rb;
 
     void Start()
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+
         enemyCollider = GetComponent<Collider2D>();
         movementScript = GetComponent<EnemyMovementBase>();
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
 
-        lootPrefab = GameObject.FindGameObjectWithTag("LootPrefab");
-        inventory = GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>(); // Liên kết với GameManager
+        // [ĐÃ SỬA] Dùng GetComponentInChildren vì InventoryManager là Object Con!
+        if (GameManager.Instance != null)
+        {
+            inventory = GameManager.Instance.GetComponentInChildren<InventoryManager>();
+        }
     }
 
     public void TakeDamage(int damage, Vector2 attackerPos)
@@ -43,14 +53,11 @@ public class EnemyHealth : MonoBehaviour
         if (isDead) return;
 
         currentHealth -= damage;
-        Debug.Log(">>> QUÁI BỊ CHÉM! Mất " + damage + " máu. Máu hiện tại còn: " + currentHealth + "/" + maxHealth);
+        StartFlash();
+        if (anim != null) anim.SetTrigger("Hurt");
+        if (movementScript != null) movementScript.OnDamageTaken(attackerPos);
 
-        if (currentHealth > 0)
-        {
-            StartFlash();
-            if (movementScript != null) movementScript.OnDamageTaken(attackerPos);
-        }
-        else
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -77,25 +84,51 @@ public class EnemyHealth : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        Debug.Log(">>> QUÁI [" + gameObject.name + "] ĐÃ CHẾT! <<<");
 
-        if (enemyCollider != null) enemyCollider.enabled = false;
         if (movementScript != null) movementScript.enabled = false;
 
-        // ---> HỆ THỐNG RƠI ĐỒ Ở ĐÂY <---
-        if (dropItem != null)
+        EnemyMeleeAttack melee = GetComponent<EnemyMeleeAttack>();
+        if (melee != null) melee.enabled = false;
+
+        EnemyRangedAttack ranged = GetComponent<EnemyRangedAttack>();
+        if (ranged != null) ranged.enabled = false;
+
+        EnemyContactDamage contactHurt = GetComponent<EnemyContactDamage>();
+        if (contactHurt != null) contactHurt.enabled = false;
+
+        // [ĐÃ SỬA LỖI XUYÊN MAP] Ép nó thành vật thể cứng để đập vào mặt đất
+        if (enemyCollider != null)
+        {
+            enemyCollider.isTrigger = false;
+        }
+
+        if (rb != null)
+        {
+            rb.gravityScale = 1f;
+            // Hãm phanh ngang lại lỡ con dơi đang bay nhanh quá trôi tuột đi
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        }
+
+        if (anim != null) anim.SetBool("isDead", true);
+    }
+
+    public void OnAnimationDeadFinish()
+    {
+        // 1. Rơi đồ
+        if (dropItem != null && lootPrefab != null && inventory != null)
         {
             for (int i = 0; i < dropCount; i++)
             {
-                // Sinh ra viên pha lê tại vị trí của quái vật
-                lootPrefab.GetComponent<SpriteRenderer>().sprite = dropItem.icon;
-                Instantiate(lootPrefab, transform.position, Quaternion.identity);
+                // Sinh ra Prefab vật phẩm
+                GameObject droppedLoot = Instantiate(lootPrefab, transform.position, Quaternion.identity);
+                droppedLoot.GetComponent<SpriteRenderer>().sprite = dropItem.icon;
 
-                // Thêm item vào túi đồ
+                // Cộng thẳng vào túi đồ (Lưu ý: Nếu bạn muốn Player nhặt chạm vào mới cộng thì phải sửa logic chỗ này)
                 inventory.AddItem(dropItem);
             }
         }
 
-        Destroy(gameObject, destroyDelay);
+        // 2. Tiêu hủy hoàn toàn
+        Destroy(gameObject);
     }
 }

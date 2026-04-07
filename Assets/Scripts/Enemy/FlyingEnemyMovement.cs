@@ -40,14 +40,14 @@ public class FlyingEnemyMovement : EnemyMovementBase
         // Xác định hướng nhìn ban đầu dựa trên scale X
         moveDirection = transform.localScale.x < 0 ? -1 : 1;
 
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.useFullKinematicContacts = true;
-
         if (anim != null) anim.SetBool("isMove", true);
 
         // Tìm Player
-        GameObject p = GameObject.FindGameObjectWithTag("Player");
-        if (p != null) player = p.transform;
+        // CÁCH MỚI
+        if (GameManager.Instance != null && GameManager.Instance.player != null)
+        {
+            player = GameManager.Instance.player;
+        }
     }
 
     void FixedUpdate()
@@ -139,6 +139,14 @@ public class FlyingEnemyMovement : EnemyMovementBase
             scale.x *= -1; // Lật hình
             transform.localScale = scale;
         }
+    }
+
+    // --- ĐỒNG BỘ NÃO BỘ VÀ THỂ XÁC SAU KHI BỊ CHÉM ---
+    protected override void OnStunEnd()
+    {
+        // Ép cái Não (logicalPosition) phải cập nhật lại đúng vị trí hiện tại của cái Xác
+        // Để khi tỉnh dậy nó đi tiếp từ điểm bị văng, chứ không giật lùi về điểm cũ nữa!
+        logicalPosition = transform.position;
     }
 
     // Vẽ vòng tròn ra Scene để bạn dễ dàng căn chỉnh

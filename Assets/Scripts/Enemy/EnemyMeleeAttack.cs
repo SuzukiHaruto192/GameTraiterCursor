@@ -24,7 +24,12 @@ public class EnemyMeleeAttack : MonoBehaviour
     void Start()
     {
         groundMovement = GetComponent<EnemyMovement>();
-        if (player == null) player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // CÁCH MỚI: Lấy trực tiếp từ GameManager, tốc độ ánh sáng!
+        if (GameManager.Instance != null && GameManager.Instance.player != null)
+        {
+            player = GameManager.Instance.player;
+        }
     }
 
     void Update()

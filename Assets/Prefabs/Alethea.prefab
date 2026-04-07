@@ -4916,6 +4916,7 @@ GameObject:
   - component: {fileID: 5961862991096417214}
   - component: {fileID: 3910316888860348418}
   - component: {fileID: 2072348085663106088}
+  - component: {fileID: 8140802993398340448}
   m_Layer: 7
   m_Name: Alethea
   m_TagString: Player
@@ -5120,7 +5121,7 @@ MonoBehaviour:
   speed: 10
   jumpForce: 10
   fallMultiplier: 6
-  lowJumpMultiplier: 2
+  lowJumpMultiplier: 3
   dashForce: 30
   dashTime: 0.2
   windEffect: {fileID: 6072361239486877102}
@@ -5130,7 +5131,7 @@ MonoBehaviour:
   groundCheckSize: {x: 0.5, y: 0.1}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
   wallCheck: {fileID: 7657111886778088008}
   wallCheckSize: {x: 0.2, y: 3}
   wallLayer:
@@ -5140,12 +5141,13 @@ MonoBehaviour:
   wallCoyoteTime: 0.15
   wallCoyoteTimer: 0
   lastWallDirection: 0
-  attackDamage: 0
+  attackDamage: 2
   attackPoint: {fileID: 457354431495046846}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 512
-  effectController: {fileID: 0}
+  effectController: {fileID: 8140802993398340448}
+  pogoBounceForce: 15
   atk1Pos: {x: 1.5, y: -0.2}
   atk1Size: {x: 4, y: 2.8}
   atk2Pos: {x: 1, y: -0.2}
@@ -5158,12 +5160,13 @@ MonoBehaviour:
   airUpSize: {x: 3, y: 5}
   airDownPos: {x: 0, y: -2}
   airDownSize: {x: 3, y: 2}
-  pogoBounceForce: 15
   currentHitboxSize: {x: 0, y: 0}
+  isFacingRight: 1
   canDash: 1
   canAirAttack: 1
   canDoubleJump: 1
   isInvincible: 0
+  isDropping: 0
 --- !u!114 &3910316888860348418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5196,7 +5199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineImpulseSource
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
-    m_ImpulseShape: 2
+    m_ImpulseShape: 1
     m_CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []
@@ -5234,7 +5237,20 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: -1, z: 0}
+  m_DefaultVelocity: {x: 1, y: 1, z: 0}
+--- !u!114 &8140802993398340448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955818189908562103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e16e4c3cf151914f9929b3049bc9412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitEffectPlayer
+  hitEffectPrefab: {fileID: 0}
 --- !u!1 &8581268139048034457
 GameObject:
   m_ObjectHideFlags: 0

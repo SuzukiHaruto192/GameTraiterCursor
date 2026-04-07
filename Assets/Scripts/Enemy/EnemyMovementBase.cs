@@ -1,47 +1,68 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovementBase : MonoBehaviour
 {
     [Header("Trạng thái chung của Quái")]
     public bool canMove = true;
 
     [Header("Cài đặt Hiệu ứng Bị đánh (Hit Reaction)")]
-    public float knockbackForce = 3f;      // Lực văng ra xa
-    public float knockbackDuration = 0.1f; // Thời gian bị văng
-    public float stunDuration = 0.5f;      // Tổng thời gian bị choáng (đứng im)
+    public float knockbackForce = 7f;      // Chỉnh to lên tí vì dùng AddForce vật lý
+    public float stunDuration = 0.5f;      // Tổng thời gian bị choáng
 
-    // Hàm này sẽ được EnemyHealth gọi khi quái mất máu
+    protected Rigidbody2D rbBase;
+
+    protected virtual void Awake()
+    {
+        rbBase = GetComponent<Rigidbody2D>();
+    }
+
+    // Thêm một biến kẹp giấy để quản lý riêng tác vụ "Bị đánh"
+    private Coroutine hitCoroutine;
+
     public void OnDamageTaken(Vector2 attackerPos)
     {
-        StopAllCoroutines(); // Reset lại từ đầu nếu bị chém bồi liên tục
-        StartCoroutine(HitReactionRoutine(attackerPos));
+        // 1. CHỈ dừng tờ giấy "Bị đánh" cũ (nếu có), tuyệt đối KHÔNG đụng đến tờ giấy "Tuần tra"
+        if (hitCoroutine != null)
+        {
+            StopCoroutine(hitCoroutine);
+        }
+
+        // 2. Phát tờ giấy "Bị đánh" mới và kẹp nó vào biến hitCoroutine
+        hitCoroutine = StartCoroutine(HitReactionRoutine(attackerPos));
     }
 
     private IEnumerator HitReactionRoutine(Vector2 attackerPos)
     {
-        // 1. Bắt đầu choáng -> Khóa di chuyển của mọi Lớp Con
         canMove = false;
 
-        // 2. Thực hiện văng lùi (Knockback)
-        float timer = 0f;
-        Vector2 knockbackDir = ((Vector2)transform.position - attackerPos).normalized;
-
-        while (timer < knockbackDuration)
+        // Xóa gia tốc cũ và tạo lực văng lùi (Vật lý chuẩn)
+        if (rbBase != null)
         {
-            transform.Translate(knockbackDir * knockbackForce * Time.deltaTime, Space.World);
-            timer += Time.deltaTime;
-            yield return null;
+            rbBase.linearVelocity = Vector2.zero; // Dừng mọi di chuyển cũ
+
+            // Tính hướng văng (đẩy ra xa khỏi Player)
+            Vector2 knockbackDir = ((Vector2)transform.position - attackerPos).normalized;
+            knockbackDir.y = 0.5f; // Ép nảy lên một chút cho có lực
+
+            // Áp dụng lực (Quái sẽ tự bị cản lại nếu đụng tường)
+            rbBase.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
         }
 
-        // 3. Đứng im chờ hết thời gian choáng
-        // (Trừ đi khoảng thời gian đã dùng để bay lùi ở trên)
-        if (stunDuration > knockbackDuration)
+        // Đứng im chờ hết thời gian choáng
+        yield return new WaitForSeconds(stunDuration);
+
+        // Hết choáng -> Phanh quái lại để không bị trôi tuột đi như sân băng
+        if (rbBase != null)
         {
-            yield return new WaitForSeconds(stunDuration - knockbackDuration);
+            rbBase.linearVelocity = Vector2.zero;
         }
 
-        // 4. Giải trừ choáng -> Cho phép quái đi lại bình thường
         canMove = true;
+        OnStunEnd(); // Gọi hàm đồng bộ cho các lớp con
     }
+
+    // Hàm ảo để các quái đặc biệt tự sửa dáng/tọa độ sau khi bị văng
+    protected virtual void OnStunEnd() { }
 }

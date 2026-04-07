@@ -20,12 +20,12 @@ public class EnemyRangedAttack : MonoBehaviour
     void Start()
     {
         flyingMovement = GetComponent<FlyingEnemyMovement>();
-        anim = GetComponent<Animator>(); // Lấy Animator của con dơi
+        anim = GetComponent<Animator>();
 
-        if (player == null)
+        // CÁCH MỚI
+        if (GameManager.Instance != null && GameManager.Instance.player != null)
         {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null) player = playerObj.transform;
+            player = GameManager.Instance.player;
         }
     }
 
