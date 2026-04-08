@@ -222,7 +222,7 @@ MonoBehaviour:
   forwardDistance: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 5376
 --- !u!114 &2936264867834989549
 MonoBehaviour:
   m_ObjectHideFlags: 0
