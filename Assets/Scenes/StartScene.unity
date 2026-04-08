@@ -18409,23 +18409,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineFramingTransposer
-  m_TrackedObjectOffset: {x: 0, y: 2.5, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 3, z: 0}
   m_LookaheadTime: 0.2
   m_LookaheadSmoothing: 0.3
   m_LookaheadIgnoreY: 1
-  m_XDamping: 0.3
-  m_YDamping: 2
+  m_XDamping: 0.1
+  m_YDamping: 0.1
   m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 10
-  m_DeadZoneWidth: 0.4
-  m_DeadZoneHeight: 0.2
+  m_CameraDistance: 30
+  m_DeadZoneWidth: 0.1
+  m_DeadZoneHeight: 0.1
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.87
+  m_SoftZoneWidth: 0.2
+  m_SoftZoneHeight: 0.2
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -93762,8 +93762,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  field of view: 30
+  orthographic: 0
   orthographic size: 7
   m_Depth: -1
   m_CullingMask:
@@ -93789,7 +93789,7 @@ Transform:
   m_GameObject: {fileID: 1098574884}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.290001, y: -3.7099998, z: -10}
+  m_LocalPosition: {x: -3.3755398, y: 3.62218, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -93856,7 +93856,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 0
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -106987,7 +106987,7 @@ Transform:
   m_GameObject: {fileID: 1948461421}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.290001, y: -3.7099998, z: -10}
+  m_LocalPosition: {x: -17.9, y: 5.8, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -107031,7 +107031,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 579062125}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 30
     OrthographicSize: 7
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -107494,11 +107494,11 @@ PrefabInstance:
       objectReference: {fileID: 1867375615}
     - target: {fileID: 5347509223354524396, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.29
+      value: -17.9
       objectReference: {fileID: 0}
     - target: {fileID: 5347509223354524396, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.21
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 5347509223354524396, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
       propertyPath: m_LocalPosition.z
@@ -107539,7 +107539,7 @@ PrefabInstance:
     - target: {fileID: 8140802993398340448, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
       propertyPath: hitEffectPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8214783446307954751, guid: ebc31064205f0bf4ea40c19a295679c9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
