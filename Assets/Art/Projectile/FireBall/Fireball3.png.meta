@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 20ac7fb2b9adba74691049685e959c67
+guid: 42e407885aa68d04d8d9192e0c7f0498
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1266301425432979501
-    second: 6f7b4dab-88bf-4977-bcf1-3d0498735a1a_0
+      213: -8684620467901934684
+    second: Fireball3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 6f7b4dab-88bf-4977-bcf1-3d0498735a1a_0
+      name: Fireball3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 64
+        x: 17
+        y: 8
+        width: 37
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d28e081ff6ec29110800000000000000
-      internalID: 1266301425432979501
+      spriteID: 4a35e9192b70a7780800000000000000
+      internalID: -8684620467901934684
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      6f7b4dab-88bf-4977-bcf1-3d0498735a1a_0: 1266301425432979501
+      Fireball3_0: -8684620467901934684
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
