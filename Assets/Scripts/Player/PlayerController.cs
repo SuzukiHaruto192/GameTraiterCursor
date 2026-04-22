@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour
             Vector2 exactHitPoint = enemy.ClosestPoint(attackPoint.position);
             if (effectController != null) effectController.PlayHitEffect(exactHitPoint);
 
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            EnemyHealthBase enemyHealth = enemy.GetComponent<EnemyHealthBase>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(attackDamage, transform.position);

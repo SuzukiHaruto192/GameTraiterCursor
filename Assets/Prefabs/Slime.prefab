@@ -45,9 +45,10 @@ GameObject:
   - component: {fileID: 5264587088437341232}
   - component: {fileID: 5495381327759337176}
   - component: {fileID: 2288530750141991603}
-  - component: {fileID: 2936264867834989549}
   - component: {fileID: 4861608192628790900}
   - component: {fileID: 892243902107881661}
+  - component: {fileID: 1671498187836358147}
+  - component: {fileID: -3361538159000169949}
   m_Layer: 9
   m_Name: Slime
   m_TagString: Enemy
@@ -166,9 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 20
-  currentHealth: 0
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.15
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
   dropItem: {fileID: 11400000, guid: 0fb70e282de2be944b73ce218405257e, type: 2}
   lootPrefab: {fileID: 3371851994863546288, guid: 367b6c3fdf9bbb84fb4f92cecd0b82e6, type: 3}
   dropCount: 3
@@ -223,29 +223,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 5376
---- !u!114 &2936264867834989549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6281678345105384798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 988bbeae596d8de438bc3acc55e18072, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMeleeAttack
-  attackRange: 1.5
-  attackRadius: 0.8
-  attackPoint: {fileID: 3474725620295261571}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  damage: 1
-  knockbackPower: 5
-  windUpTime: 0.5
-  attackCooldown: 1.5
-  player: {fileID: 0}
 --- !u!70 &4861608192628790900
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -299,6 +276,34 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
   fadeDuration: 0.5
+--- !u!114 &1671498187836358147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6281678345105384798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a9554006eac554997f1ef05aa8b63a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
+  contactDamage: 10
+  knockbackPower: 15
+--- !u!114 &-3361538159000169949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6281678345105384798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a9554006eac554997f1ef05aa8b63a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
+  contactDamage: 10
+  knockbackPower: 15
 --- !u!1 &7413931492473610351
 GameObject:
   m_ObjectHideFlags: 0

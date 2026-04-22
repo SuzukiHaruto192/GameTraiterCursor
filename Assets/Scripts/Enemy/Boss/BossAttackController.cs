@@ -1,74 +1,80 @@
 ﻿using UnityEngine;
-using System.Collections; // Cần thiết để sử dụng IEnumerator (đợi thời gian)
+using System.Collections;
+using System.Collections.Generic; // Bắt buộc phải có để dùng List (Danh sách)
 
 public class BossAttackController : MonoBehaviour
 {
     [Header("Cài đặt Đạn/Laser Ngang")]
-    // ---> ĐÃ CẬP NHẬT: Kéo Prefab Laser (có script SpriteBossLaser.cs) vào ô này <---
     public GameObject horizontalLaserPrefab;
-    public Transform highFirePoint;          // Điểm bắn trên cao
-    public Transform lowFirePoint;           // Điểm bắn dưới thấp
+    public Transform highFirePoint;
+    public Transform lowFirePoint;
 
-    [Header("Cài đặt Mưa Thiên Thạch (Dự phòng)")]
+    [Header("Cài đặt Mưa Thiên Thạch")]
     public GameObject meteorPrefab;
     public Transform meteorSpawnArea;
     public float spawnWidth = 15f;
     public int meteorsPerWave = 5;
     public float timeBetweenMeteors = 0.2f;
 
+    [Header("Cài đặt Triệu hồi Quái (Slime)")]
+    public GameObject slimePrefab;
+    public Transform[] slimeSpawnPoints;
+    public int slimesPerWave = 2;
+    public float timeBetweenSpawns = 0.5f;
+
+    [Header("Giới hạn Quái")]
+    public int maxSlimesOnScreen = 4;        // Số lượng Slime tối đa được phép có trên sân
+    [Range(0f, 1f)]
+    [Tooltip("Mốc mở khóa (0.25 = Còn sống 25%, tức là đã giết 75%)")]
+    public float unlockSpawnRatio = 0.25f;
+
+    private List<GameObject> activeSlimes = new List<GameObject>(); // Cuốn sổ ghi danh Slime
+    private bool isSpawningLocked = false;   // Cờ khóa kỹ năng đẻ quái
+    // ----------------------------------------
+
     [Header("Thời gian chung")]
-    public float fireRate = 3f;             // Cứ 3 giây Boss tung chiêu 1 lần
+    public float fireRate = 3f;
     private float nextFireTime;
+
+    private BossMovement movementScript;
+
+    void Start()
+    {
+        movementScript = GetComponent<BossMovement>();
+    }
 
     void Update()
     {
-        // Kiểm tra xem đã đến giờ tung chiêu chưa
         if (Time.time >= nextFireTime)
         {
-            // Boss tung đồng xu: 0 là bắn laser ngang, 1 là gọi thiên thạch
-            // (Bạn có thể tăng tỉ lệ ra laser bằng cách chỉnh Random.Range(0, 5) và if attackType < 4 chẳng hạn)
-            int attackType = Random.Range(0, 2);
-
-            if (attackType == 0)
+            if (movementScript != null)
             {
-                // Gọi Coroutine để xử lý việc bắn laser (cần đợi thời gian ngắm)
-                StartCoroutine(FireHorizontalLaserRoutine());
-            }
-            else
-            {
-                // Gọi mưa thiên thạch (vẫn giữ nguyên như cũ)
-                StartCoroutine(DropMeteors());
+                movementScript.HaltMovementForAttack(1f);
             }
 
-            nextFireTime = Time.time + fireRate; // Hẹn giờ cho lần bắn tiếp theo
+            int attackType = Random.Range(0, 3);
+
+            if (attackType == 0) StartCoroutine(FireHorizontalLaserRoutine());
+            else if (attackType == 1) StartCoroutine(DropMeteors());
+            else StartCoroutine(SpawnSlimesRoutine());
+
+            nextFireTime = Time.time + fireRate;
         }
     }
 
-    // --- MỚI: Coroutine xử lý việc bắn laser ngang có ngắm ---
     IEnumerator FireHorizontalLaserRoutine()
     {
         Debug.Log(">>> Boss tung chiêu: LASER NGANG!");
-
-        // 1. Random chọn điểm bắn cao hoặc thấp
         int randomChoice = Random.Range(0, 2);
         Transform selectedPoint = (randomChoice == 0) ? lowFirePoint : highFirePoint;
 
         if (horizontalLaserPrefab != null && selectedPoint != null)
         {
-            // 2. TẠO TIA LASER:
-            // Nó sẽ sinh ra ở FirePoint và TỰ ĐỘNG CHẠY HOẠT ẢNH NHẮM (Telegraph) 
-            // nhờ script SpriteBossLaser.cs gắn trên nó.
             Instantiate(horizontalLaserPrefab, selectedPoint.position, selectedPoint.rotation);
         }
-
-        // CHÚ Ý: Tại đây, Boss không cần phải đợi thời gian ngắm bắn nữa.
-        // Script SpriteBossLaser.cs trên tia laser sẽ tự lo phần ngắm 1 giây,
-        // sau đó tự phình to gây sát thương, rồi tự biến mất.
-
         yield return null;
     }
 
-    // --- (Giữ nguyên) Coroutine gọi mưa thiên thạch ---
     IEnumerator DropMeteors()
     {
         Debug.Log(">>> Boss tung chiêu: MƯA THIÊN THẠCH!");
@@ -84,9 +90,63 @@ public class BossAttackController : MonoBehaviour
         }
     }
 
+    // --- CẬP NHẬT LOGIC KIỂM SOÁT SỐ LƯỢNG ---
+    IEnumerator SpawnSlimesRoutine()
+    {
+        Debug.Log(">>> Boss chuẩn bị: TRIỆU HỒI SLIME!");
+        if (slimePrefab == null || slimeSpawnPoints.Length == 0) yield break;
+
+        // 1. DỌN SỔ: Tự động loại bỏ những con Slime đã bị Player chém chết (bị Destroy thành null)
+        activeSlimes.RemoveAll(item => item == null);
+
+        // 2. KIỂM TRA MỞ KHÓA: Nếu kỹ năng đang bị khóa do quá đông quái
+        if (isSpawningLocked)
+        {
+            // Tính số lượng mốc. (Ví dụ Max=4, Ratio=0.25 => threshold = 1)
+            int unlockThreshold = Mathf.FloorToInt(maxSlimesOnScreen * unlockSpawnRatio);
+
+            if (activeSlimes.Count <= unlockThreshold)
+            {
+                isSpawningLocked = false;
+                Debug.Log("Đã giết 75% Slime. MỞ KHÓA kỹ năng triệu hồi!");
+            }
+            else
+            {
+                Debug.Log($"Slime còn quá đông ({activeSlimes.Count}/{maxSlimesOnScreen}). HỦY tung chiêu đẻ.");
+                // Dừng ngang tại đây, Boss không tung chiêu gì cả để lãng phí lượt, tạo cơ hội cho Player tấn công
+                yield break;
+            }
+        }
+
+        // 3. TIẾN HÀNH ĐẺ
+        for (int i = 0; i < slimesPerWave; i++)
+        {
+            // Kiểm tra an toàn: Nếu đang đẻ giữa chừng mà chạm mốc Max thì ngừng ngay lập tức
+            if (activeSlimes.Count >= maxSlimesOnScreen)
+            {
+                isSpawningLocked = true;
+                break;
+            }
+
+            Transform randomSpawnPoint = slimeSpawnPoints[Random.Range(0, slimeSpawnPoints.Length)];
+            GameObject newSlime = Instantiate(slimePrefab, randomSpawnPoint.position, Quaternion.identity);
+
+            // Ghi tên con Slime vừa đẻ vào sổ
+            activeSlimes.Add(newSlime);
+
+            yield return new WaitForSeconds(timeBetweenSpawns);
+        }
+
+        // 4. KIỂM TRA SAU KHI ĐẺ: Nếu chạm mốc thì khóa kỹ năng lại
+        if (activeSlimes.Count >= maxSlimesOnScreen)
+        {
+            isSpawningLocked = true;
+            Debug.Log("Đã đạt Max Slime. KHÓA kỹ năng triệu hồi!");
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
-        // ... (Phần vẽ đường kẻ đỏ trên trời vẫn giữ nguyên)
         if (meteorSpawnArea != null)
         {
             Gizmos.color = Color.red;
