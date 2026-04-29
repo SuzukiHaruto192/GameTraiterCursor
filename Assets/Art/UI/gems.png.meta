@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: db1db181126198f49ae9d4d74595aca3
+guid: 33ba1f76b692b4841967e2b5c17cc586
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9166076379020795578
-    second: SwordHP 1_0
-  - first:
-      213: 4219061530594910774
-    second: SwordHP 1_1
+      213: -16793423984005362
+    second: gems_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,10 +49,10 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.57065123, y: 0.55616987}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 1080, y: 360, z: 792, w: 307}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -116,45 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SwordHP 1_0
+      name: gems_0
       rect:
         serializedVersion: 2
-        x: 1989
-        y: 726
-        width: 8
-        height: 8
+        x: 103
+        y: 116
+        width: 306
+        height: 311
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 641ed54e81e8bc080800000000000000
-      internalID: -9166076379020795578
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SwordHP 1_1
-      rect:
-        serializedVersion: 2
-        x: 1091
-        y: 378
-        width: 101
-        height: 293
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 63220a8cb1e1d8a30800000000000000
-      internalID: 4219061530594910774
+      spriteID: e0feed8487654cff0800000000000000
+      internalID: -16793423984005362
       vertices: []
       indices: 
       edges: []
@@ -164,7 +139,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SwordHP 1_0: -9166076379020795578
-      SwordHP 1_1: 4219061530594910774
+      gems_0: -16793423984005362
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

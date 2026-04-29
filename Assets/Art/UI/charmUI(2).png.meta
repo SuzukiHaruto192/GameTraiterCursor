@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: db1db181126198f49ae9d4d74595aca3
+guid: 3736ce056e33c4d4f880c3447c268893
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9166076379020795578
-    second: SwordHP 1_0
+      213: 4425672332721223056
+    second: charmUI(2)_0
   - first:
-      213: 4219061530594910774
-    second: SwordHP 1_1
+      213: 8853657713338112600
+    second: charmUI(2)_1
+  - first:
+      213: -6532493032476205012
+    second: charmUI(2)_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -52,10 +55,10 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.57065123, y: 0.55616987}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 1080, y: 360, z: 792, w: 307}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -116,45 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SwordHP 1_0
+      name: charmUI(2)_0
       rect:
         serializedVersion: 2
-        x: 1989
-        y: 726
-        width: 8
-        height: 8
+        x: 20
+        y: 61
+        width: 46
+        height: 57
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 641ed54e81e8bc080800000000000000
-      internalID: -9166076379020795578
+      spriteID: 0957f14d9852b6d30800000000000000
+      internalID: 4425672332721223056
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SwordHP 1_1
+      name: charmUI(2)_1
       rect:
         serializedVersion: 2
-        x: 1091
-        y: 378
-        width: 101
-        height: 293
+        x: 61
+        y: 21
+        width: 396
+        height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 63220a8cb1e1d8a30800000000000000
-      internalID: 4219061530594910774
+      spriteID: 85a5a6618c28eda70800000000000000
+      internalID: 8853657713338112600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: charmUI(2)_2
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 61
+        width: 45
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c20aa85923ce755a0800000000000000
+      internalID: -6532493032476205012
       vertices: []
       indices: 
       edges: []
@@ -164,7 +189,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -173,8 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SwordHP 1_0: -9166076379020795578
-      SwordHP 1_1: 4219061530594910774
+      charmUI(2)_0: 4425672332721223056
+      charmUI(2)_1: 8853657713338112600
+      charmUI(2)_2: -6532493032476205012
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
