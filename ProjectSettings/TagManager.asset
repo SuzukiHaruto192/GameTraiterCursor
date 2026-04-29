@@ -9,7 +9,7 @@ TagManager:
   - Enemy
   - GameManager
   - LootPrefab
-  - Boss
+  - BanKhac
   layers:
   - Default
   - TransparentFX
