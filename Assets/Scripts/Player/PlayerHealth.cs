@@ -13,6 +13,9 @@ public class PlayerHealth : MonoBehaviour
     private Vector2[] initialPositions;
     private Quaternion[] initialRotations;
 
+    [Header("Số crystal của người chơi")]
+    public int crystals;
+
     public bool isInvulnerable { get; private set; } = false;
 
     private PlayerController controller;
