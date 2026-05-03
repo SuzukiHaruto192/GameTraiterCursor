@@ -1,27 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// Kế thừa từ EnemyHealthBase
-public class EnemyHealth : EnemyHealthBase
+public class EnemyHealth : MonoBehaviour
 {
-    // ĐÃ XÓA CÁC BIẾN MÁU VÀ CHỚP ĐỎ. CHỈ GIỮ LẠI CÁC BIẾN SAU:
-    [Header("Xử lý Cái chết & Vật phẩm rơi (Loot)")]
+    [Header("Chỉ số Máu")]
+    public int maxHealth = 30;
+    public int currentHealth;
+
+    [Header("Hiệu ứng Chớp Đỏ")]
+    public Color flashColor = Color.red;
+    public float flashDuration = 0.15f;
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    private Coroutine flashCoroutine;
+
+    [Header("Xử lý Loot đồ")]
     private InventoryManager inventory;
-    [SerializeField] private ItemData dropItem;
-    [SerializeField] private GameObject lootPrefab;
+    public ItemData dropItem;
+    public GameObject lootPrefab;
     [Range(0, 5)] public int dropCount = 1;
 
+    private bool isDead = false;
     private Collider2D enemyCollider;
-    private EnemyMovementBase movementScript;
     private Animator anim;
     private Rigidbody2D rb;
 
-    protected override void Start()
+    void Start()
     {
-        base.Start(); // Gọi lớp cha để gán máu và màu sắc
+        currentHealth = maxHealth;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
 
         enemyCollider = GetComponent<Collider2D>();
-        movementScript = GetComponent<EnemyMovementBase>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -31,24 +41,47 @@ public class EnemyHealth : EnemyHealthBase
         }
     }
 
-    public override void TakeDamage(int damage, Vector2 attackerPos)
+    public void TakeDamage(int damage, Vector2 attackerPos)
     {
         if (isDead) return;
 
-        base.TakeDamage(damage, attackerPos); // Nhờ lớp cha trừ máu và chớp đỏ
+        currentHealth -= damage;
+        StartFlash();
+        if (anim != null) anim.SetTrigger("Hurt");
 
-        if (!isDead)
+        // BÍ KÍP ĐỘC LẬP: Gửi tin nhắn "Bị đánh" đến tất cả các script đang gắn trên người nó
+        SendMessage("OnDamageTaken", attackerPos, SendMessageOptions.DontRequireReceiver);
+
+        if (currentHealth <= 0)
         {
-            if (anim != null) anim.SetTrigger("Hurt");
-            if (movementScript != null) movementScript.OnDamageTaken(attackerPos);
+            Die();
         }
     }
 
-    protected override void Die()
+    private void StartFlash()
+    {
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            spriteRenderer.color = originalColor;
+        }
+        flashCoroutine = StartCoroutine(FlashRoutine());
+    }
+
+    IEnumerator FlashRoutine()
+    {
+        spriteRenderer.color = flashColor;
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.color = originalColor;
+        flashCoroutine = null;
+    }
+
+    private void Die()
     {
         isDead = true;
 
-        if (movementScript != null) movementScript.enabled = false;
+        // Gửi tin nhắn yêu cầu tắt bộ não di chuyển (dù là quái bay hay đi bộ)
+        SendMessage("DisableMovement", SendMessageOptions.DontRequireReceiver);
 
         EnemyMeleeAttack melee = GetComponent<EnemyMeleeAttack>();
         if (melee != null) melee.enabled = false;

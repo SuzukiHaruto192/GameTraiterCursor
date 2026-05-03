@@ -1,49 +1,51 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-// Kế thừa từ EnemyMovementBase để dùng chung hiệu ứng Stun khi bị chém
-public class FlyingEnemyMovement : EnemyMovementBase
+public class FlyingEnemyMovement : MonoBehaviour // BỎ KẾ THỪA
 {
     [Header("Tốc độ bay")]
-    [SerializeField] private float patrolSpeed = 2f; // Tốc độ bay tuần tra
-    [SerializeField] private float chaseSpeed = 4f;  // Tốc độ lao vào rượt Player
+    [SerializeField] private float patrolSpeed = 2f;
+    [SerializeField] private float chaseSpeed = 4f;
 
     [Header("Cài đặt Lãnh thổ (AI)")]
-    [SerializeField] private float chaseRadius = 5f;      // Tầm nhìn thấy Player
-    [SerializeField] private float territoryRadius = 8f;  // Ranh giới ổ (đi quá sẽ bỏ cuộc)
-    [SerializeField] private float patrolRange = 4f;      // Khoảng cách bay qua lại khi tuần tra
+    [SerializeField] private float chaseRadius = 5f;
+    [SerializeField] private float territoryRadius = 8f;
+    [SerializeField] private float patrolRange = 4f;
 
-    [Header("Cài đặt Dập dềnh (Lên xuống nhẹ)")]
+    [Header("Cài đặt Dập dềnh")]
     [SerializeField] private float floatAmplitude = 0.5f;
     [SerializeField] private float floatFrequency = 1f;
 
-    private Vector2 homePos;           // Vị trí gốc lúc mới sinh ra
-    private Vector2 logicalPosition;   // Vị trí dùng để tính toán (bỏ qua độ dập dềnh)
-    private int moveDirection = 1;     // Hướng bay hiện tại (1: Phải, -1: Trái)
+    [Header("Bị Đánh & Văng Lùi")]
+    public float knockbackForce = 7f;
+    public float stunDuration = 0.5f;
+    public bool canMove = true;
+
+    private Vector2 homePos;
+    private Vector2 logicalPosition;
+    private int moveDirection = 1;
     private float floatTimer;
     private Transform player;
 
     private Rigidbody2D rb;
     private Animator anim;
-    private bool isReturningHome = false; // Trạng thái đang bay về ổ
+    private bool isReturningHome = false;
+    private Coroutine hitCoroutine;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        // Lưu lại vị trí ổ
         homePos = transform.position;
         logicalPosition = homePos;
 
-        // Xác định hướng nhìn ban đầu dựa trên scale X
         moveDirection = transform.localScale.x < 0 ? -1 : 1;
 
         if (anim != null) anim.SetBool("isMove", true);
 
-        // Tìm Player
-        // CÁCH MỚI
         if (GameManager.Instance != null && GameManager.Instance.player != null)
         {
             player = GameManager.Instance.player;
@@ -52,46 +54,39 @@ public class FlyingEnemyMovement : EnemyMovementBase
 
     void FixedUpdate()
     {
-        if (!canMove) return; // Kế thừa từ EnemyMovementBase (đứng im khi bị chém)
+        if (!canMove) return;
 
-        // Tính toán hiệu ứng dập dềnh không ngừng nghỉ
         floatTimer += Time.fixedDeltaTime * floatFrequency;
         float currentOffset = Mathf.Sin(floatTimer) * floatAmplitude;
 
-        // --- HỆ THỐNG AI ---
         bool isChasing = false;
         if (player != null)
         {
             float distToPlayer = Vector2.Distance(logicalPosition, player.position);
             float playerDistFromHome = Vector2.Distance(homePos, player.position);
 
-            // NẾU Player trong tầm nhìn VÀ chưa thoát khỏi ranh giới
             if (distToPlayer <= chaseRadius && playerDistFromHome <= territoryRadius)
             {
                 isChasing = true;
-                isReturningHome = false; // Ngắt trạng thái bay về
+                isReturningHome = false;
             }
         }
 
         if (isChasing)
         {
-            // RƯỢT ĐUỔI
             logicalPosition = Vector2.MoveTowards(logicalPosition, player.position, chaseSpeed * Time.fixedDeltaTime);
             FlipTowards(player.position.x);
         }
         else
         {
-            // KIỂM TRA XEM CÓ ĐI QUÁ XA KHÔNG
             float distFromHome = Vector2.Distance(logicalPosition, homePos);
 
-            // Nếu đi quá xa khỏi điểm tuần tra hoặc đang trong trạng thái phải về nhà
             if (distFromHome > patrolRange || isReturningHome)
             {
                 isReturningHome = true;
                 logicalPosition = Vector2.MoveTowards(logicalPosition, homePos, patrolSpeed * Time.fixedDeltaTime);
                 FlipTowards(homePos.x);
 
-                // Khi đã bay về tới tâm điểm nhà thì tắt trạng thái quay về
                 if (Vector2.Distance(logicalPosition, homePos) <= 0.1f)
                 {
                     isReturningHome = false;
@@ -99,36 +94,29 @@ public class FlyingEnemyMovement : EnemyMovementBase
             }
             else
             {
-                // TUẦN TRA BÌNH THƯỜNG (Bay qua lại quanh điểm gốc)
                 float leftBound = homePos.x - patrolRange;
                 float rightBound = homePos.x + patrolRange;
 
                 logicalPosition.x += patrolSpeed * moveDirection * Time.fixedDeltaTime;
-
-                // Từ từ đưa trục Y về lại bằng với ổ (trường hợp vừa rượt Player bay lên quá cao)
                 logicalPosition.y = Mathf.MoveTowards(logicalPosition.y, homePos.y, patrolSpeed * Time.fixedDeltaTime);
 
                 if (logicalPosition.x >= rightBound && moveDirection == 1)
                 {
-                    FlipTowards(logicalPosition.x - 1); // Ép quay trái
+                    FlipTowards(logicalPosition.x - 1);
                 }
                 else if (logicalPosition.x <= leftBound && moveDirection == -1)
                 {
-                    FlipTowards(logicalPosition.x + 1); // Ép quay phải
+                    FlipTowards(logicalPosition.x + 1);
                 }
             }
         }
 
-        // --- CẬP NHẬT VỊ TRÍ ---
-        // Vị trí thực tế = Vị trí theo AI + Độ dập dềnh của cánh
         rb.MovePosition(new Vector2(logicalPosition.x, logicalPosition.y + currentOffset));
     }
 
-    // Hàm lật mặt quái vật hướng về mục tiêu
     private void FlipTowards(float targetX)
     {
         float diff = targetX - logicalPosition.x;
-        // Chống lỗi quay mòng mòng liên tục khi mục tiêu nằm ngay sát tâm
         if (Mathf.Abs(diff) < 0.05f) return;
 
         int newDir = diff > 0 ? 1 : -1;
@@ -136,33 +124,55 @@ public class FlyingEnemyMovement : EnemyMovementBase
         {
             moveDirection = newDir;
             Vector3 scale = transform.localScale;
-            scale.x *= -1; // Lật hình
+            scale.x *= -1;
             transform.localScale = scale;
         }
     }
 
-    // --- ĐỒNG BỘ NÃO BỘ VÀ THỂ XÁC SAU KHI BỊ CHÉM ---
-    protected override void OnStunEnd()
+    // --- NHẬN TÍN HIỆU BỊ CHÉM ---
+    public void OnDamageTaken(Vector2 attackerPos)
     {
-        // Ép cái Não (logicalPosition) phải cập nhật lại đúng vị trí hiện tại của cái Xác
-        // Để khi tỉnh dậy nó đi tiếp từ điểm bị văng, chứ không giật lùi về điểm cũ nữa!
-        logicalPosition = transform.position;
+        if (hitCoroutine != null) StopCoroutine(hitCoroutine);
+        hitCoroutine = StartCoroutine(HitReactionRoutine(attackerPos));
     }
 
-    // Vẽ vòng tròn ra Scene để bạn dễ dàng căn chỉnh
+    private IEnumerator HitReactionRoutine(Vector2 attackerPos)
+    {
+        canMove = false;
+        if (anim != null) anim.SetBool("isMove", false);
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            Vector2 knockbackDir = ((Vector2)transform.position - attackerPos).normalized;
+            knockbackDir.y = 0.5f;
+            rb.AddForce(knockbackDir.normalized * knockbackForce, ForceMode2D.Impulse);
+        }
+
+        yield return new WaitForSeconds(stunDuration);
+
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+        canMove = true;
+        logicalPosition = transform.position; // Cập nhật lại Não Bộ để không bị giật lùi
+        if (anim != null) anim.SetBool("isMove", true);
+    }
+
+    public void DisableMovement()
+    {
+        canMove = false;
+        this.enabled = false;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Vector2 center = Application.isPlaying ? homePos : (Vector2)transform.position;
 
-        // Vòng Vàng: Tầm nhìn (Gắn liền với quái)
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, chaseRadius);
 
-        // Vòng Đỏ: Ranh giới lãnh thổ (Cố định ở tâm)
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(center, territoryRadius);
 
-        // Đường Xanh Lá: Quãng đường tuần tra ngang
         Gizmos.color = Color.green;
         Vector2 leftLine = new Vector2(center.x - patrolRange, center.y);
         Vector2 rightLine = new Vector2(center.x + patrolRange, center.y);
