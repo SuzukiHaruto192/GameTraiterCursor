@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     public int attackDamage = 100;
     public Transform attackPoint;
     public LayerMask enemyLayers;
+    public LayerMask bossLayers;
     public HitEffectPlayer effectController;
     public float pogoBounceForce = 15f;
 
@@ -196,7 +197,11 @@ public class PlayerController : MonoBehaviour
 
     public void CheckAttackHitbox()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, currentHitboxSize, 0f, enemyLayers);
+        // 1. CÁCH FIX LỖI CHUẨN NHẤT: Gộp 2 LayerMask bằng toán tử Bitwise OR (|)
+        LayerMask targetLayers = enemyLayers | bossLayers;
+
+        // Bây giờ hàm OverlapBoxAll sẽ tự động quét CẢ quái thường LẪN boss trong 1 lần gọi
+        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, currentHitboxSize, 0f, targetLayers);
 
         bool hasHitSomething = false;
         bool hasPogoBounced = false;
@@ -208,28 +213,39 @@ public class PlayerController : MonoBehaviour
             Vector2 exactHitPoint = enemy.ClosestPoint(attackPoint.position);
             if (effectController != null) effectController.PlayHitEffect(exactHitPoint);
 
+            bool hasDealtDamage = false; // Biến cờ để biết vung kiếm có trúng máu ai không
+
+            // 2. KIỂM TRA MÁU QUÁI THƯỜNG
             EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(attackDamage, transform.position);
-                // KÍCH HOẠT CẢM GIÁC ĐÁNH:
-                if (playerFX != null) playerFX.TriggerHitStop();
-                if (playerFX != null) playerFX.TriggerCameraShake();
+                hasDealtDamage = true;
+            }
+            else // 3. Nếu KHÔNG phải quái thường, thì thử tìm máu BOSS
+            {
+                BoDHealth bossHealth = enemy.GetComponent<BoDHealth>();
+                if (bossHealth != null)
+                {
+                    bossHealth.TakeDamage(attackDamage, transform.position);
+                    hasDealtDamage = true;
+                }
+            }
+
+            // 4. KÍCH HOẠT CẢM GIÁC ĐÁNH (Gộp chung lại cho gọn code)
+            if (hasDealtDamage && playerFX != null)
+            {
+                playerFX.TriggerHitStop();
+                playerFX.TriggerCameraShake();
             }
 
             // Xử lý riêng lực nảy Pogo
             if (stateMachine.CurrentState == airAttackDownState && !hasPogoBounced)
             {
+                // (Lưu ý: Nếu bạn dùng Unity bản cũ thì dùng rb.velocity.x, nếu Unity 2023+ thì dùng rb.linearVelocity.x)
                 SetVelocity(rb.linearVelocity.x, pogoBounceForce);
                 hasPogoBounced = true;
             }
-        }
-
-        if (hasHitSomething)
-        {
-            canDash = true;
-            canAirAttack = true;
-            canDoubleJump = true;
         }
     }
 

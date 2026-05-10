@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartForest.unity
     guid: 0b242ea266a019e44a4d4b7e142b0e54
+  - enabled: 1
+    path: Assets/Scenes/Err.unity
+    guid: 7a2ef1ee01c6188419e3b6f7bcdd77ce
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

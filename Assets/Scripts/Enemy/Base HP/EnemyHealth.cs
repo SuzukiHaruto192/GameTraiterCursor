@@ -51,6 +51,7 @@ public class EnemyHealth : MonoBehaviour
 
         // BÍ KÍP ĐỘC LẬP: Gửi tin nhắn "Bị đánh" đến tất cả các script đang gắn trên người nó
         SendMessage("OnDamageTaken", attackerPos, SendMessageOptions.DontRequireReceiver);
+        Debug.Log("HP Left: " + currentHealth);
 
         if (currentHealth <= 0)
         {

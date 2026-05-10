@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 20
   currentHealth: 0
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.15
   dropItem: {fileID: 11400000, guid: 0fb70e282de2be944b73ce218405257e, type: 2}
   lootPrefab: {fileID: 3371851994863546288, guid: 367b6c3fdf9bbb84fb4f92cecd0b82e6, type: 3}

@@ -202,6 +202,7 @@ MonoBehaviour:
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.15
   dropItem: {fileID: 11400000, guid: 1bf895f03f09a2c49aee63100d552280, type: 2}
+  lootPrefab: {fileID: 3371851994863546288, guid: 367b6c3fdf9bbb84fb4f92cecd0b82e6, type: 3}
   dropCount: 1
 --- !u!50 &5572351870451089676
 Rigidbody2D:
@@ -279,9 +280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7503c5981644512428f172c5702487fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingEnemyMovement
-  canMove: 1
-  knockbackForce: 3
-  stunDuration: 0.5
   patrolSpeed: 2
   chaseSpeed: 4
   chaseRadius: 6
@@ -289,6 +287,9 @@ MonoBehaviour:
   patrolRange: 4
   floatAmplitude: 0.5
   floatFrequency: 1
+  knockbackForce: 3
+  stunDuration: 0.5
+  canMove: 1
 --- !u!114 &6103978410897607510
 MonoBehaviour:
   m_ObjectHideFlags: 0

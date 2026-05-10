@@ -92,4 +92,13 @@ public class GoblinAttack : MonoBehaviour
             Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
         }
     }
+
+    // Thêm hàm này vào dưới cùng của script GoblinAttack.cs (trên cái OnDrawGizmosSelected)
+    public void DisableMovement()
+    {
+        // Khi con quái chết, EnemyHealth hét lên "DisableMovement", hàm này sẽ tự động nghe thấy!
+
+        StopAllCoroutines();  // CẮT ĐỨT NGAY LẬP TỨC tiến trình gồng chém đang chạy dở!
+        this.enabled = false; // Rút ống thở, tắt luôn quyền tấn công của cái xác.
+    }
 }
