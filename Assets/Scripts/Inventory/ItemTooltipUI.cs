@@ -11,26 +11,32 @@ public class ItemTooltipUI : MonoBehaviour
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI descriptionText;
 
-    private RectTransform transform;
+    private RectTransform rectTransform;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
+        if (Instance == null) Instance = this;
+        else { Destroy(gameObject); return; }
 
-        transform = tooltipObj.GetComponent<RectTransform>();
+        if (tooltipObj != null)
+        {
+            rectTransform = tooltipObj.GetComponent<RectTransform>();
+            tooltipObj.SetActive(false);
+        }
     }
 
     private void Update()
     {
-        if (tooltipObj.activeSelf)
+        if (tooltipObj != null && tooltipObj.activeInHierarchy)
         {
-            Vector2 position = Input.mousePosition;
-            position.x += 114f;
-            position.y -= 78f;
+            FollowMouse();
+        }
+    }
 
-            transform.position = position;
-        }    
+    private void FollowMouse()
+    {
+        Vector2 mousePos = Input.mousePosition;
+        rectTransform.position = mousePos + new Vector2(114f, -78f);
     }
 
     public void ShowTooltip(InventoryItem item)
@@ -41,12 +47,16 @@ public class ItemTooltipUI : MonoBehaviour
         descriptionText.text = item.itemData.itemDescription;
         itemIcon.sprite = item.itemData.icon;
 
-        if (tooltipObj != null)
+        if(tooltipObj != null)
+        {
             tooltipObj.SetActive(true);
+            tooltipObj.transform.SetAsLastSibling();
+        }
     }
 
     public void HideTooltip()
-    { 
-        tooltipObj.SetActive(false);
+    {
+        if (tooltipObj != null)
+            tooltipObj.SetActive(false);
     }
 }

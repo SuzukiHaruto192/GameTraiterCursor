@@ -24391,6 +24391,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1148426959}
     m_Modifications:
+    - target: {fileID: 923619440534720913, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 180.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 923619440534720913, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 68.3188
+      objectReference: {fileID: 0}
+    - target: {fileID: 923619440534720913, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.136
+      objectReference: {fileID: 0}
+    - target: {fileID: 923619440534720913, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -24.5742
+      objectReference: {fileID: 0}
     - target: {fileID: 4301510418787560384, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
       propertyPath: m_Name
       value: ItemTooltip
@@ -24461,11 +24477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7918392365761035373, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 138.5736
+      value: 138.57361
       objectReference: {fileID: 0}
     - target: {fileID: 7918392365761035373, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -150.82768
+      value: -150.8277
       objectReference: {fileID: 0}
     - target: {fileID: 7918392365761035373, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -24477,6 +24493,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7918392365761035373, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8280778467876086694, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -58620,7 +58640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0353b3e8f4633743a797b2e41ba4b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemTooltipUI
-  tooltipObj: {fileID: 4301510418787560384, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+  tooltipObj: {fileID: 1601026118}
   itemIcon: {fileID: 1348188183}
   titleText: {fileID: 668826056}
   descriptionText: {fileID: 22950257}
@@ -60526,8 +60546,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 939238955}
   - {fileID: 1434290641}
+  - {fileID: 939238955}
   m_Father: {fileID: 1081041916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -67826,7 +67846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -77469,6 +77489,11 @@ Transform:
   - {fileID: 1404717081}
   m_Father: {fileID: 1276115130}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1601026118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4301510418787560384, guid: c80f600f925693945a1250c8d76dcd41, type: 3}
+  m_PrefabInstance: {fileID: 605584375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1601486455
 GameObject:
   m_ObjectHideFlags: 0
@@ -99918,11 +99943,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5176616442712192430, guid: ce7fd82bd4b5cdc4e8a636889a8a7916, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 223.9747
+      value: 224.00941
       objectReference: {fileID: 0}
     - target: {fileID: 5176616442712192430, guid: ce7fd82bd4b5cdc4e8a636889a8a7916, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.96194
+      value: -4.96075
       objectReference: {fileID: 0}
     - target: {fileID: 6022013671625048021, guid: ce7fd82bd4b5cdc4e8a636889a8a7916, type: 3}
       propertyPath: m_Name
