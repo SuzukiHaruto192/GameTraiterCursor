@@ -167,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 20
   currentHealth: 0
+  hurtSound: {fileID: 0}
+  dieSound: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.15
   dropItem: {fileID: 11400000, guid: 0fb70e282de2be944b73ce218405257e, type: 2}
@@ -288,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a9554006eac554997f1ef05aa8b63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  contactDamage: 10
+  contactDamage: 1
   knockbackPower: 15
 --- !u!1 &7413931492473610351
 GameObject:

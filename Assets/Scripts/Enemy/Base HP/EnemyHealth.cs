@@ -7,6 +7,10 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 30;
     public int currentHealth;
 
+    [Header("Âm thanh")]
+    public AudioClip hurtSound;
+    public AudioClip dieSound;
+
     [Header("Hiệu ứng Chớp Đỏ")]
     public Color flashColor = Color.red;
     public float flashDuration = 0.15f;
@@ -45,6 +49,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isDead) return;
 
+        AudioManager.Instance.PlaySFX(hurtSound);
         currentHealth -= damage;
         StartFlash();
         if (anim != null) anim.SetTrigger("Hurt");
@@ -101,6 +106,7 @@ public class EnemyHealth : MonoBehaviour
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
 
+        AudioManager.Instance.PlaySFX(dieSound);
         if (anim != null) anim.SetBool("isDead", true);
     }
 

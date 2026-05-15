@@ -167,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 15
   currentHealth: 10
+  hurtSound: {fileID: 0}
+  dieSound: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.15
   dropItem: {fileID: 11400000, guid: 1bf895f03f09a2c49aee63100d552280, type: 2}
@@ -294,7 +296,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoblinAttack
   attackRange: 1.5
   attackCooldown: 2
-  damage: 10
+  attackSound: {fileID: 8300000, guid: 1cf79ed0f1b50d246a42c9e2ae0d1a91, type: 3}
+  damage: 1
   knockbackPower: 15
   attackPoint: {fileID: 1275240910943482036}
   attackRadius: 0.8

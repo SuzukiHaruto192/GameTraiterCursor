@@ -7,6 +7,9 @@ public class GoblinAttack : MonoBehaviour
     public float attackRange = 1.5f;      // Phải bằng với attackRange bên GoblinMovement
     public float attackCooldown = 2f;     // Cứ 2 giây chém 1 lần
 
+    [Header("--- ÂM THANH ---")]
+    public AudioClip attackSound;
+
     [Header("--- SÁT THƯƠNG ---")]
     public int damage = 10;
     public float knockbackPower = 15f;    // Lực văng truyền cho Player
@@ -57,6 +60,11 @@ public class GoblinAttack : MonoBehaviour
 
         // 2. KÍCH HOẠT ANIMATION
         anim.SetTrigger("Attack");
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(attackSound);
+        }
 
         // 3. THỜI GIAN GỒNG (Sửa số 0.4f này cho khớp với lúc cái kiếm chém xuống trong Animation)
         yield return new WaitForSeconds(0.4f);
