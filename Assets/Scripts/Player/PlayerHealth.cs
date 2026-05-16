@@ -6,8 +6,8 @@ using DG.Tweening;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Chỉ số Máu")]
-    public int maxHealth = 3;
-    private int currentHealth;
+    public int currentHealth;
+    public int maxHealth; // Để public để CharacterUpgradeUIManager có thể truy cập nâng cấp
 
     [Header("--- ÂM THANH SINH TỒN ---")]
     [SerializeField] private AudioClip hurtSound;
@@ -18,9 +18,6 @@ public class PlayerHealth : MonoBehaviour
     public Transform swordContainer;   // Kéo object Swords_Container (có gắn Horizontal Layout Group) vào đây
     private List<GameObject> swords = new List<GameObject>(); // Danh sách quản lý kiếm tự động
 
-    [Header("Số crystal của người chơi")]
-    public int crystals;
-
     public bool isInvulnerable { get; private set; } = false;
 
     private PlayerController controller;
@@ -28,7 +25,19 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         controller = GetComponent<PlayerController>();
-        currentHealth = maxHealth;
+
+        // ĐỒNG BỘ CHỈ SỐ MÁU TỪ KHO VĨNH CỬU KHI VỪA VÀO MAP
+        if (PlayerDataManager.Instance != null)
+        {
+            currentHealth = PlayerDataManager.Instance.currentHealth;
+            maxHealth = PlayerDataManager.Instance.maxHealth;
+        }
+        else
+        {
+            // Đề phòng chạy test Scene đơn lẻ chưa có PlayerDataManager ngoài Map
+            maxHealth = 5;
+            currentHealth = maxHealth;
+        }
 
         // Sinh ra các thanh kiếm UI ngay khi game bắt đầu
         InitHPUI();
@@ -45,6 +54,12 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         Debug.Log("Trúng đòn! Máu còn: " + currentHealth);
+
+        // BÁO CÁO lại cho Kho lưu trữ để nó nhớ lượng máu mới
+        if (PlayerDataManager.Instance != null)
+        {
+            PlayerDataManager.Instance.currentHealth = currentHealth;
+        }
 
         // Hiệu ứng vỡ UI (Truyền vào currentHealth để lấy đúng vị trí thanh kiếm bị gãy)
         if (currentHealth >= 0 && currentHealth < swords.Count)
@@ -82,7 +97,7 @@ public class PlayerHealth : MonoBehaviour
 
     void InitHPUI()
     {
-        // 1. Xóa sạch các thanh kiếm cũ (nếu có, đề phòng chơi lại màn)
+        // 1. Xóa sạch các thanh kiếm cũ (nếu có)
         foreach (Transform child in swordContainer)
         {
             Destroy(child.gameObject);
@@ -102,6 +117,16 @@ public class PlayerHealth : MonoBehaviour
                 swordImg.color = Color.white;
             }
         }
+
+        // 3. Làm tối các thanh kiếm đã mất phòng trường hợp đổi Scene khi đang thấp máu
+        for (int i = currentHealth; i < maxHealth; i++)
+        {
+            if (i < swords.Count)
+            {
+                Image img = swords[i].GetComponent<Image>();
+                if (img != null) img.color = new Color(0.2f, 0.2f, 0.2f, 0.5f);
+            }
+        }
     }
 
     void AnimateSwordBreaking(int index)
@@ -115,7 +140,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (rect != null && img != null)
         {
-            // Hủy các DOTween cũ đang chạy trên thanh kiếm này (nếu có)
+            // Hủy các DOTween cũ đang chạy trên thanh kiếm này
             rect.DOKill();
             img.DOKill();
 

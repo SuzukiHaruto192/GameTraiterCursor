@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         stateMachine.Initialize(groundedState);
+        attackDamage = PlayerDataManager.Instance.attackDamage;
     }
 
     private void Update()
