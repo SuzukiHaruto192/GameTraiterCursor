@@ -159,7 +159,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.74, y: -7.64, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 52855439405477375}
@@ -216,7 +216,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -750047184722822154, guid: 1914d95466e3d4341a618c35a56d5f82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76128da4c19d4354dab9d8ef239ab04f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -234,11 +234,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7110376766420436800}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 90
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -287,17 +287,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.046020627}
+  m_Offset: {x: -0.4380951, y: -0.36286247}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.75, y: 0.25}
-    oldSize: {x: 1.4, y: 0.93}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10.24, y: 10.24}
     newSize: {x: 1.4, y: 0.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.29004842, y: 0.54402024}
+  m_Size: {x: 1.706543, y: 3.9757197}
   m_EdgeRadius: 0
 --- !u!114 &3008990628367989541
 MonoBehaviour:
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BoDAttack
   meleeRange: 10
   attackCooldown: 3
-  maxAttackRange: 60
+  maxAttackRange: 40
   meleeHitbox: {fileID: 2335509608282542279}
 --- !u!114 &3523832826568375587
 MonoBehaviour:
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747e0b7fb49647c4c8488a8a8c9b5ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoDHealth
-  maxHealth: 20
+  maxHealth: 250
   currentHealth: 0
   flashDuration: 0.1
   damageColor: {r: 1, g: 1, b: 1, a: 1}

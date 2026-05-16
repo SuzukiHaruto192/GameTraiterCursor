@@ -26775,24 +26775,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 943708709}
     m_Modifications:
     - target: {fileID: 519474877243971004, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 519474877243971004, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 519474877243971004, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 519474877243971004, guid: ad0ac84516796e846bf9acc010280555, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 54.02
+      value: 53.69
       objectReference: {fileID: 0}
     - target: {fileID: 519474877243971004, guid: ad0ac84516796e846bf9acc010280555, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.18
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 519474877243971004, guid: ad0ac84516796e846bf9acc010280555, type: 3}
       propertyPath: m_LocalPosition.z
@@ -26826,33 +26814,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3523832826568375587, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: maxHealth
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 5018782483696850210, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: maxAttackRange
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 7110376766420436800, guid: ad0ac84516796e846bf9acc010280555, type: 3}
       propertyPath: m_Name
-      value: Bringer Of Death
-      objectReference: {fileID: 0}
-    - target: {fileID: 8103282512529063684, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: m_Mass
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8103282512529063684, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8378384770551543232, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: spellCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8378384770551543232, guid: ad0ac84516796e846bf9acc010280555, type: 3}
-      propertyPath: spellDelay
-      value: 0.15
+      value: Boss Goblin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
