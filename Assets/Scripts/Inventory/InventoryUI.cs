@@ -55,7 +55,7 @@ public class InventoryUI : MonoBehaviour
 
         // 2. Tạo ô mới cho mỗi vật phẩm
         float delay = 0f;
-        foreach (InventoryItem item in inventory.items)
+        foreach (InventoryItem item in inventory.currentItems)
         {
             if (item == null || item.itemData == null) continue;
 

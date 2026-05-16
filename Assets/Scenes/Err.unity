@@ -29014,6 +29014,57 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &754730110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 754730112}
+  - component: {fileID: 754730111}
+  m_Layer: 0
+  m_Name: PlayerDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &754730111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754730110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8adc8e63316885f49946b4a3ab5a6636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDataManager
+  currentHealth: 0
+  maxHealth: 5
+  attackDamage: 5
+  gold: 0
+  currentLevel: 1
+  currentExp: 0
+  savedInventory: []
+--- !u!4 &754730112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754730110}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.37174, y: -1.36702, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &755900978
 GameObject:
   m_ObjectHideFlags: 0
@@ -31460,9 +31511,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888db3a3f2d4f8047860d2b7b5252c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
-  items: []
-  maxInventorySlots: 10
-  maxSlotQuantity: 99
+  currentItems: []
+  inventoryUI: {fileID: 0}
 --- !u!1 &851762348
 GameObject:
   m_ObjectHideFlags: 0
@@ -100071,3 +100121,4 @@ SceneRoots:
   - {fileID: 8714690500546065170}
   - {fileID: 1584376261}
   - {fileID: 5551241366874740086}
+  - {fileID: 754730112}
