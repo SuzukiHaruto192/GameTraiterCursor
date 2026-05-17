@@ -30,6 +30,9 @@ public class BoDAttack : MonoBehaviour
     public bool isActing = false;
     public bool isCounterAttacking = false; // CHỈ BẬT KHI ĐANG PHẢN ĐÒN (GIÁP BÁ THỂ)
 
+    // BIẾN MỚI: Cờ khóa quay người khi đang vung kiếm
+    public bool isMeleeAttacking = false;
+
     void Start()
     {
         movementScript = GetComponent<BoDMovement>();
@@ -41,6 +44,19 @@ public class BoDAttack : MonoBehaviour
         if (playerObj != null) player = playerObj.transform;
 
         if (meleeHitbox != null) meleeHitbox.enabled = false;
+        // ==========================================
+        // FIX LỖI SPAM CHIÊU LÚC MỚI VÀO GAME
+        // ==========================================
+
+        float wakeUpDelay = 2f; // Thời gian Boss đứng yên "nhìn" bạn lúc mới vào (2 giây)
+
+        // Bắt bộ não tạm dừng hoạt động trong 2 giây đầu
+        nextBrainTickTime = Time.time + wakeUpDelay;
+
+        // Khởi tạo thời gian hồi chiêu ban đầu (Đánh so le ra để Boss không bấm 3 nút cùng 1 lúc)
+        nextStationaryTime = Time.time + wakeUpDelay;
+        nextTeleportAttackTime = Time.time + wakeUpDelay + 1.5f; // Tốc biến sẽ dùng sau 1.5 giây
+        nextSpellTime = Time.time + wakeUpDelay + 3f;
     }
 
     void Update()
@@ -59,6 +75,7 @@ public class BoDAttack : MonoBehaviour
 
     void DecideAction(float distance)
     {
+        // Chốt hướng nhìn về phía Player trước khi quyết định ra đòn
         movementScript.LookAtPlayer();
 
         if (distance <= meleeRange)
@@ -109,17 +126,26 @@ public class BoDAttack : MonoBehaviour
 
         if (actionType == "StationaryAttack")
         {
+            isMeleeAttacking = true; // KHÓA QUAY NGƯỜI
             animController.TriggerAttack();
             yield return new WaitForSeconds(1f);
+            isMeleeAttacking = false; // MỞ KHÓA
+
             nextStationaryTime = Time.time + stationaryAttackCD;
         }
         else if (actionType == "TeleportAttack")
         {
             animController.TriggerTeleport();
             yield return new WaitForSeconds(0.4f);
+
             movementScript.TeleportNearPlayer(1.5f);
+            movementScript.LookAtPlayer(); // Cập nhật hướng lần cuối sau khi tốc biến tới gần
+
+            isMeleeAttacking = true; // KHÓA QUAY NGƯỜI
             animController.TriggerAttack();
             yield return new WaitForSeconds(1f);
+            isMeleeAttacking = false; // MỞ KHÓA
+
             nextTeleportAttackTime = Time.time + teleportAttackCD;
         }
         else if (actionType == "Spell")
@@ -137,9 +163,14 @@ public class BoDAttack : MonoBehaviour
             float newDist = Vector2.Distance(transform.position, player.position);
             if (newDist <= meleeRange)
             {
+                movementScript.LookAtPlayer(); // Cập nhật hướng lần cuối
+                isMeleeAttacking = true; // KHÓA QUAY NGƯỜI
                 animController.TriggerAttack();
+
                 nextTeleportAttackTime = Time.time + teleportAttackCD;
                 yield return new WaitForSeconds(1f);
+
+                isMeleeAttacking = false; // MỞ KHÓA
             }
             else
             {
@@ -153,23 +184,18 @@ public class BoDAttack : MonoBehaviour
         isActing = false;
     }
 
-    // ==========================================
-    // HÀM MỚI: BỊ NGẮT CHIÊU KHI DÍNH ĐÒN
-    // ==========================================
     public void InterruptAction()
     {
         if (isActing && !isCounterAttacking)
         {
             StopAllCoroutines();
             isActing = false;
-            // Tắt hitbox lỡ kiếm đang vung xuống
+            isMeleeAttacking = false; // Reset luôn cờ lỡ như bị ngắt giữa chừng
+
             if (meleeHitbox != null) meleeHitbox.enabled = false;
         }
     }
 
-    // ==========================================
-    // KỸ NĂNG ĐẶC BIỆT: PHẢN ĐÒN NGAY LẬP TỨC
-    // ==========================================
     public void TriggerCounterAttack()
     {
         StopAllCoroutines();
@@ -179,20 +205,24 @@ public class BoDAttack : MonoBehaviour
     IEnumerator CounterAttackRoutine()
     {
         isActing = true;
-        isCounterAttacking = true; // BẬT GIÁP BÁ THỂ
+        isCounterAttacking = true;
 
-        movementScript.LookAtPlayer();
+        movementScript.LookAtPlayer(); // Chốt hướng nhìn trước khi chém
+
+        isMeleeAttacking = true; // KHÓA QUAY NGƯỜI
         animController.TriggerAttack();
 
         yield return new WaitForSeconds(1f);
 
         nextBrainTickTime = Time.time + 0.2f;
         isActing = false;
-        isCounterAttacking = false; // TẮT GIÁP BÁ THỂ
+        isCounterAttacking = false;
+        isMeleeAttacking = false; // MỞ KHÓA
     }
 
     public void EnableMeleeHitbox() { if (meleeHitbox != null) meleeHitbox.enabled = true; }
     public void DisableMeleeHitbox() { if (meleeHitbox != null) meleeHitbox.enabled = false; }
+
     public void ExecuteCastSequence()
     {
         if (spellSpawner != null && player != null)

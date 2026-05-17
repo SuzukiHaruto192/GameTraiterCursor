@@ -101178,6 +101178,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 2109677907187089818, guid: 7d640fa08a87e3a43b42e8bd0251c46d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434813607459508525, guid: 7d640fa08a87e3a43b42e8bd0251c46d, type: 3}
+      propertyPath: longRange
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434813607459508525, guid: 7d640fa08a87e3a43b42e8bd0251c46d, type: 3}
+      propertyPath: shortRange
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2434813607459508525, guid: 7d640fa08a87e3a43b42e8bd0251c46d, type: 3}
+      propertyPath: stationaryAttackCD
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6279232076321919933, guid: 7d640fa08a87e3a43b42e8bd0251c46d, type: 3}
       propertyPath: leftBoundary
       value: 

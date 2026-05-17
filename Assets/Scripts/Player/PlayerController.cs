@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections; // Bắt buộc phải có dòng này để dùng IEnumerator
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -303,5 +304,30 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawWireCube(attackPoint.position, drawSize);
             Gizmos.color = Color.white;
         }
+    }
+    public void OnAnimationDeathFinished()
+    {
+        // Thay vì xử lý trực tiếp, ta gọi Coroutine để đếm ngược thời gian
+        StartCoroutine(DeathSequenceRoutine());
+    }
+
+    // Luồng xử lý đếm ngược thời gian chờ chuyển cảnh
+    private IEnumerator DeathSequenceRoutine()
+    {
+        Debug.Log("Player đã chạy xong animation chết. Chờ 1 giây...");
+
+        // Tạm dừng luồng code tại đây đúng 1 giây
+        yield return new WaitForSeconds(1f);
+
+        Debug.Log("Hết thời gian chờ. Tiến hành xóa dữ liệu kiếp trước và chuyển Scene...");
+
+        // GỢI KHO LƯU TRỮ VÀ TIÊU HỦY DỮ LIỆU
+        if (PlayerDataManager.Instance != null)
+        {
+            PlayerDataManager.Instance.ResetData();
+        }
+
+        // Quay trở về màn hình Menu chính
+        SceneManager.LoadScene("MenuScene");
     }
 }
