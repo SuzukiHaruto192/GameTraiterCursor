@@ -2,56 +2,97 @@
 
 public class BoDMovement : MonoBehaviour
 {
-    [Header("Cấu hình Di chuyển")]
-    public float speed = 2f;
-    public float stopDistance = 3f; // Khoảng cách Boss sẽ dừng lại để bắt đầu đánh
+    [Header("Phạm vi Hang Boss")]
+    public Transform leftBoundary;
+    public Transform rightBoundary;
+
+    [Header("Cảm biến Vực & Tường")]
+    public float wallCheckDistance = 1.2f;
+    public LayerMask groundLayer;
 
     private Transform player;
-    public bool isAttacking = false; // Biến này sẽ khóa di chuyển và xoay hướng
-    private BoDAnimation animController;
 
     void Start()
     {
-        animController = GetComponent<BoDAnimation>();
-        // Tự động tìm người chơi theo Tag "Player"
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null) player = playerObj.transform;
     }
 
-    void Update()
+    public void TeleportNearPlayer(float offset = 1.5f)
     {
-        if (player == null || isAttacking)
-        {
-            if (animController != null) animController.SetWalking(false);
-            return;
-        }
+        if (player == null) return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        float dir = (Random.value > 0.5f) ? 1f : -1f;
+        float targetX = player.position.x + (dir * offset);
 
-        // 1. Xử lý xoay hướng (Chỉ xoay khi không đang đánh)
+        transform.position = CorrectTeleportPosition(targetX);
         LookAtPlayer();
-
-        // 2. Di chuyển về phía người chơi nếu còn ở xa
-        if (distance > stopDistance)
-        {
-            Vector2 target = new Vector2(player.position.x, transform.position.y);
-            transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-            if (animController != null) animController.SetWalking(true);
-        }
-        else
-        {
-            if (animController != null) animController.SetWalking(false);
-        }
     }
 
-    void LookAtPlayer()
+    public void TeleportRandom()
     {
-        // Nếu Player bên phải Boss và Boss đang nhìn trái, hoặc ngược lại
-        if (player.position.x > transform.position.x && transform.localScale.x > 0)
+        if (leftBoundary == null || rightBoundary == null) return;
+
+        float randomX = Random.Range(leftBoundary.position.x, rightBoundary.position.x);
+        transform.position = CorrectTeleportPosition(randomX);
+        LookAtPlayer();
+    }
+
+    private Vector2 CorrectTeleportPosition(float targetX)
+    {
+        if (leftBoundary != null && rightBoundary != null)
+        {
+            targetX = Mathf.Clamp(targetX, leftBoundary.position.x, rightBoundary.position.x);
+        }
+
+        float startY = (player != null) ? player.position.y + 5f : transform.position.y + 5f;
+        Vector2 rayOrigin = new Vector2(targetX, startY);
+        RaycastHit2D groundHit = Physics2D.Raycast(rayOrigin, Vector2.down, 25f, groundLayer);
+
+        float finalX = targetX;
+        float finalY = (player != null) ? player.position.y : transform.position.y;
+
+        if (groundHit.collider != null)
+        {
+            finalX = groundHit.point.x;
+            finalY = groundHit.point.y;
+        }
+        else if (player != null)
+        {
+            finalX = player.position.x;
+            finalY = player.position.y;
+        }
+
+        Vector2 wallCheckOrigin = new Vector2(finalX, finalY + 0.5f);
+        RaycastHit2D wallRight = Physics2D.Raycast(wallCheckOrigin, Vector2.right, wallCheckDistance, groundLayer);
+        if (wallRight.collider != null)
+        {
+            finalX = wallRight.point.x - wallCheckDistance;
+        }
+
+        RaycastHit2D wallLeft = Physics2D.Raycast(wallCheckOrigin, Vector2.left, wallCheckDistance, groundLayer);
+        if (wallLeft.collider != null)
+        {
+            finalX = wallLeft.point.x + wallCheckDistance;
+        }
+
+        if (leftBoundary != null && rightBoundary != null)
+        {
+            finalX = Mathf.Clamp(finalX, leftBoundary.position.x, rightBoundary.position.x);
+        }
+
+        return new Vector2(finalX, finalY);
+    }
+
+    public void LookAtPlayer()
+    {
+        if (player == null) return;
+
+        if (player.position.x > transform.position.x && transform.localScale.x < 0)
         {
             Flip();
         }
-        else if (player.position.x < transform.position.x && transform.localScale.x < 0)
+        else if (player.position.x < transform.position.x && transform.localScale.x > 0)
         {
             Flip();
         }
@@ -64,9 +105,13 @@ public class BoDMovement : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    // Hàm này được gọi bởi BoDAttack để khựng lại khi tung chiêu
-    public void SetLockState(bool locked)
+    private void OnDrawGizmosSelected()
     {
-        isAttacking = locked;
+        if (leftBoundary != null && rightBoundary != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(new Vector3(leftBoundary.position.x, transform.position.y - 5f, 0), new Vector3(leftBoundary.position.x, transform.position.y + 5f, 0));
+            Gizmos.DrawLine(new Vector3(rightBoundary.position.x, transform.position.y - 5f, 0), new Vector3(rightBoundary.position.x, transform.position.y + 5f, 0));
+        }
     }
 }

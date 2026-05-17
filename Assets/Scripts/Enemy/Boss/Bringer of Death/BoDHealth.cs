@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections; // Thêm dòng này để dùng Coroutine nhấp nháy màu
+using System.Collections;
 
 public class BoDHealth : MonoBehaviour
 {
     [Header("Chỉ số Máu")]
     public int maxHealth = 100;
     public int currentHealth;
-    public bool isDead { get; private set; } // Các script khác có thể đọc, nhưng chỉ script này được sửa
+    public bool isDead { get; private set; }
 
     [Header("Hiệu ứng khi bị đánh")]
     public float flashDuration = 0.1f;
@@ -14,67 +14,87 @@ public class BoDHealth : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
 
+    [Header("Cài đặt Chống Stun-lock & Phản Đòn")]
+    public float hurtCooldown = 1.0f;
+    private float lastHurtTime;
+    public float invincibilityDuration = 0.2f;
+    private float invincibilityTimer;
+
     [Header("Xử lý Loot đồ")]
     private InventoryManager inventory;
     public ItemData dropItem;
     public GameObject lootPrefab;
     [Range(0, 5)] public int dropCount = 1;
 
-    [Header("Cài đặt Chống Stun-lock")]
-    public float hurtCooldown = 1.0f; // Khoảng cách tối thiểu giữa 2 lần bị khựng (Hurt)
-    private float lastHurtTime;
-
-    public float invincibilityDuration = 0.2f; // Thời gian bất tử ngắn sau khi trúng đòn
-    private float invincibilityTimer;
+    private int hitCounter = 0; // ĐẾM SỐ LẦN BỊ ĐÁNH
 
     private BoDAnimation animController;
+    private BoDAttack attackScript;
 
-    void Start() // Bỏ 'protected override'
+    void Start()
     {
         currentHealth = maxHealth;
         isDead = false;
-
         animController = GetComponent<BoDAnimation>();
+        attackScript = GetComponent<BoDAttack>();
 
-        // Tìm SpriteRenderer để làm hiệu ứng nhấp nháy
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (spriteRenderer != null) originalColor = spriteRenderer.color;
+        if (GameManager.Instance != null)
+        {
+            inventory = GameManager.Instance.GetComponentInChildren<InventoryManager>();
+        }
     }
 
     void Update()
     {
-        if (invincibilityTimer > 0)
-        {
-            invincibilityTimer -= Time.deltaTime;
-        }
+        if (invincibilityTimer > 0) invincibilityTimer -= Time.deltaTime;
     }
 
-    // Bỏ chữ 'override'
     public void TakeDamage(int damage, Vector2 attackerPos)
     {
         if (isDead || invincibilityTimer > 0) return;
 
-        // 1. TỰ TRỪ MÁU TẠI ĐÂY (Thay vì gọi base)
+        // 1. TỰ TRỪ MÁU TẠI ĐÂY
         currentHealth -= damage;
 
-        // 2. HIỆU ỨNG NHẤP NHÁY
+        // 2. HIỆU ỨNG NHẤP NHÁY (Đang gồng chém vẫn sáng nhấp nháy cho biết là trúng đòn)
         if (spriteRenderer != null) StartCoroutine(FlashRoutine());
 
         // 3. KIỂM TRA CHẾT
         if (currentHealth <= 0)
         {
             Die();
-            return; // Quan trọng: Chết rồi thì không chạy logic Hurt bên dưới nữa
+            return;
         }
 
-        // 4. LOGIC CHỐNG STUN-LOCK
         invincibilityTimer = invincibilityDuration;
 
-        if (Time.time >= lastHurtTime + hurtCooldown)
+        // ====================================================
+        // SUPER ARMOR: NẾU ĐANG TUNG CHIÊU THÌ KHÔNG BỊ KHỰNG!
+        // ====================================================
+        if (attackScript != null && attackScript.isActing)
         {
-            if (animController != null)
+            // Thoát ngang tại đây! Không đếm hitCounter, không gọi Hurt.
+            // Máu vẫn mất nhưng Boss vẫn tiếp tục bổ kiếm xuống mặt người chơi!
+            return;
+        }
+
+        // ====================================================
+        // 4. LOGIC CHỐNG STUN-LOCK & ĐẾM PHẢN ĐÒN
+        // ====================================================
+        hitCounter++;
+        if (hitCounter >= 3)
+        {
+            hitCounter = 0; // Reset đếm
+            if (attackScript != null) attackScript.TriggerCounterAttack(); // GỌI PHẢN ĐÒN
+        }
+        else
+        {
+            // Bị đánh bình thường (Dưới 3 hit)
+            if (Time.time >= lastHurtTime + hurtCooldown)
             {
-                animController.TriggerHurt();
+                if (animController != null) animController.TriggerHurt();
                 lastHurtTime = Time.time;
             }
         }
@@ -87,14 +107,11 @@ public class BoDHealth : MonoBehaviour
         spriteRenderer.color = originalColor;
     }
 
-    // Bỏ chữ 'protected override'
     private void Die()
     {
         isDead = true;
-        // Tắt các script điều khiển
         if (GetComponent<BoDMovement>() != null) GetComponent<BoDMovement>().enabled = false;
         if (GetComponent<BoDAttack>() != null) GetComponent<BoDAttack>().enabled = false;
-
         if (animController != null) animController.TriggerDeath();
     }
 
@@ -111,6 +128,4 @@ public class BoDHealth : MonoBehaviour
         }
         Destroy(gameObject);
     }
-
 }
-    // An

@@ -33,13 +33,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109677907187089818}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 329.89, y: -6.99, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 4609702979876124279}
-  - {fileID: 6977271018254818725}
   - {fileID: 5828784042509317752}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -199,10 +197,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58712e9da3be0494796c9bd10c7f83ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoDAttack
-  meleeRange: 10
-  attackCooldown: 3
-  maxAttackRange: 40
+  meleeRange: 8
+  shortRange: 35
+  longRange: 65
+  stationaryAttackCD: 8
+  teleportAttackCD: 10
+  spellCD: 4
   meleeHitbox: {fileID: 5899242958238488785}
+  isActing: 0
 --- !u!114 &6769935288225412117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,13 +217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747e0b7fb49647c4c8488a8a8c9b5ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoDHealth
-  maxHealth: 250
+  maxHealth: 100
   currentHealth: 0
   flashDuration: 0.1
   damageColor: {r: 1, g: 1, b: 1, a: 1}
-  dropItem: {fileID: 11400000, guid: 1bf895f03f09a2c49aee63100d552280, type: 2}
-  lootPrefab: {fileID: 3371851994863546288, guid: 367b6c3fdf9bbb84fb4f92cecd0b82e6, type: 3}
-  dropCount: 1
   hurtCooldown: 1
   invincibilityDuration: 0.2
 --- !u!114 &6279232076321919933
@@ -236,9 +235,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc139c17ba72d8442ade3793f6290008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoDMovement
-  speed: 2
-  stopDistance: 3
-  isAttacking: 0
+  leftBoundary: {fileID: 0}
+  rightBoundary: {fileID: 0}
+  wallCheckDistance: 1.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &4321565592147848308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,7 +347,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 1.0489044, y: 0.44298124}
+  m_Offset: {x: 1.1276474, y: 0.44298124}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -355,7 +357,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5.915497, y: 5.7209682}
+  m_Size: {x: 5.758011, y: 5.7209682}
   m_EdgeRadius: 0
 --- !u!114 &8760306622180441417
 MonoBehaviour:
@@ -371,65 +373,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageDealer
   damage: 1
   targetTag: Player
---- !u!1 &5272556169284025323
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6977271018254818725}
-  m_Layer: 0
-  m_Name: Right Movement Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6977271018254818725
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272556169284025323}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.439, y: -0.195, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 733969169416474436}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6221879312500928182
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4609702979876124279}
-  m_Layer: 0
-  m_Name: Left Movement Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4609702979876124279
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6221879312500928182}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.412, y: -0.207, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 733969169416474436}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
