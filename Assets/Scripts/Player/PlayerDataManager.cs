@@ -18,6 +18,10 @@ public class PlayerDataManager : MonoBehaviour
     [Header("Dữ liệu Túi đồ (Inventory)")]
     public List<InventoryItem> savedInventory = new List<InventoryItem>();
 
+    [Header("Dữ liệu Bản đồ")]
+    // [MỚI] Danh sách ghi nhớ các cổng (ID) đã được mở khóa bằng Tele Stone
+    public List<string> unlockedPortals = new List<string>();
+
     // CÁC BIẾN ẨN ĐỂ NHỚ CHỈ SỐ GỐC LÚC MỚI VÀO GAME
     private int defaultMaxHealth;
     private int defaultAttackDamage;
@@ -42,7 +46,7 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // =======================================================
-    // HÀM MỚI: TẨY TRẮNG MỌI DỮ LIỆU VỀ LẠI LÚC BẮT ĐẦU CHƠI
+    // HÀM TẨY TRẮNG MỌI DỮ LIỆU VỀ LẠI LÚC BẮT ĐẦU CHƠI
     // =======================================================
     public void ResetData()
     {
@@ -62,6 +66,12 @@ public class PlayerDataManager : MonoBehaviour
             savedInventory.Clear();
         }
 
-        Debug.Log("Đã xóa sạch dữ liệu người chơi!");
+        // 4. [MỚI] Khóa lại toàn bộ các cổng yêu cầu Tele Stone
+        if (unlockedPortals != null)
+        {
+            unlockedPortals.Clear();
+        }
+
+        Debug.Log("Đã xóa sạch dữ liệu người chơi và reset trạng thái cổng!");
     }
 }

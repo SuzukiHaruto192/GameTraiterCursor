@@ -394,6 +394,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PortalController
   sceneToLoad: Base
   interactUI: {fileID: 3762237154904993074}
+  interactText: {fileID: 3277031548378780680}
+  needKey: 1
+  teleStoneData: {fileID: 11400000, guid: 30ae82a309378d5488d6ffff7d6cdf4f, type: 2}
+  portalID: Portal_Err
 --- !u!1 &8783855346775385052
 GameObject:
   m_ObjectHideFlags: 0

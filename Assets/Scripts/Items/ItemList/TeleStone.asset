@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c77551da5cfa5cb4daf6d6e6f36ec0cf, type: 3}
+  m_Name: TeleStone
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: TeleStone
+  icon: {fileID: 2337048700510181818, guid: 88a92087e702db14b9cc69b331f608da, type: 3}
+  itemDescription: "V\u1EADt ph\u1EA9m d\xF9ng \u0111\u1EC3 m\u1EDF kh\xF3a c\u1ED5ng
+    d\u1ECBch chuy\u1EC3n"

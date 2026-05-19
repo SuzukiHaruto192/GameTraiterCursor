@@ -2067,6 +2067,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1485323753380655294, guid: d14063449139f9d478c4c102386202dc, type: 3}
+      propertyPath: needKey
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485323753380655294, guid: d14063449139f9d478c4c102386202dc, type: 3}
+      propertyPath: portalID
+      value: Portal_Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485323753380655294, guid: d14063449139f9d478c4c102386202dc, type: 3}
       propertyPath: sceneToLoad
       value: Err
       objectReference: {fileID: 0}
@@ -2822,12 +2830,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataManager
   currentHealth: 0
-  maxHealth: 100
+  maxHealth: 5
   attackDamage: 10
   gold: 0
   currentLevel: 1
   currentExp: 0
   savedInventory: []
+  unlockedPortals: []
 --- !u!4 &460002634
 Transform:
   m_ObjectHideFlags: 0
@@ -3830,7 +3839,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Nh\u1EA5n F \u0111\u1EC3 t\u01B0\u01A1ng t\xE1c"
+  m_text: "N\xE2ng c\u1EA5p"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
