@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour
     [Header("Âm thanh")]
     public AudioClip hurtSound;
     public AudioClip dieSound;
+    public AudioClip loot;
 
     [Header("Hiệu ứng Chớp Đỏ")]
     public Color flashColor = Color.red;
@@ -119,6 +120,10 @@ public class EnemyHealth : MonoBehaviour
                 GameObject droppedLoot = Instantiate(lootPrefab, transform.position, Quaternion.identity);
                 droppedLoot.GetComponent<SpriteRenderer>().sprite = dropItem.icon;
                 inventory.AddItem(dropItem);
+                if (loot != null && AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX(loot);
+                }
             }
         }
         Destroy(gameObject);

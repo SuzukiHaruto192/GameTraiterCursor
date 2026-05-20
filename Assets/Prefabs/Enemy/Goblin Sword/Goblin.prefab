@@ -167,8 +167,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 15
   currentHealth: 10
-  hurtSound: {fileID: 0}
-  dieSound: {fileID: 0}
+  hurtSound: {fileID: 8300000, guid: 32a21c83cd7a73447b0421b525d8d1a4, type: 3}
+  dieSound: {fileID: 8300000, guid: 0dfcff2e7b8530b4abd1dcdfb833c6b3, type: 3}
+  loot: {fileID: 8300000, guid: b13f51f309f1d3a408093983c46e13fa, type: 3}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.15
   dropItem: {fileID: 11400000, guid: 1bf895f03f09a2c49aee63100d552280, type: 2}

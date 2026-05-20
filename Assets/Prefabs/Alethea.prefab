@@ -4917,6 +4917,7 @@ GameObject:
   - component: {fileID: 3910316888860348418}
   - component: {fileID: 2072348085663106088}
   - component: {fileID: 8140802993398340448}
+  - component: {fileID: 6793249524387620232}
   m_Layer: 7
   m_Name: Alethea
   m_TagString: Player
@@ -5101,12 +5102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb64ab6018aec841868d9a83ba26a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  currentHealth: 0
   maxHealth: 5
-  hurtSound: {fileID: 0}
-  deathSound: {fileID: 0}
   swordPrefab: {fileID: 2352654175121883494, guid: 2d43d4a601bd3aa4d9094e96b8e1f73c, type: 3}
   swordContainer: {fileID: 0}
-  crystals: 0
 --- !u!114 &5961862991096417214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5255,6 +5254,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitEffectPlayer
   hitEffectPrefab: {fileID: 8214783446307954751, guid: ebc31064205f0bf4ea40c19a295679c9, type: 3}
+--- !u!114 &6793249524387620232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955818189908562103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b2e3a07c48a0047a39eb642d5a97cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  hitSound1: {fileID: 8300000, guid: b47f17fd3cc660a4187241735064e161, type: 3}
+  hitSound2: {fileID: 8300000, guid: d6a962bedaa87e44d8e54f30e08f9acb, type: 3}
+  hitSound3: {fileID: 8300000, guid: 8e0f6c993c5707e4aa327126767a5dce, type: 3}
+  upSound: {fileID: 8300000, guid: b47f17fd3cc660a4187241735064e161, type: 3}
+  downSound: {fileID: 8300000, guid: d6a962bedaa87e44d8e54f30e08f9acb, type: 3}
+  forwardSound: {fileID: 8300000, guid: 8e0f6c993c5707e4aa327126767a5dce, type: 3}
+  jumpSound: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: d680eb3375d1d204b8c872c316e6b685, type: 3}
+  hurtSound: {fileID: 0}
+  dieSound: {fileID: 0}
 --- !u!1 &8581268139048034457
 GameObject:
   m_ObjectHideFlags: 0

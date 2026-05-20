@@ -9,10 +9,6 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
     public int maxHealth; // Để public để CharacterUpgradeUIManager có thể truy cập nâng cấp
 
-    [Header("--- ÂM THANH SINH TỒN ---")]
-    [SerializeField] private AudioClip hurtSound;
-    [SerializeField] private AudioClip deathSound;
-
     [Header("Hiển thị HP (Kiếm UI)")]
     public GameObject swordPrefab;     // Kéo Prefab thanh kiếm 1 máu vào đây
     public Transform swordContainer;   // Kéo object Swords_Container (có gắn Horizontal Layout Group) vào đây
@@ -69,13 +65,10 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX(deathSound);
             controller.stateMachine.ChangeState(controller.deadState);
         }
         else
         {
-            if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX(hurtSound);
-
             // 1. Ép State Machine chuyển sang Hurt
             controller.stateMachine.ChangeState(controller.hurtState);
 

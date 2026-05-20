@@ -14311,18 +14311,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 295483510}
     m_Modifications:
-    - target: {fileID: 892953898315699879, guid: 79001496353b088409de9f50611264b3, type: 3}
-      propertyPath: chaseRadius
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 892953898315699879, guid: 79001496353b088409de9f50611264b3, type: 3}
-      propertyPath: waitTimeRange.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 892953898315699879, guid: 79001496353b088409de9f50611264b3, type: 3}
-      propertyPath: waitTimeRange.y
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2334750440214618052, guid: 79001496353b088409de9f50611264b3, type: 3}
       propertyPath: m_Name
       value: Goblin
@@ -68981,6 +68969,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8853467552152186539, guid: 79001496353b088409de9f50611264b3, type: 3}
+      propertyPath: hurtSound
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -100909,14 +100901,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6793249524387620232, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
+      propertyPath: dashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1d311e54984e2754ba6f306ba8339e06, type: 3}
     - target: {fileID: 6955818189908562103, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
       propertyPath: m_Name
       value: Alethea
       objectReference: {fileID: 0}
-    - target: {fileID: 8140802993398340448, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
-      propertyPath: hitSound
-      value: 
-      objectReference: {fileID: 8300000, guid: d6a962bedaa87e44d8e54f30e08f9acb, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -100952,11 +100944,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5176616442712192430, guid: ce7fd82bd4b5cdc4e8a636889a8a7916, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 73.518745
+      value: 73.54081
       objectReference: {fileID: 0}
     - target: {fileID: 5176616442712192430, guid: ce7fd82bd4b5cdc4e8a636889a8a7916, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.42679
+      value: -2.4226599
       objectReference: {fileID: 0}
     - target: {fileID: 6022013671625048021, guid: ce7fd82bd4b5cdc4e8a636889a8a7916, type: 3}
       propertyPath: m_Name
@@ -101214,7 +101206,7 @@ PrefabInstance:
     - target: {fileID: 6769935288225412117, guid: 7d640fa08a87e3a43b42e8bd0251c46d, type: 3}
       propertyPath: dropItem
       value: 
-      objectReference: {fileID: 11400000, guid: 1bf895f03f09a2c49aee63100d552280, type: 2}
+      objectReference: {fileID: 11400000, guid: 30ae82a309378d5488d6ffff7d6cdf4f, type: 2}
     - target: {fileID: 6769935288225412117, guid: 7d640fa08a87e3a43b42e8bd0251c46d, type: 3}
       propertyPath: lootPrefab
       value: 
@@ -101389,6 +101381,10 @@ PrefabInstance:
     - target: {fileID: 2475781707368547682, guid: 8ab4508a5b21fcc4491918c2a09ac9ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4697427017593150368, guid: 8ab4508a5b21fcc4491918c2a09ac9ef, type: 3}
+      propertyPath: m_text
+      value: "[F] M\u1EDF"
       objectReference: {fileID: 0}
     - target: {fileID: 5159172182017003380, guid: 8ab4508a5b21fcc4491918c2a09ac9ef, type: 3}
       propertyPath: m_Name

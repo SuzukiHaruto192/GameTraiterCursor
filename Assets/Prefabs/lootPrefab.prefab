@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3379b6b280a643f40a1ab372da9a5ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectibleItem
-  dropForce: 5
-  magnetSpeed: 8
+  dropForce: 3
+  magnetSpeed: 10
   collectDistance: 0.5
 --- !u!50 &7028538056672391794
 Rigidbody2D:
