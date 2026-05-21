@@ -1,30 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class PlayerDataManager : MonoBehaviour
 {
     public static PlayerDataManager Instance;
 
-    [Header("Chỉ số Cơ bản")]
+    [Header("Chỉ số Player")]
     public int currentHealth;
-    public int maxHealth = 5; // Chỉnh lại theo số lượng tim/kiếm UI mặc định của bạn
-    public int attackDamage = 100; // Sát thương mặc định
+    public int maxHealth = 5;
+    public int attackDamage = 100;
+    public float jumpForce = 15f;
 
-    [Header("Tài sản (Kinh tế)")]
+    [Header("Tài nguyên")]
     public int gold = 0;
-    public int currentLevel = 1;
-    public int currentExp = 0;
 
-    [Header("Dữ liệu Túi đồ (Inventory)")]
-    public List<InventoryItem> savedInventory = new List<InventoryItem>();
-
-    [Header("Dữ liệu Bản đồ")]
-    // [MỚI] Danh sách ghi nhớ các cổng (ID) đã được mở khóa bằng Tele Stone
+    [Header("Bản đồ & Vị trí")]
     public List<string> unlockedPortals = new List<string>();
+    public float lastX;
+    public float lastY;
+    public string lastSceneName;
 
-    // CÁC BIẾN ẨN ĐỂ NHỚ CHỈ SỐ GỐC LÚC MỚI VÀO GAME
-    private int defaultMaxHealth;
-    private int defaultAttackDamage;
+    // ==========================================
+    // ĐÃ TRẢ LẠI TÚI ĐỒ CHO INVENTORY MANAGER
+    // ==========================================
+    [Header("Dữ liệu Túi đồ (Inventory)")]
+    [System.NonSerialized] public List<InventoryItem> savedInventory = new List<InventoryItem>();
+
+    [Header("Cài đặt Mặc định (New Game)")]
+    [SerializeField] private int defaultMaxHealth = 5;
+    [SerializeField] private int defaultAttackDamage = 100;
+    [SerializeField] private float defaultJumpForce = 15f;
 
     private void Awake()
     {
@@ -33,11 +39,8 @@ public class PlayerDataManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // Ghi nhớ chỉ số gốc
-            defaultMaxHealth = maxHealth;
-            defaultAttackDamage = attackDamage;
-
-            currentHealth = maxHealth;
+            // Lần đầu bật game, máu phải đầy
+            if (currentHealth <= 0) currentHealth = maxHealth;
         }
         else
         {
@@ -45,33 +48,30 @@ public class PlayerDataManager : MonoBehaviour
         }
     }
 
-    // =======================================================
-    // HÀM TẨY TRẮNG MỌI DỮ LIỆU VỀ LẠI LÚC BẮT ĐẦU CHƠI
-    // =======================================================
+    // GameManager và SaveSystem sẽ gọi hàm này trước khi lưu file JSON
+    public void UpdateCurrentPosition()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            lastX = player.transform.position.x;
+            lastY = player.transform.position.y;
+        }
+        lastSceneName = SceneManager.GetActiveScene().name;
+    }
+
+    // Gọi khi nhân vật chết
     public void ResetData()
     {
-        // 1. Phục hồi chỉ số cơ bản
         maxHealth = defaultMaxHealth;
         currentHealth = defaultMaxHealth;
         attackDamage = defaultAttackDamage;
-
-        // 2. Tịch thu toàn bộ tài sản
+        jumpForce = defaultJumpForce;
         gold = 0;
-        currentLevel = 1;
-        currentExp = 0;
 
-        // 3. Đốt sạch túi đồ
-        if (savedInventory != null)
-        {
-            savedInventory.Clear();
-        }
+        if (unlockedPortals != null) unlockedPortals.Clear();
 
-        // 4. [MỚI] Khóa lại toàn bộ các cổng yêu cầu Tele Stone
-        if (unlockedPortals != null)
-        {
-            unlockedPortals.Clear();
-        }
-
-        Debug.Log("Đã xóa sạch dữ liệu người chơi và reset trạng thái cổng!");
+        // Nhớ dọn sạch túi đồ khi chết
+        if (savedInventory != null) savedInventory.Clear();
     }
 }

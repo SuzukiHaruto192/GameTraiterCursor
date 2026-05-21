@@ -88,7 +88,7 @@ public class PlayerHealth : MonoBehaviour
         isInvulnerable = state;
     }
 
-    void InitHPUI()
+    public void InitHPUI()
     {
         // 1. Xóa sạch các thanh kiếm cũ (nếu có)
         foreach (Transform child in swordContainer)

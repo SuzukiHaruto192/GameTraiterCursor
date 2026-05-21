@@ -69,7 +69,7 @@ public class CharacterUpgradeUIManager : MonoBehaviour
             {
                 PlayerDataManager.Instance.maxHealth = health.maxHealth;
             }
-
+            if (health != null) health.InitHPUI();
             // 4. F5 lại chữ trên màn hình
             RefreshCurrencyUI();
         }

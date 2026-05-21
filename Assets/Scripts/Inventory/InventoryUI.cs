@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using DG.Tweening;               
-using UnityEngine.UI;            
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     [Header("Phần quản lý UI")]
     [SerializeField] private GameObject inventoryBackground;
-    [SerializeField] private Transform container;    
-    [SerializeField] private GameObject slotPrefab; 
+    [SerializeField] private Transform container;
+    [SerializeField] private GameObject slotPrefab;
 
-    [Header("Phần quản lý dữ liệu")]
-    [SerializeField] private InventoryManager inventory; // Kéo GameManager vào đây
+    // ĐÃ XÓA: [SerializeField] private InventoryManager inventory; 
+    // Vì bây giờ UI sẽ tự động kết nối qua hệ thống Instance, không cần kéo thả nữa!
 
     private void Update()
     {
@@ -44,18 +44,24 @@ public class InventoryUI : MonoBehaviour
 
     public void RefreshUI()
     {
-        if (inventory == null || container == null || slotPrefab == null) return;
+        // 1. Kiểm tra an toàn
+        if (container == null || slotPrefab == null) return;
 
-        // 1. Xóa các ô cũ
+        // Nếu hệ thống quản lý túi đồ chưa khởi động thì thoát luôn tránh báo lỗi
+        if (InventoryManager.Instance == null) return;
+
+        // 2. Xóa các ô cũ
         foreach (Transform child in container)
         {
             child.DOKill();
             Destroy(child.gameObject);
         }
 
-        // 2. Tạo ô mới cho mỗi vật phẩm
+        // 3. Tạo ô mới cho mỗi vật phẩm
         float delay = 0f;
-        foreach (InventoryItem item in inventory.currentItems)
+
+        // [CẬP NHẬT QUAN TRỌNG]: Lấy dữ liệu trực tiếp từ InventoryManager.Instance
+        foreach (InventoryItem item in InventoryManager.Instance.currentItems)
         {
             if (item == null || item.itemData == null) continue;
 
@@ -76,7 +82,7 @@ public class InventoryUI : MonoBehaviour
             // Gán số lượng
             TextMeshProUGUI quantityText = newSlot.transform.Find("Quantity").GetComponent<TextMeshProUGUI>();
             if (quantityText != null)
-            { 
+            {
                 if (item.quantity > 1)
                 {
                     quantityText.text = "X" + item.quantity.ToString();
@@ -88,8 +94,7 @@ public class InventoryUI : MonoBehaviour
                 }
             }
 
-
-        // 3. Hiệu ứng nảy từng ô một (Stagger effect)
+            // Hiệu ứng nảy từng ô một (Stagger effect)
             newSlot.transform.localScale = Vector3.zero;
             newSlot.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).SetDelay(delay);
             delay += 0.05f;
