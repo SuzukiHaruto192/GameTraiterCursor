@@ -19937,7 +19937,7 @@ AudioSource:
   m_GameObject: {fileID: 452274437}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6321370870296061577, guid: 1801bb7fd7485564ca24fb85b78d39bd, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -26161,7 +26161,7 @@ AudioSource:
   m_GameObject: {fileID: 623533258}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -155378656067275019, guid: 1801bb7fd7485564ca24fb85b78d39bd, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -59657,7 +59657,6 @@ MonoBehaviour:
   inventoryBackground: {fileID: 1148426958}
   container: {fileID: 1434290641}
   slotPrefab: {fileID: 5293703391814062034, guid: b983ad82cc3f5994ca2f9c6633916af2, type: 3}
-  inventory: {fileID: 848086240}
 --- !u!114 &1081041918
 MonoBehaviour:
   m_ObjectHideFlags: 0
