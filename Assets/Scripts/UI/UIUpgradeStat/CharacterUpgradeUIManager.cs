@@ -122,7 +122,7 @@ public class CharacterUpgradeUIManager : MonoBehaviour
 
             if (PlayerDataManager.Instance != null && controller != null)
             {
-                // Nếu có biến jumpForce trong PlayerDataManager thì bạn thêm vào đây
+                PlayerDataManager.Instance.jumpForce = controller.jumpForce;
             }
 
             RefreshCurrencyUI();

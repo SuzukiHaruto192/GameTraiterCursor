@@ -1784,9 +1784,9 @@ RectTransform:
   m_Father: {fileID: 548744323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960, y: 540}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 511, y: 333.5}
+  m_SizeDelta: {x: 1022, y: 667}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &325395936
 MonoBehaviour:
@@ -1819,7 +1819,6 @@ MonoBehaviour:
   inventoryBackground: {fileID: 576626085}
   container: {fileID: 1205376277}
   slotPrefab: {fileID: 5293703391814062034, guid: b983ad82cc3f5994ca2f9c6633916af2, type: 3}
-  inventory: {fileID: 505548951}
 --- !u!114 &325395938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3001,7 +3000,7 @@ Transform:
   m_GameObject: {fileID: 480852630}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 38.265343, y: -22.62658, z: -20}
+  m_LocalPosition: {x: 43.02402, y: -22.624249, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22726,7 +22725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1587133026
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23470,6 +23469,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5410275060224946543, guid: 4ffdbddd0876fd544b7b04e4ca746224, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015942576603769407, guid: 4ffdbddd0876fd544b7b04e4ca746224, type: 3}
+      propertyPath: m_UiScaleMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

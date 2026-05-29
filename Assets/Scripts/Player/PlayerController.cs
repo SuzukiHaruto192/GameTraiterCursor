@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         stateMachine.Initialize(groundedState);
         attackDamage = PlayerDataManager.Instance.attackDamage;
+        jumpForce = PlayerDataManager.Instance.jumpForce;
     }
 
     private void Update()
