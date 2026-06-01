@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections; // Bắt buộc phải có dòng này để dùng IEnumerator
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
