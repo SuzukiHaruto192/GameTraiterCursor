@@ -1180,7 +1180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &231531821
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2697,7 +2697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &457320486
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2862,6 +2862,7 @@ MonoBehaviour:
   lastX: 0
   lastY: 0
   lastSceneName: 
+  isMan1PortalUnlocked: 0
   defaultMaxHealth: 5
   defaultAttackDamage: 100
   defaultJumpForce: 15
@@ -3000,7 +3001,7 @@ Transform:
   m_GameObject: {fileID: 480852630}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 43.02402, y: -22.624249, z: -20}
+  m_LocalPosition: {x: 51.401863, y: -18.740108, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3128,7 +3129,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4114,7 +4115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5347509223354524396, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.18
+      value: -0.94
       objectReference: {fileID: 0}
     - target: {fileID: 5347509223354524396, guid: 34fade1582a51754894bfd8376d25d69, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4396,7 +4397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &798188903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5190,7 +5191,7 @@ Transform:
   m_GameObject: {fileID: 988628165}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.77198, y: -22.632778, z: -20}
+  m_LocalPosition: {x: 50.011982, y: -22.632778, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5235,7 +5236,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1616085240}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 12
+    OrthographicSize: 8
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -5757,19 +5758,19 @@ MonoBehaviour:
   m_LookaheadTime: 0.2
   m_LookaheadSmoothing: 0.3
   m_LookaheadIgnoreY: 1
-  m_XDamping: 0.3
-  m_YDamping: 0.5
+  m_XDamping: 0.1
+  m_YDamping: 0.1
   m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.2
-  m_DeadZoneHeight: 0.2
+  m_DeadZoneWidth: 0.1
+  m_DeadZoneHeight: 0.1
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 0.2
+  m_SoftZoneHeight: 0.2
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -11688,11 +11689,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -16.20417, y: 30.01678}
-      - {x: -16.966812, y: 29.137371}
-      - {x: -16.77134, y: -15.7795105}
-      - {x: 54.476093, y: -15.529175}
-      - {x: 54.25069, y: 29.705133}
+    - - {x: 17.624418, y: 13.327226}
+      - {x: 1.3249798, y: 11.773604}
+      - {x: 1.3148222, y: -5.3490047}
+      - {x: 33.72516, y: -5.541893}
+      - {x: 33.944935, y: 11.32735}
   m_UseDelaunayMesh: 1
 --- !u!1 &1312272879
 GameObject:
@@ -23749,7 +23750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1819782697
 RectTransform:
   m_ObjectHideFlags: 0

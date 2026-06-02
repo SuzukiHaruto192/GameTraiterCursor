@@ -14,6 +14,67 @@ public class PlayerHealth : MonoBehaviour
     public Transform swordContainer;   // Kéo object Swords_Container (có gắn Horizontal Layout Group) vào đây
     private List<GameObject> swords = new List<GameObject>(); // Danh sách quản lý kiếm tự động
 
+    [Header("--- CƠ CHẾ HÚT MÁU (COMBO) ---")]
+    public int hitsToHeal = 10;       // Số hit cần để hồi 1 máu
+    private int currentHitCount = 0;  // Biến lưu số hit hiện tại
+
+    // ==========================================
+    // HÀM TÍCH ĐIỂM (GỌI KHI CHÉM TRÚNG QUÁI)
+    // ==========================================
+    public void AddHit()
+    {
+        // Nếu máu đã đầy thì không cần tích điểm
+        if (currentHealth >= maxHealth) return;
+
+        currentHitCount++;
+        Debug.Log("Chém trúng! Tích điểm hồi máu: " + currentHitCount + "/" + hitsToHeal);
+
+        if (currentHitCount >= hitsToHeal)
+        {
+            Heal(1);
+            currentHitCount = 0; // Đủ 10 hit thì hồi máu xong reset lại từ số 0
+        }
+    }
+
+    // ==========================================
+    // HÀM HỒI MÁU VÀ CẬP NHẬT GIAO DIỆN KIẾM
+    // ==========================================
+    public void Heal(int amount)
+    {
+        if (currentHealth >= maxHealth) return;
+
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        Debug.Log(">>> Đã hồi máu! Máu hiện tại: " + currentHealth);
+
+        int index = currentHealth - 1;
+
+        // ĐÃ SỬA THÀNH .Count CHO LIST VÀ BỎ SET VỊ TRÍ THỦ CÔNG
+        if (index >= 0 && index < swords.Count)
+        {
+            GameObject sword = swords[index];
+            if (sword != null)
+            {
+                Image img = sword.GetComponent<Image>();
+                RectTransform rect = sword.GetComponent<RectTransform>();
+
+                if (rect != null && img != null)
+                {
+                    // 1. Dọn dẹp hiệu ứng DOTween rơi rớt đang chạy dở
+                    rect.DOKill();
+                    img.DOKill();
+
+                    // 2. Trả lại góc xoay chuẩn (Layout Group sẽ tự lo vị trí X, Y)
+                    rect.localRotation = Quaternion.identity;
+
+                    // 3. Hiệu ứng nháy màu Xanh Lá báo hiệu hồi máu rồi từ từ về trắng
+                    img.color = Color.green;
+                    img.DOColor(Color.white, 0.5f);
+                }
+            }
+        }
+    }
+
     public bool isInvulnerable { get; private set; } = false;
 
     private PlayerController controller;
@@ -145,5 +206,36 @@ public class PlayerHealth : MonoBehaviour
                 img.DOColor(new Color(0.2f, 0.2f, 0.2f, 0.5f), 0.3f);
             });
         }
+    }
+    // ==========================================
+    // HÀM HỒI ĐẦY MÁU KHI DỊCH CHUYỂN / LOAD GAME
+    // ==========================================
+    public void RestoreFullHealth()
+    {
+        currentHealth = maxHealth;
+
+        // Vòng lặp bật sáng lại toàn bộ UI Thanh Kiếm (Dùng .Count vì đây là List)
+        for (int i = 0; i < swords.Count; i++)
+        {
+            if (swords[i] != null)
+            {
+                Image swordImg = swords[i].GetComponent<Image>();
+                RectTransform rect = swords[i].GetComponent<RectTransform>();
+
+                if (rect != null && swordImg != null)
+                {
+                    // 1. Hủy các hiệu ứng DOTween đang chạy dở (nếu có)
+                    rect.DOKill();
+                    swordImg.DOKill();
+
+                    // 2. Khôi phục lại màu trắng sáng nguyên bản
+                    swordImg.color = Color.white;
+
+                    // 3. Khôi phục góc xoay thẳng đứng (đề phòng lúc nãy bị rung lắc)
+                    rect.localRotation = Quaternion.identity;
+                }
+            }
+        }
+        Debug.Log(">>> Đã bơm đầy máu và reset UI thanh kiếm!");
     }
 }

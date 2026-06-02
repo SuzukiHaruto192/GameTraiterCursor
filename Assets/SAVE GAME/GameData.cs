@@ -23,7 +23,6 @@ public class GameData
 
     [Header("Currency")]
     public int crystals;
-
     public void ClearData()
     {
         attack = baseAttack;

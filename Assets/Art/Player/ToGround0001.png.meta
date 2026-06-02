@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3ebdea73e8dc0d344a58d1ca8f58b251
+guid: 2e612030e340cc84faaf4896600f3b10
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: ToGround0001_0
       rect:
         serializedVersion: 2
-        x: 51
-        y: 206
-        width: 332
-        height: 268
+        x: 74
+        y: 207
+        width: 317
+        height: 264
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

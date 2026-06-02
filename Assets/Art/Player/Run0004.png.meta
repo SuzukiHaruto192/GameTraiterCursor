@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: df2eae02c9ed8b54c961cfee434b3a54
+guid: 795e52c4b35c3154e9c83fcbc739b5c2
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 1433854870003618436
     second: Run0004_0
-  - first:
-      213: -8683659426377372630
-    second: Run0004_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,10 +103,10 @@ TextureImporter:
       name: Run0004_0
       rect:
         serializedVersion: 2
-        x: 94
-        y: 208
-        width: 283
-        height: 320
+        x: 91
+        y: 207
+        width: 280
+        height: 321
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,28 +117,6 @@ TextureImporter:
       bones: []
       spriteID: 482970a486316e310800000000000000
       internalID: 1433854870003618436
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run0004_1
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 207
-        width: 7
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a2ced4c72c17d7780800000000000000
-      internalID: -8683659426377372630
       vertices: []
       indices: 
       edges: []
@@ -161,7 +136,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Run0004_0: 1433854870003618436
-      Run0004_1: -8683659426377372630
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

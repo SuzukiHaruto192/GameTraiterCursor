@@ -236,10 +236,20 @@ public class PlayerController : MonoBehaviour
             }
 
             // 4. KÍCH HOẠT CẢM GIÁC ĐÁNH (Gộp chung lại cho gọn code)
-            if (hasDealtDamage && playerFX != null)
+            if (hasDealtDamage)
             {
-                playerFX.TriggerHitStop();
-                playerFX.TriggerCameraShake();
+                // Rung màn hình và khựng hình
+                if (playerFX != null)
+                {
+                    playerFX.TriggerHitStop();
+                    playerFX.TriggerCameraShake();
+                }
+
+                // >>> GỌI HÀM TÍCH ĐIỂM HỒI MÁU CHO PLAYER Ở ĐÂY <<<
+                if (playerHealth != null)
+                {
+                    playerHealth.AddHit();
+                }
             }
 
             // Xử lý riêng lực nảy Pogo

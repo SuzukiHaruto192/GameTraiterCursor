@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 33871a4d4e7827c4ab7a034891097336
+guid: 44c63c6773f922547803049917e4de87
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 2480087341491369687
     second: Dead0003_0
+  - first:
+      213: -6181811578450297166
+    second: Dead0003_1
+  - first:
+      213: -707575390380454985
+    second: Dead0003_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,10 +109,10 @@ TextureImporter:
       name: Dead0003_0
       rect:
         serializedVersion: 2
-        x: 162
-        y: 203
-        width: 226
-        height: 236
+        x: 230
+        y: 459
+        width: 35
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,6 +123,50 @@ TextureImporter:
       bones: []
       spriteID: 7d639890c4a0b6220800000000000000
       internalID: 2480087341491369687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dead0003_1
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 440
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2beb21e3f1bc53aa0800000000000000
+      internalID: -6181811578450297166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dead0003_2
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 206
+        width: 240
+        height: 223
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bb809c6eef2e26f0800000000000000
+      internalID: -707575390380454985
       vertices: []
       indices: 
       edges: []
@@ -136,6 +186,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Dead0003_0: 2480087341491369687
+      Dead0003_1: -6181811578450297166
+      Dead0003_2: -707575390380454985
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

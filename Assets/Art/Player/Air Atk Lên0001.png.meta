@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2adce084808ccfc4c94517cdedf244be
+guid: d3272eb2f2de2214793289afb9ea2b72
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: "Air Atk L\xEAn0001_0"
       rect:
         serializedVersion: 2
-        x: 95
-        y: 240
-        width: 219
-        height: 308
+        x: 129
+        y: 246
+        width: 180
+        height: 293
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

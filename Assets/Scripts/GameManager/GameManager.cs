@@ -5,9 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    // ==========================================
-    // TRẢ LẠI ĐOẠN NÀY ĐỂ QUÁI VẬT VÀ MAP TÌM THẤY PLAYER
-    // ==========================================
     [Header("Tham chiếu Toàn cục")]
     private Transform _player;
     public Transform player
@@ -24,12 +21,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // BIẾN CỜ ĐỂ PHÂN BIỆT ĐANG LOAD TỪ FILE SAVE HAY QUA CỔNG
+    private bool isLoadingFromSave = false;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Đăng ký sự kiện: Mỗi khi load xong Scene thì tự động chạy hàm OnSceneLoaded
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -37,8 +40,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        // Gỡ sự kiện khi GameManager bị hủy để tránh lỗi
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     // ==========================================
-    // NÚT CONTINUE NGOÀI MENU GỌI HÀM NÀY
+    // NÚT START GAME NGOÀI MENU
+    // ==========================================
+    public void StartNewGame()
+    {
+        Time.timeScale = 1f;
+        _player = null;
+
+        isLoadingFromSave = false; // Chơi mới -> Chắc chắn không phải load từ file save
+
+        // (Tùy chọn) Gọi hàm ClearData() ở đây để xóa sạch dữ liệu cũ nếu muốn chơi lại từ đầu
+
+        SceneManager.LoadScene("Man_1"); // Đổi tên Scene cho đúng với màn 1 của bạn nhé
+    }
+
+    // ==========================================
+    // NÚT CONTINUE NGOÀI MENU (LOAD SAVE)
     // ==========================================
     public void Continue()
     {
@@ -50,11 +74,10 @@ public class GameManager : MonoBehaviour
 
             if (hasSaveFile)
             {
-                // Reset lại định vị player để qua scene mới nó tìm lại
                 _player = null;
+                isLoadingFromSave = true; // BẬT CỜ: Báo cho hệ thống biết chuẩn bị load từ File Save!
 
                 SceneManager.LoadScene(PlayerDataManager.Instance.lastSceneName);
-                SceneManager.sceneLoaded += RestorePlayerPosition;
             }
             else
             {
@@ -63,20 +86,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Chỉ dùng để đặt lại vị trí nhân vật khi Continue
-    private void RestorePlayerPosition(Scene scene, LoadSceneMode mode)
+    // ==========================================
+    // BỘ ĐỊNH VỊ THÔNG MINH (CHẠY SAU KHI SCENE VỪA LOAD XONG)
+    // ==========================================
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameObject pObj = GameObject.FindGameObjectWithTag("Player");
-        if (pObj != null && PlayerDataManager.Instance != null)
+        if (pObj == null) return;
+
+        PlayerHealth healthScript = pObj.GetComponent<PlayerHealth>();
+        if (healthScript != null)
         {
-            pObj.transform.position = new Vector2(PlayerDataManager.Instance.lastX, PlayerDataManager.Instance.lastY);
+            healthScript.RestoreFullHealth();
         }
-        SceneManager.sceneLoaded -= RestorePlayerPosition;
+
+        // TRƯỜNG HỢP 1: NẾU ĐANG LOAD TỪ FILE SAVE
+        if (isLoadingFromSave && PlayerDataManager.Instance != null)
+        {
+            // Bỏ qua Spawn Point, đặt Player về đúng tọa độ X, Y đã lưu
+            pObj.transform.position = new Vector2(PlayerDataManager.Instance.lastX, PlayerDataManager.Instance.lastY);
+            Debug.Log(">>> LOAD SAVE: Dịch chuyển Player tới tọa độ: " + pObj.transform.position);
+
+            isLoadingFromSave = false; // Làm xong nhiệm vụ thì tắt cờ đi
+        }
+        // TRƯỜNG HỢP 2: NẾU BƯỚC QUA CỔNG HOẶC START NEW GAME
+        else
+        {
+            GameObject spawnPointObj = GameObject.Find("Spawn Point");
+            if (spawnPointObj != null)
+            {
+                pObj.transform.position = spawnPointObj.transform.position;
+                Debug.Log(">>> CHUYỂN MAP: Dịch chuyển Player tới Spawn Point: " + spawnPointObj.transform.position);
+            }
+        }
     }
 
-    // ==========================================
-    // NÚT SAVE QUÁN TRỌ GỌI HÀM NÀY
-    // ==========================================
     public void SaveCurrentGameData()
     {
         if (SaveSystem.Instance != null && PlayerDataManager.Instance != null)

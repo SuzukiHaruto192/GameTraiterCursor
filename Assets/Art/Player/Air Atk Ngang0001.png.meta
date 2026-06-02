@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e62d7d73279df7d4ba1527fcf3f69721
+guid: dcf2c05eb21dec74ba96609b98591079
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: Air Atk Ngang0001_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 247
-        width: 307
-        height: 295
+        x: 23
+        y: 250
+        width: 282
+        height: 289
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

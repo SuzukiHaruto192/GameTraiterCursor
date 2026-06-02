@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3969bc4bee833d74eaaf4cd7dcd58d3d
+guid: 5891c66c6645e1245b55f32539fd2845
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: Dead0002_0
       rect:
         serializedVersion: 2
-        x: 159
-        y: 205
-        width: 171
-        height: 276
+        x: 150
+        y: 206
+        width: 181
+        height: 302
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

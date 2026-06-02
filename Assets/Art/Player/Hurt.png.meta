@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9a831166afbbeaa4cbe1f389b07079ca
+guid: d26424620b3c68c44a965730bf6e4716
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: Hurt_0
       rect:
         serializedVersion: 2
-        x: 127
-        y: 202
-        width: 197
-        height: 339
+        x: 118
+        y: 206
+        width: 205
+        height: 335
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -20,6 +20,7 @@ public class PlayerDataManager : MonoBehaviour
     public float lastX;
     public float lastY;
     public string lastSceneName;
+    public bool isMan1PortalUnlocked = false;
 
     // ==========================================
     // ĐÃ TRẢ LẠI TÚI ĐỒ CHO INVENTORY MANAGER

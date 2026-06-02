@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: b1d97c2ab95eb0142823a11a61a04046
+guid: b03992f697424174292a1e85a6f480e3
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 7772956260650089674
     second: Dead0004_0
+  - first:
+      213: -19362648824419169
+    second: Dead0004_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,10 +106,10 @@ TextureImporter:
       name: Dead0004_0
       rect:
         serializedVersion: 2
-        x: 102
-        y: 203
-        width: 285
-        height: 193
+        x: 230
+        y: 459
+        width: 35
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,6 +120,28 @@ TextureImporter:
       bones: []
       spriteID: acc72b249861fdb60800000000000000
       internalID: 7772956260650089674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dead0004_1
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 206
+        width: 281
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9ce8e206c53bbff0800000000000000
+      internalID: -19362648824419169
       vertices: []
       indices: 
       edges: []
@@ -136,6 +161,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Dead0004_0: 7772956260650089674
+      Dead0004_1: -19362648824419169
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

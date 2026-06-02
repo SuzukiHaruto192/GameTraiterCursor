@@ -15,36 +15,32 @@ public class PortalController : MonoBehaviour
     public bool needKey = false;
     public ItemData teleStoneData;
 
-    [Tooltip("Đặt một cái tên độc nhất cho cổng này. VD: Cong_Rung_1")]
+    [Tooltip("Đặt một cái tên độc nhất cho cổng này. VD: Cong_Man_1")]
     public string portalID;
 
     private bool isUnlocked = false;
     private bool isPlayerInRange = false;
     private InventoryManager inventoryManager;
 
-    void Start()
+    void Awake()
     {
-        // Ẩn UI lúc mới bắt đầu game
-        if (interactUI != null)
-        {
-            interactUI.SetActive(false);
-        }
+        if (interactUI != null) interactUI.SetActive(false);
 
-        // 1. Nếu cổng không cần khóa -> Mặc định là đã mở
+        // 1. Nếu cổng mặc định mở
         if (!needKey)
         {
             isUnlocked = true;
         }
-        // 2. Nếu cổng cần khóa -> Kiểm tra xem trong kho vĩnh cửu cổng này đã mở trước đó chưa
-        else if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.unlockedPortals.Contains(portalID))
+        // 2. Nếu cổng cần sửa: Kiểm tra xem trong bộ nhớ vĩnh cửu đã mở chưa
+        else if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.isMan1PortalUnlocked)
         {
             isUnlocked = true;
+            MoveSpawnPointToPortal(); // Tự động dời Spawn Point về đây nếu cổng đã mở trước đó!
         }
     }
 
     void Update()
     {
-        // Nếu Player đang đứng ở cổng và bấm phím F
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.F))
         {
             InteractWithPortal();
@@ -53,12 +49,10 @@ public class PortalController : MonoBehaviour
 
     private void InteractWithPortal()
     {
-        // Nếu cổng đã mở thì đi luôn
         if (isUnlocked)
         {
             TeleportToNextScene();
         }
-        // Nếu cổng chưa mở thì nạp chìa khóa
         else
         {
             TryUnlockPortal();
@@ -68,9 +62,7 @@ public class PortalController : MonoBehaviour
     private void TryUnlockPortal()
     {
         if (inventoryManager == null)
-        {
             inventoryManager = FindFirstObjectByType<InventoryManager>();
-        }
 
         if (inventoryManager != null && teleStoneData != null)
         {
@@ -78,28 +70,39 @@ public class PortalController : MonoBehaviour
 
             if (stoneCount >= 1)
             {
-                // 1. Trừ 1 viên đá trong túi
+                // Trừ vật phẩm sửa cổng rớt ra từ Boss
                 inventoryManager.ConsumeItem(teleStoneData, 1);
 
-                // 2. Mở khóa cổng
                 isUnlocked = true;
 
-                // 3. Đưa tên cổng này vào danh sách đã mở của kho vĩnh cửu
-                if (PlayerDataManager.Instance != null && !string.IsNullOrEmpty(portalID))
+                // Ghi nhớ vĩnh viễn vào hệ thống dữ liệu: Cổng màn 1 ĐÃ ĐƯỢC SỬA THÀNH CÔNG
+                if (PlayerDataManager.Instance != null)
                 {
-                    PlayerDataManager.Instance.unlockedPortals.Add(portalID);
+                    PlayerDataManager.Instance.isMan1PortalUnlocked = true;
                 }
 
-                // 4. Đổi lại chữ trên màn hình thành Dịch chuyển
-                if (interactText != null) interactText.text = "Dịch chuyển";
+                // DỜI SPAWN POINT VỀ ĐÂY NGAY LẬP TỨC!
+                MoveSpawnPointToPortal();
 
-                // KHÔNG DỊCH CHUYỂN LUÔN NỮA, MÀ ĐỂ NGƯỜI CHƠI BẤM F LẦN 2
-                Debug.Log("Đã nạp Tele Stone vào cổng! Hãy bấm F lần nữa để đi qua.");
+                if (interactText != null) interactText.text = "Dịch chuyển";
+                Debug.Log(">>> SỬA CỔNG THÀNH CÔNG! Spawn Point đã được dời về Cổng Dịch Chuyển.");
             }
             else
             {
-                Debug.Log("Cổng đã bị khóa! Bạn cần thu thập Tele Stone để mở.");
+                Debug.Log("Cổng đã bị hỏng! Bạn cần vật phẩm sửa cổng từ Boss để kích hoạt.");
             }
+        }
+    }
+
+    // Hàm phụ trách bứng cái Spawn Point về vị trí của Cổng
+    private void MoveSpawnPointToPortal()
+    {
+        GameObject spawnPointObj = GameObject.Find("Spawn Point");
+        if (spawnPointObj != null)
+        {
+            // Ép tọa độ của Spawn Point trùng với tọa độ của cái Cổng này
+            spawnPointObj.transform.position = transform.position;
+            Debug.Log(">>> Đã dời vị trí Spawn Point về Cổng!");
         }
     }
 
@@ -112,26 +115,15 @@ public class PortalController : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // NHẬN DIỆN PLAYER RA VÀO VÙNG
-    // ==========================================
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
 
-            // Đổi chữ ngay khi người chơi vừa bước vào tùy theo trạng thái cổng
             if (interactText != null)
             {
-                if (isUnlocked)
-                {
-                    interactText.text = "Dịch chuyển";
-                }
-                else
-                {
-                    interactText.text = "Cần 1 TeleStone";
-                }
+                interactText.text = isUnlocked ? "Dịch chuyển" : "Sửa Cổng (Cần Vật Phẩm)";
             }
 
             if (interactUI != null) interactUI.SetActive(true);

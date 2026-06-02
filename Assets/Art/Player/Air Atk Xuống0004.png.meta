@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f053532bf2d56bc4cbeff866ec47e6e6
+guid: a8d2d95803c2d5d4dbf9d5f464b7e579
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -8,6 +8,30 @@ TextureImporter:
   - first:
       213: 5345823724594106807
     second: "Air Atk Xu\u1ED1ng0004_1"
+  - first:
+      213: 2296106082740727258
+    second: "Air Atk Xu\u1ED1ng0004_2"
+  - first:
+      213: -6065556185433449367
+    second: "Air Atk Xu\u1ED1ng0004_3"
+  - first:
+      213: -8888747500716456552
+    second: "Air Atk Xu\u1ED1ng0004_4"
+  - first:
+      213: 423747114314645546
+    second: "Air Atk Xu\u1ED1ng0004_5"
+  - first:
+      213: -7461816174342855819
+    second: "Air Atk Xu\u1ED1ng0004_6"
+  - first:
+      213: 460544603183350223
+    second: "Air Atk Xu\u1ED1ng0004_7"
+  - first:
+      213: -2120214371583067542
+    second: "Air Atk Xu\u1ED1ng0004_8"
+  - first:
+      213: 2478728210176945
+    second: "Air Atk Xu\u1ED1ng0004_9"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,10 +130,10 @@ TextureImporter:
       name: "Air Atk Xu\u1ED1ng0004_0"
       rect:
         serializedVersion: 2
-        x: 103
-        y: 146
-        width: 269
-        height: 404
+        x: 66
+        y: 281
+        width: 51
+        height: 99
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,10 +152,10 @@ TextureImporter:
       name: "Air Atk Xu\u1ED1ng0004_1"
       rect:
         serializedVersion: 2
-        x: 348
-        y: 290
-        width: 82
-        height: 153
+        x: 95
+        y: 305
+        width: 53
+        height: 115
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,6 +166,182 @@ TextureImporter:
       bones: []
       spriteID: 7b19948aa5e203a40800000000000000
       internalID: 5345823724594106807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Air Atk Xu\u1ED1ng0004_2"
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 320
+        width: 24
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: addef5421586ddf10800000000000000
+      internalID: 2296106082740727258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Air Atk Xu\u1ED1ng0004_3"
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 296
+        width: 35
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96cd01a39c0d2dba0800000000000000
+      internalID: -6065556185433449367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Air Atk Xu\u1ED1ng0004_4"
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 169
+        width: 170
+        height: 379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89587a12e33d4a480800000000000000
+      internalID: -8888747500716456552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Air Atk Xu\u1ED1ng0004_5"
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 334
+        width: 38
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a20425f51c371e500800000000000000
+      internalID: 423747114314645546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Air Atk Xu\u1ED1ng0004_6"
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 354
+        width: 21
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 573a70d49bd427890800000000000000
+      internalID: -7461816174342855819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Air Atk Xu\u1ED1ng0004_7"
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 318
+        width: 34
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc187f360ee246600800000000000000
+      internalID: 460544603183350223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Air Atk Xu\u1ED1ng0004_8"
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 294
+        width: 27
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6afc1e234c7392e0800000000000000
+      internalID: -2120214371583067542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Air Atk Xu\u1ED1ng0004_9"
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 151
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bb5672e36ec80000800000000000000
+      internalID: 2478728210176945
       vertices: []
       indices: 
       edges: []
@@ -162,6 +362,14 @@ TextureImporter:
     nameFileIdTable:
       "Air Atk Xu\u1ED1ng0004_0": -3963691808877748528
       "Air Atk Xu\u1ED1ng0004_1": 5345823724594106807
+      "Air Atk Xu\u1ED1ng0004_2": 2296106082740727258
+      "Air Atk Xu\u1ED1ng0004_3": -6065556185433449367
+      "Air Atk Xu\u1ED1ng0004_4": -8888747500716456552
+      "Air Atk Xu\u1ED1ng0004_5": 423747114314645546
+      "Air Atk Xu\u1ED1ng0004_6": -7461816174342855819
+      "Air Atk Xu\u1ED1ng0004_7": 460544603183350223
+      "Air Atk Xu\u1ED1ng0004_8": -2120214371583067542
+      "Air Atk Xu\u1ED1ng0004_9": 2478728210176945
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

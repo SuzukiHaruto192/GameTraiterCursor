@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6a105f572c2314b4eaece1ad4fbceece
+guid: 50ff32537e13ac24b82ff174cc6e9209
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: Dash_0
       rect:
         serializedVersion: 2
-        x: 200
-        y: 212
-        width: 277
-        height: 232
+        x: 175
+        y: 213
+        width: 299
+        height: 237
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
